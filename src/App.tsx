@@ -1,16 +1,27 @@
-import React from "react";
-import "./App.css";
-import styles from "./assets/Base.module.scss";
-import classes from "./assets/App.module.scss";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import classes from "./assets/Base.module.scss"; //! RESET SETTINGS (margin, padding, box-sizing etc)
+import { Navigation } from "./components/Navigation/Navigation";
+import { Profile } from "./components/Profile/Profile";
 
 const App = () => {
   return (
-    <div className={styles.wrapper}>
-      <h1>APP</h1>
-      <div className={classes.navigation}></div>
-      <div className={classes.main}></div>
-    </div>
+    <BrowserRouter>
+      <div className={classes.container}>
+        <div className={classes.wrapper}>
+          <div className={classes.Navigation}>
+            <Navigation />
+          </div>
+          <div className={classes.Main}>
+            <Routes>
+              <Route path="/profile" Component={Profile} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </BrowserRouter>
   );
 };
 
 export default App;
+
+// TODO: SET A CONTAINER
