@@ -28,3 +28,42 @@
         top: 1.28rem;
     }
 }
+
+.info {
+    margin-top: 3rem;
+
+    &__bg_edit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 44.1rem;
+        width: 2.6rem;
+        height: 2.6rem;
+        border-radius: 0.75rem;
+        background: #272932;
+        opacity: 0;
+
+        transition: all 0.14s ease 0s;
+
+        :hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__bg {
+        padding-top: 1rem;
+        max-width: 47.5rem;
+        min-height: 8.875rem;
+        background-color: #7940cf;
+        border-radius: 1.875rem;
+
+        img {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+    }
+}
+
+.info__bg:hover .info__bg_edit {
+    opacity: 0.45;
+}
