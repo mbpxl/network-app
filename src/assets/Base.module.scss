@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic");
+
 * {
     padding: 0px;
     margin: 0px;
@@ -22,12 +24,12 @@ body {
 }
 body {
     line-height: 1;
-    //text-rendering: optimizeLegibility;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-family: Montserrat; //* Font as default
 }
 input,
 button,
@@ -65,6 +67,18 @@ h6 {
     font-size: inherit;
 }
 
+.container {
+    max-width: 85.375rem;
+    margin: 0 auto;
+}
+
 .wrapper {
-    @apply flex gap-x-11;
+    display: flex;
+    // column-gap: 2.5625rem;
+}
+
+.Main {
+    background-color: #1a1c26;
+    width: 100%;
+    color: #fff;
 }
