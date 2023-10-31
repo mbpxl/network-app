@@ -29,18 +29,18 @@ export const Profile = () => {
         </div>
         <div className={classes.bio}>
           <div className={classes.bio__counts}>
-            <div className={classes.bio__counts_content}>
+            <a href="#" className={classes.bio__counts_content}>
               <h1>2.5K</h1>
               <h2>FOLLOWERS</h2>
-            </div>
-            <div className={classes.bio__counts_content}>
-              <h1>1.3k</h1>
+            </a>
+            <a href="#" className={classes.bio__counts_content}>
+              <h1>1.3K</h1>
               <h2>FOLLOWING</h2>
-            </div>
-            <div className={classes.bio__counts_content}>
-              <h1>653</h1>
+            </a>
+            <a href="#" className={classes.bio__counts_content}>
+              <h1>653K</h1>
               <h2>SUPPORTERS</h2>
-            </div>
+            </a>
           </div>
           <div className={classes.bio__personal}>
             <img src={avatar} alt="avatar" />
@@ -53,6 +53,17 @@ export const Profile = () => {
             perferendis ipsa?
           </div>
         </div>
+      </div>
+      <div className={classes.actions}>
+        <button type="submit" className={classes.actions__btn}>
+          Add friend
+        </button>
+        <button type="submit" className={classes.actions__btn}>
+          Follow
+        </button>
+        <button type="submit" className={classes.actions__btn}>
+          Message
+        </button>
       </div>
     </div>
   );

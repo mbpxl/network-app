@@ -4,6 +4,7 @@
     padding: 0px;
     margin: 0px;
     border: 0px;
+    font-family: Montserrat;
 }
 *,
 *:before,
@@ -29,13 +30,14 @@ body {
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-family: Montserrat; //* Font as default
+    // font-family: Montserrat; //* Font as default
     background-color: #080b19;
 }
 input,
 button,
 textarea {
     font-size: inherit;
+    // font-family: Montserrat;
 }
 button {
     cursor: pointer;
