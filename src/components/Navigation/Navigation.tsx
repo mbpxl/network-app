@@ -11,7 +11,7 @@ import { NavLink } from "react-router-dom";
 
 export const Navigation = () => {
   return (
-    <div className={classes.nav}>
+    <nav className={classes.nav}>
       <ul className={classes.nav__list}>
         <li className={classes.nav__item}>
           <NavLink to="/profile" className={classes.nav__link}>
@@ -56,6 +56,6 @@ export const Navigation = () => {
           </NavLink>
         </li>
       </ul>
-    </div>
+    </nav>
   );
 };

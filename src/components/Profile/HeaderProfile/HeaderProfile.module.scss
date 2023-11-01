@@ -1,0 +1,116 @@
+.info {
+    margin-top: 3rem;
+
+    &__bg_edit {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 44.1rem;
+        width: 2.6rem;
+        height: 2.6rem;
+        border-radius: 0.75rem;
+        background: #272932;
+        opacity: 0;
+
+        transition: all 0.14s ease 0s;
+
+        :hover {
+            opacity: 0.8;
+        }
+    }
+
+    &__bg {
+        position: relative;
+        z-index: 1;
+        padding-top: 1rem;
+        max-width: 47.5rem;
+        min-height: 8.875rem;
+        background-color: #7940cf;
+        border-radius: 1.875rem;
+
+        img {
+            width: 1.25rem;
+            height: 1.25rem;
+        }
+
+        &:hover .info__bg_edit {
+            opacity: 0.45;
+        }
+    }
+}
+
+.bio {
+    display: flex;
+
+    &__counts {
+        display: flex;
+        margin-top: 1.4375rem;
+    }
+
+    &__counts_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 2.75rem;
+
+        h1 {
+            color: #fff;
+            font-size: 1.125rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 1rem;
+        }
+
+        h2 {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.6rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 2.375rem; /* 380% */
+            text-transform: capitalize;
+        }
+
+        &:nth-child(2) {
+            padding: 0 1.3125rem;
+            margin: 0 1.13rem;
+            border-right: 1px solid rgba(91, 91, 91, 1);
+            border-left: 1px solid rgba(91, 91, 91, 1);
+        }
+    }
+
+    &__personal {
+        z-index: 5;
+        margin: -2.938rem 2.19rem 0 2.19rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h3 {
+            color: #fff;
+            // font-size: 1.125rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 170%;
+            width: 100%;
+        }
+
+        h4 {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 170%;
+        }
+    }
+
+    &__status {
+        margin-top: 0.78rem;
+        max-width: 17.9375rem;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.6875rem;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 170%;
+    }
+}
