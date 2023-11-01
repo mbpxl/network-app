@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import classes from "./assets/Base.module.scss"; //! RESET SETTINGS (margin, padding, box-sizing etc)
+import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import { Navigation } from "./components/Navigation/Navigation";
 import { Profile } from "./components/Profile/Profile";
+import { Messages } from "./components/Messages/Messages";
 
 const App = () => {
   return (
@@ -14,6 +15,7 @@ const App = () => {
           <div className={classes.Main}>
             <Routes>
               <Route path="/profile" Component={Profile} />
+              <Route path="/messages" Component={Messages} />
             </Routes>
           </div>
         </div>
@@ -23,5 +25,3 @@ const App = () => {
 };
 
 export default App;
-
-// TODO: SET A CONTAINER
