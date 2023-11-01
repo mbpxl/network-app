@@ -2,7 +2,6 @@ import classes from "./Profile.module.scss";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { HeaderProfile } from "./HeaderProfile/HeaderProfile";
 import { Actions } from "./Actions/Actions";
-import post from "../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
 
 export const Profile = () => {
