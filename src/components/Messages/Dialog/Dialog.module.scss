@@ -1,0 +1,68 @@
+.dialog {
+    width: 100%;
+    margin-left: 3rem;
+
+    &__content {
+        height: 70%;
+    }
+
+    &__message {
+        color: #fff;
+        font-size: 1.1rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 1rem;
+
+        &:not(:last-child) {
+            margin-bottom: 1.3rem;
+        }
+    }
+
+    &__form {
+        margin-right: 1rem;
+        position: relative;
+        max-width: 64.875rem;
+
+        input {
+            width: 100%;
+            border-radius: 0.625rem;
+            background: #272932;
+            padding: 0.69rem 4.125rem 0.75rem 1.35rem;
+            color: #fff;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1.75rem;
+
+            ::placeholder {
+                color: #8f8f8f;
+                font-size: 0.75rem;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 1.75rem;
+            }
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 2rem;
+            height: 2rem;
+            border-radius: 0.25rem;
+            background: rgba(140, 103, 246, 1);
+            top: 8px;
+            right: 10px;
+
+            &:hover {
+                background: rgba(140, 103, 246, 0.7);
+            }
+
+            img {
+                width: 1.5rem;
+                height: 1.5rem;
+            }
+        }
+    }
+}
