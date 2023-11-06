@@ -1,0 +1,9 @@
+.messages {
+    margin: 2.5rem 0 0 2.81rem; //* -> margin-top: 2.5rem || margin-left: 2.81rem;
+    height: 100%;
+
+    &__flex {
+        display: flex;
+        height: 100%;
+    }
+}
