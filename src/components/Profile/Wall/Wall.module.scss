@@ -1,4 +1,4 @@
-.page {
+.wall {
     margin-top: 4.2rem;
     max-width: 47.625rem;
     border-radius: 0.75rem;
@@ -46,54 +46,6 @@
                 background-color: #8c67f6;
                 color: #272932;
             }
-        }
-    }
-}
-
-.post {
-    &__header {
-        display: flex;
-        align-items: center;
-        column-gap: 1rem;
-        &:not(:last-child) {
-            margin-bottom: 1.3125rem;
-        }
-    }
-
-    &__text {
-        max-width: 37.125rem;
-        color: #fff;
-
-        font-size: 0.6875rem;
-        font-style: normal;
-        font-weight: 300;
-        line-height: 170%;
-        letter-spacing: 0.01375rem;
-    }
-
-    &__more_btn {
-        img {
-            width: 0.9375rem;
-        }
-    }
-
-    &__content {
-        &:not(:last-child) {
-            margin-bottom: 1.3125rem;
-        }
-    }
-
-    &__actions {
-        display: flex;
-        column-gap: 0.5rem;
-        align-items: center;
-
-        h6 {
-            color: #fff;
-            font-size: 0.8125rem;
-            font-style: normal;
-            font-weight: 400;
-            line-height: 170%;
         }
     }
 }
