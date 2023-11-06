@@ -1,4 +1,4 @@
-import classes from "./Dialog.module.scss";
+import classes from "../Dialog.module.scss";
 
 type PropsType = {
   message: String;

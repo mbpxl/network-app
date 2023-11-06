@@ -9,19 +9,13 @@ export const Dialog = () => {
     { id: 3, name: "Gena", message: "La-la-ley" },
   ];
 
+  let dialogItemElements = contactsData.map((dialog) => {
+    return <DialogItem message={dialog.message} />;
+  });
+
   return (
     <div className={classes.dialog}>
-      <div className={classes.dialog__content}>
-        <div className={classes.dialog__message}>
-          <DialogItem message={contactsData[0].message} />
-        </div>
-        <div className={classes.dialog__message}>
-          <DialogItem message={contactsData[1].message} />
-        </div>
-        <div className={classes.dialog__message}>
-          <DialogItem message={contactsData[2].message} />
-        </div>
-      </div>
+      <div className={classes.dialog__content}>{dialogItemElements}</div>
       <div className={classes.dialog__send}>
         <form className={classes.dialog__form}>
           <input type="text" placeholder="Send Message" />
