@@ -1,17 +1,4 @@
-.contacts {
-    border-right: 1px solid rgb(143, 143, 143);
-    padding-right: 4rem;
-    height: 100%;
-
-    &__list .active {
-        width: 12.438rem;
-        background-color: #7940cf;
-        border-radius: 15px;
-        padding: 0.25rem 0.2rem 0.25rem 0.28rem;
-        height: 100%;
-    }
-
-    &__item:not(:first-child) {
-        margin-top: 1.25rem;
-    }
+.contacts_content {
+    width: 30%;
+    border-right: 1px solid #fff;
 }
