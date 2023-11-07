@@ -10,7 +10,16 @@ export const Wall = () => {
         "What you need to do for this is very simple. Register and click the Become a Creator button. Making money is not far off. Come on, be a creator",
       likesCount: 11,
     },
+    {
+      id: 2,
+      message: "Hello World!!!",
+      likesCount: 18,
+    },
   ];
+
+  let postElements = postData.map((post) => {
+    return <Post text={post.message} likesCount={post.likesCount} />;
+  });
 
   return (
     <div className={classes.wall}>
@@ -27,7 +36,7 @@ export const Wall = () => {
           </form>
         </div>
       </div>
-      <Post text={postData[0].message} likesCount={postData[0].likesCount} />
+      {postElements}
     </div>
   );
 };
