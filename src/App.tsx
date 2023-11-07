@@ -4,7 +4,7 @@ import { Navigation } from "./components/Navigation/Navigation";
 import { Profile } from "./components/Profile/Profile";
 import { Messages } from "./components/Messages/Messages";
 
-const App = () => {
+const App = (props: any) => {
   return (
     <BrowserRouter>
       <div className={classes.container}>
@@ -14,8 +14,16 @@ const App = () => {
           </div>
           <div className={classes.Main}>
             <Routes>
-              <Route path="/profile" Component={Profile} />
-              <Route path="/messages/*" Component={Messages} />
+              <Route
+                path="/profile"
+                element={<Profile posts={props.posts} />}
+              />
+              <Route
+                path="/messages/*"
+                element={
+                  <Messages contacts={props.contacts} dialogs={props.dialogs} />
+                }
+              />
             </Routes>
           </div>
         </div>

@@ -4,13 +4,13 @@ import { HeaderProfile } from "./HeaderProfile/HeaderProfile";
 import { Actions } from "./Actions/Actions";
 import { Wall } from "./Wall/Wall";
 
-export const Profile = () => {
+export const Profile = (props: any) => {
   return (
     <div className={classes.profile}>
       <Searchbar />
       <HeaderProfile />
       <Actions />
-      <Wall />
+      <Wall posts={props.posts} />
     </div>
   );
 };
