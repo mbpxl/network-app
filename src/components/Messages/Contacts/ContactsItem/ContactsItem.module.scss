@@ -1,3 +1,9 @@
+.item {
+    &:not(:last-child) {
+        margin-bottom: 1.37rem;
+    }
+}
+
 .contacts {
     &__link {
         display: flex;
@@ -21,5 +27,13 @@
             font-weight: 300;
             line-height: 1rem;
         }
+    }
+
+    &__list .active {
+        width: 12.438rem;
+        background-color: #7940cf;
+        border-radius: 15px;
+        padding: 0.25rem 0.2rem 0.25rem 0.28rem;
+        height: 100%;
     }
 }

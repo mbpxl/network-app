@@ -2,6 +2,7 @@ import classes from "../Dialog.module.scss";
 
 type PropsType = {
   message: String;
+  id: number;
 };
 
 export const DialogItem = (props: PropsType) => {

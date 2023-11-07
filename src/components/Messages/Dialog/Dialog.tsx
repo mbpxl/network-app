@@ -4,13 +4,13 @@ import { DialogItem } from "./DialogItem/DialogItem";
 
 export const Dialog = () => {
   let contactsData = [
-    { id: 1, name: "Faraz Tariq", message: "Hop" },
-    { id: 2, name: "Ilya", message: "Hey" },
-    { id: 3, name: "Gena", message: "La-la-ley" },
+    { id: 1, message: "Hop" },
+    { id: 2, message: "Hey" },
+    { id: 3, message: "La-la-ley" },
   ];
 
   let dialogItemElements = contactsData.map((dialog) => {
-    return <DialogItem message={dialog.message} />;
+    return <DialogItem id={dialog.id} message={dialog.message} />;
   });
 
   return (
