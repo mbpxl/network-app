@@ -1,4 +1,8 @@
-# Getting Started with Create React App
+# TREE OF COMPONENTS
+
+Tree of components in `miro board`: [Miro](https://miro.com/app/board/uXjVNR5t2Kw=/)
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
