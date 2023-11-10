@@ -1,3 +1,10 @@
+import avatar1 from "../assets/img/messages/messages-pre1.png"
+import avatar2 from "../assets/img/messages/messages-pre2.png"
+import avatar3 from "../assets/img/messages/messages-pre3.png"
+import avatar4 from "../assets/img/messages/messages-pre4.png"
+import avatar5 from "../assets/img/messages/messages-pre5.png"
+import avatar6 from "../assets/img/messages/messages-pre6.png"
+
 export const state = {
   profilePage: {
     posts: [
@@ -26,38 +33,49 @@ export const state = {
         id: 1,
         name: "Faraz Tariq",
         lastMessage: "see you in friday",
-        avatar: "",
+        avatar: avatar1,
       },
       {
         id: 2,
         name: "Ilya",
         lastMessage: "ok",
-        avatar: "",
+        avatar: avatar2,
       },
       {
         id: 3,
         name: "Gena",
         lastMessage: "never mind",
-        avatar: "",
+        avatar: avatar3,
       },
       {
         id: 4,
         name: "Masha",
         lastMessage: "what?",
-        avatar: "",
+        avatar: avatar4,
       },
       {
         id: 5,
         name: "Kim",
         lastMessage: "hi",
-        avatar: "",
+        avatar: avatar5,
       },
       {
         id: 6,
         name: "Alina",
         lastMessage: "later",
-        avatar: "",
+        avatar: avatar6,
       },
     ],
   },
+
+  friendsPage: {
+    friends: [
+      {id: 1, name: "John Ramirez", avatar: avatar1},
+      {id: 1, name: "Kevin Lopez", avatar: avatar2},
+      {id: 1, name: "Anthony Dunn", avatar: avatar3},
+      {id: 1, name: "Michael Williams", avatar: avatar4},
+      {id: 1, name: "Steven Williamson", avatar: avatar5},
+      {id: 1, name: "Bryan Hoffman", avatar: avatar6},
+    ]
+  }
 };

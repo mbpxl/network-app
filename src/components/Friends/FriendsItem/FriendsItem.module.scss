@@ -1,0 +1,36 @@
+.friends_item {
+    max-width: 22rem;
+
+    &__content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.37rem;
+    }
+
+    &__context {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: space-between;
+    }
+
+    &__name {
+        margin-left: 0.94rem;
+        h1 {
+            color: #fff;
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+        }
+    }
+
+    &__write {
+        button {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.75rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+        }
+    }
+}
