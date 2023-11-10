@@ -3,6 +3,7 @@ import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin
 import { Navigation } from "./components/Navigation/Navigation";
 import { Profile } from "./components/Profile/Profile";
 import { Messages } from "./components/Messages/Messages";
+import { Friends } from "./components/Friends/Friends";
 
 const App = (props: any) => {
   return (
@@ -16,11 +17,15 @@ const App = (props: any) => {
             <Routes>
               <Route
                 path="/profile"
-                element={<Profile state={props.state.profilePage} />}
+                element={<Profile appState={props.state.profilePage} />}
               />
               <Route
                 path="/messages/*"
-                element={<Messages state={props.state.messagesPage} />}
+                element={<Messages appState={props.state.messagesPage} />}
+              />
+              <Route
+                path="/friends/*"
+                element={<Friends appState={props.state.friendsPage} />}
               />
             </Routes>
           </div>

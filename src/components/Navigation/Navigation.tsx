@@ -7,6 +7,7 @@ import feed from "../../assets/img/navbar/navbar-feed.svg";
 import messages from "../../assets/img/navbar/navbar-message.svg";
 import music from "../../assets/img/navbar/navbar-music.svg";
 import logout from "../../assets/img/navbar/navbar-logout.svg";
+import friends from "../../assets/img/friends/friends-icon.svg";
 import { NavLink } from "react-router-dom";
 
 export const Navigation = () => {
@@ -32,6 +33,14 @@ export const Navigation = () => {
             className={({ isActive }) => (isActive ? classes.active : "")}
           >
             <img className={classes.nav__img} src={feed} alt="feed" />
+          </NavLink>
+        </li>
+        <li className={classes.nav__item}>
+          <NavLink
+            to="/friends"
+            className={({ isActive }) => (isActive ? classes.active : "")}
+          >
+            <img className={classes.nav__img} src={friends} alt="friends" />
           </NavLink>
         </li>
         <li className={classes.nav__item}>

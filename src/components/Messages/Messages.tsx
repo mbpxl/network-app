@@ -8,8 +8,8 @@ export const Messages = (props: any) => {
     <div className={classes.messages}>
       <Searchbar />
       <div className={classes.messages__flex}>
-        <Contacts contacts={props.state.contacts} />
-        <Dialog dialogs={props.state.dialogs} />
+        <Contacts contacts={props.appState.contacts} />
+        <Dialog dialogs={props.appState.dialogs} />
       </div>
     </div>
   );
