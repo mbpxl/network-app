@@ -1,7 +1,6 @@
 import classes from "./Post.module.scss";
 import author from "../../../../assets/img/post/post-autor.png";
 import more from "../../../../assets/img/post/post-more.svg";
-import content from "../../../../assets/img/post/post-img.jpg";
 import like from "../../../../assets/img/post/post-like.svg";
 
 type propsType = {
@@ -24,7 +23,7 @@ export const Post = (props: propsType) => {
         </div>
       </div>
       <div className={classes.post__content}>
-        <img src={content} alt="content" />
+        {/* <img src={content} alt="content" /> */}
       </div>
       <div className={classes.post__actions}>
         <button type="submit" className="button">
