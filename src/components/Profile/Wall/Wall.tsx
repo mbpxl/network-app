@@ -1,6 +1,7 @@
 import classes from "./Wall.module.scss";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
+import React, { useRef } from "react";
 
 export const Wall = (props: any) => {
   let postData = props.posts;
@@ -11,6 +12,13 @@ export const Wall = (props: any) => {
     }
   );
 
+  const newPostElement = useRef<HTMLTextAreaElement>(null);
+
+  const addPost = () => {
+    let text = newPostElement.current?.value;
+    props.addPost(text);
+  };
+
   return (
     <div className={classes.wall}>
       <div className={classes.wall__header}>
@@ -19,12 +27,16 @@ export const Wall = (props: any) => {
           <h1>POSTS</h1>
         </div>
         <div className={classes.wall__create}>
-          <form action="POST">
-            <button type="submit" className="button">
-              Create Post
-            </button>
-          </form>
+          <button className="button" onClick={addPost}>
+            Create Post
+          </button>
         </div>
+      </div>
+      <div className={classes.wall__write}>
+        <textarea
+          ref={newPostElement}
+          className={classes.wall__write_input}
+        ></textarea>
       </div>
       {postElements}
     </div>

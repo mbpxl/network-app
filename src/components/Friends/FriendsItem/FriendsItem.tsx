@@ -1,7 +1,5 @@
 import classes from "./FriendsItem.module.scss";
 
-import a1 from "../../../assets/img/messages/messages-pre1.png";
-
 export const FriendsItem = (props: any) => {
   return (
     <div className={classes.friends_item}>

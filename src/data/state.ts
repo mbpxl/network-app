@@ -4,6 +4,7 @@ import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
+import { rerenderEntireTree } from "../render"
 
 export const state = {
   profilePage: {
@@ -71,11 +72,22 @@ export const state = {
   friendsPage: {
     friends: [
       {id: 1, name: "John Ramirez", avatar: avatar1},
-      {id: 1, name: "Kevin Lopez", avatar: avatar2},
-      {id: 1, name: "Anthony Dunn", avatar: avatar3},
-      {id: 1, name: "Michael Williams", avatar: avatar4},
-      {id: 1, name: "Steven Williamson", avatar: avatar5},
-      {id: 1, name: "Bryan Hoffman", avatar: avatar6},
+      {id: 2, name: "Kevin Lopez", avatar: avatar2},
+      {id: 3, name: "Anthony Dunn", avatar: avatar3},
+      {id: 4, name: "Michael Williams", avatar: avatar4},
+      {id: 5, name: "Steven Williamson", avatar: avatar5},
+      {id: 6, name: "Bryan Hoffman", avatar: avatar6},
     ]
   }
 };
+
+export const addPost = (postMessage: string) => {
+  let newPost = {
+    id: 5,
+    message: postMessage,
+    likesCount: 0,
+  };
+
+  state.profilePage.posts.push(newPost);
+  rerenderEntireTree(state);
+}
