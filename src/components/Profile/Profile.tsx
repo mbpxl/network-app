@@ -10,7 +10,12 @@ export const Profile = (props: any) => {
       <Searchbar />
       <HeaderProfile />
       <Actions />
-      <Wall posts={props.appState.posts} addPost={props.addPost} />
+      <Wall
+        posts={props.appState.posts}
+        addPost={props.addPost}
+        newPostText={props.appState.newPostText}
+        updateNewPostText={props.updateNewPostText}
+      />
     </div>
   );
 };

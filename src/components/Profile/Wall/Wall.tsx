@@ -15,8 +15,13 @@ export const Wall = (props: any) => {
   const newPostElement = useRef<HTMLTextAreaElement>(null);
 
   const addPost = () => {
+    props.addPost();
+    props.updateNewPostText("");
+  };
+
+  const onPostChange = () => {
     let text = newPostElement.current?.value;
-    props.addPost(text);
+    props.updateNewPostText(text);
   };
 
   return (
@@ -36,7 +41,9 @@ export const Wall = (props: any) => {
         <textarea
           ref={newPostElement}
           className={classes.wall__write_input}
-        ></textarea>
+          value={props.newPostText}
+          onChange={onPostChange}
+        />
       </div>
       {postElements}
     </div>
