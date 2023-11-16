@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 // import { addPost, state } from "./data/state";
-import { addPost } from "./data/state";
+import { addPost, updateNewPostText } from "./data/state";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -12,7 +12,11 @@ const root = ReactDOM.createRoot(
 export let rerenderEntireTree = (state: any) => {
   root.render(
     <React.StrictMode>
-      <App state={state} addPost={addPost} />
+      <App
+        state={state}
+        addPost={addPost}
+        updateNewPostText={updateNewPostText}
+      />
     </React.StrictMode>
   );
 };
