@@ -27,7 +27,13 @@ const App = (props: any) => {
               />
               <Route
                 path="/messages/*"
-                element={<Messages appState={props.state.messagesPage} />}
+                element={
+                  <Messages
+                    appState={props.state.messagesPage}
+                    addMessage={props.addMessage}
+                    updateNewMessageText={props.updateNewMessageText}
+                  />
+                }
               />
               <Route
                 path="/friends/*"
