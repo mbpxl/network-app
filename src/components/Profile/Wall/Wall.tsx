@@ -1,7 +1,7 @@
 import classes from "./Wall.module.scss";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
-import React, { useRef } from "react";
+import React, { ChangeEvent } from "react";
 
 export const Wall = (props: any) => {
   let postData = props.posts; // using in map method in line 9
@@ -12,15 +12,12 @@ export const Wall = (props: any) => {
     }
   );
 
-  const newPostElement = useRef<HTMLTextAreaElement>(null);
-
   const addPost = () => {
     props.addPost();
   };
 
-  const onPostChange = () => {
-    let text = newPostElement.current?.value;
-    props.updateNewPostText(text);
+  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    props.updateNewPostText(e.currentTarget.value);
   };
 
   return (
@@ -38,7 +35,6 @@ export const Wall = (props: any) => {
       </div>
       <div className={classes.wall__write}>
         <textarea
-          ref={newPostElement}
           className={classes.wall__write_input}
           value={props.newPostText} // value from state.ts
           onChange={onPostChange}

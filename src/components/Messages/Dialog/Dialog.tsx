@@ -1,7 +1,7 @@
 import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
-import { useRef } from "react";
+import { ChangeEvent } from "react";
 
 export const Dialog = (props: any) => {
   const dialogData = props.dialogs;
@@ -12,22 +12,27 @@ export const Dialog = (props: any) => {
     }
   );
 
-  const newSendElement = useRef<HTMLInputElement>(null);
+  const addMessage = () => {
+    props.addMessage();
+  };
 
-  const sendPost = () => {
-    let text = newSendElement.current?.value;
+  const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    props.updateNewMessageText(e.currentTarget.value);
   };
 
   return (
     <div className={classes.dialog}>
       <div className={classes.dialog__content}>{dialogItemElements}</div>
       <div className={classes.dialog__send}>
-        <form className={classes.dialog__form}>
-          <input type="text" placeholder="Send Message" ref={newSendElement} />
-          <button type="submit" onClick={sendPost}>
-            <img src={send} alt="send" />
-          </button>
-        </form>
+        <input
+          type="text"
+          placeholder="Send Message"
+          value={props.newMessageText}
+          onChange={onMessageChange}
+        />
+        <button type="submit" onClick={addMessage}>
+          <img src={send} alt="send" />
+        </button>
       </div>
     </div>
   );

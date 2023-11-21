@@ -68,6 +68,7 @@ export const state = {
         avatar: avatar6,
       },
     ],
+    newMessageText: '',
   },
 
   friendsPage: {
@@ -79,7 +80,7 @@ export const state = {
       {id: 5, name: "Steven Williamson", avatar: avatar5},
       {id: 6, name: "Bryan Hoffman", avatar: avatar6},
     ]
-  }
+  },
 };
 
 
@@ -93,9 +94,25 @@ export const addPost = () => {
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
   rerenderEntireTree(state);
-}
+};
 
 export const updateNewPostText = (newText: string) => {
   state.profilePage.newPostText = newText;
   rerenderEntireTree(state);
-}
+};
+
+export const addMessage = () => {
+  let newMesage = {
+    id: 4,
+    message: state.messagesPage.newMessageText,
+  };
+
+  state.messagesPage.dialogs.push(newMesage);
+  state.messagesPage.newMessageText='';
+  rerenderEntireTree(state);
+};
+
+export const updateNewMessageText = (newMessage: string) => {
+  state.messagesPage.newMessageText = newMessage;
+  rerenderEntireTree(state);
+};
