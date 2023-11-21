@@ -4,7 +4,7 @@ import { Post } from "./Post/Post";
 import React, { useRef } from "react";
 
 export const Wall = (props: any) => {
-  let postData = props.posts;
+  let postData = props.posts; // using in map method in line 9
 
   let postElements = postData.map(
     (post: { message: String; likesCount: number }) => {
@@ -16,7 +16,6 @@ export const Wall = (props: any) => {
 
   const addPost = () => {
     props.addPost();
-    props.updateNewPostText("");
   };
 
   const onPostChange = () => {
@@ -41,7 +40,7 @@ export const Wall = (props: any) => {
         <textarea
           ref={newPostElement}
           className={classes.wall__write_input}
-          value={props.newPostText}
+          value={props.newPostText} // value from state.ts
           onChange={onPostChange}
         />
       </div>
