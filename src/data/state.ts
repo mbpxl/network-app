@@ -4,7 +4,11 @@ import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
-import { rerenderEntireTree } from "../render"
+
+let rerenderEntireTree = () => {
+  console.log('state has been changed');
+}
+
 
 export const state = {
   profilePage: {
@@ -83,6 +87,10 @@ export const state = {
   },
 };
 
+export const subscribe = (observer: any) => {
+  rerenderEntireTree = observer;
+}
+
 
 export const addPost = () => {
   let newPost = {
@@ -93,12 +101,12 @@ export const addPost = () => {
 
   state.profilePage.posts.push(newPost);
   state.profilePage.newPostText = '';
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const updateNewPostText = (newText: string) => {
   state.profilePage.newPostText = newText;
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const addMessage = () => {
@@ -109,10 +117,10 @@ export const addMessage = () => {
 
   state.messagesPage.dialogs.push(newMesage);
   state.messagesPage.newMessageText='';
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
 export const updateNewMessageText = (newMessage: string) => {
   state.messagesPage.newMessageText = newMessage;
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
