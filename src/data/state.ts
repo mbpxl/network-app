@@ -5,12 +5,9 @@ import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
 
-let rerenderEntireTree = () => {
-  console.log('state has been changed');
-}
 
-
-export const state = {
+export const store = {
+  _state : {
   profilePage: {
     posts: [
       {
@@ -85,42 +82,43 @@ export const state = {
       {id: 6, name: "Bryan Hoffman", avatar: avatar6},
     ]
   },
-};
-
-export const subscribe = (observer: any) => {
-  rerenderEntireTree = observer;
-}
-
-
-export const addPost = () => {
+  },
+  getState() {
+    return this._state;
+  },
+  rerenderEntireTree() {
+    console.log('state has been changed')
+  },
+  addPost() {
   let newPost = {
     id: 5,
-    message: state.profilePage.newPostText,
+    message: this._state.profilePage.newPostText,
     likesCount: 0,
   };
 
-  state.profilePage.posts.push(newPost);
-  state.profilePage.newPostText = '';
-  rerenderEntireTree();
-};
-
-export const updateNewPostText = (newText: string) => {
-  state.profilePage.newPostText = newText;
-  rerenderEntireTree();
-};
-
-export const addMessage = () => {
+  this._state.profilePage.posts.push(newPost);
+  this._state.profilePage.newPostText = '';
+  this.rerenderEntireTree();
+  },
+  updateNewPostText(newText: string) {
+  this._state.profilePage.newPostText = newText;
+  this.rerenderEntireTree();
+  },
+  addMessage() {
   let newMesage = {
     id: 4,
-    message: state.messagesPage.newMessageText,
+    message: this._state.messagesPage.newMessageText,
   };
 
-  state.messagesPage.dialogs.push(newMesage);
-  state.messagesPage.newMessageText='';
-  rerenderEntireTree();
-};
-
-export const updateNewMessageText = (newMessage: string) => {
-  state.messagesPage.newMessageText = newMessage;
-  rerenderEntireTree();
-};
+  this._state.messagesPage.dialogs.push(newMesage);
+  this._state.messagesPage.newMessageText='';
+  this.rerenderEntireTree();
+  },
+  updateNewMessageText(newMessage: string) {
+  this._state.messagesPage.newMessageText = newMessage;
+  this.rerenderEntireTree();
+  },
+  subscribe(observer: any) {
+    this.rerenderEntireTree = observer;
+  },
+}
