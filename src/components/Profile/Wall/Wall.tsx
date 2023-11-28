@@ -13,11 +13,14 @@ export const Wall = (props: any) => {
   );
 
   const addPost = () => {
-    props.addPost();
+    props.dispatch({ type: "ADD-POST" });
   };
 
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.updateNewPostText(e.currentTarget.value);
+    props.dispatch({
+      type: "UPDATE-NEW-POST-TEXT",
+      newText: e.currentTarget.value,
+    });
   };
 
   return (

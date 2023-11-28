@@ -13,7 +13,7 @@ export const Profile = (props: any) => {
       <Wall
         posts={props.appState.posts}
         addPost={props.addPost}
-        newPostText={props.appState.newPostText}
+        dispatch={props.dispatch}
         updateNewPostText={props.updateNewPostText}
       />
     </div>
