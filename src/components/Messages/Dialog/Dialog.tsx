@@ -13,11 +13,14 @@ export const Dialog = (props: any) => {
   );
 
   const addMessage = () => {
-    props.addMessage();
+    props.dispatch({ type: "ADD-MESSAGE" });
   };
 
   const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    props.updateNewMessageText(e.currentTarget.value);
+    props.dispatch({
+      type: "UPDATE-NEW-MESSAGE-TEXT",
+      newMessage: e.currentTarget.value,
+    });
   };
 
   return (

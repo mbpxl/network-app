@@ -12,8 +12,7 @@ export const Messages = (props: any) => {
         <Dialog
           dialogs={props.appState.dialogs}
           newMessageText={props.appState.newMessageText}
-          addMessage={props.addMessage}
-          updateNewMessageText={props.updateNewMessageText}
+          dispatch={props.dispatch}
         />
       </div>
     </div>
