@@ -4,7 +4,9 @@ import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
-
+import { actionTypes } from "./actionTypes"
+import messagesReducer from "./messages-reducer"
+import profileReducer from "./profile-reducer"
 
 export const store = {
   _state : {
@@ -92,33 +94,11 @@ export const store = {
   subscribe(observer: any) {
     this.rerenderEntireTree = observer;
   },
+  dispatch(action: actionTypes) { //! action is object {type: 'ADD-POST'}
 
-  dispatch(action: any) {  //! action is object {type: 'ADD-POST'}
-    if (action.type === 'ADD-POST') {
-      let newPost = {
-      id: 5,
-      message: this._state.profilePage.newPostText,
-      likesCount: 0,
-    };
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
 
-    this._state.profilePage.posts.push(newPost);
-    this._state.profilePage.newPostText = '';
     this.rerenderEntireTree();
-    } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-      this._state.profilePage.newPostText = action.newText;
-      this.rerenderEntireTree();
-    } else if (action.type === 'ADD-MESSAGE') {
-      let newMesage = {
-      id: 4,
-      message: this._state.messagesPage.newMessageText,
-      };
-
-      this._state.messagesPage.dialogs.push(newMesage);
-      this._state.messagesPage.newMessageText='';
-      this.rerenderEntireTree();
-    } else if (action.type === 'UPDATE-NEW-MESSAGE-TEXT') {
-      this._state.messagesPage.newMessageText = action.newMessage;
-      this.rerenderEntireTree();
-    }
   }
 }
