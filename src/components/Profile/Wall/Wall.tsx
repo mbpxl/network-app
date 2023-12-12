@@ -1,10 +1,14 @@
 import classes from "./Wall.module.scss";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
-import React, { ChangeEvent } from "react";
+import {
+  addPostActionCreator,
+  updateNewPostTextActionCreator,
+} from "../../../data/profile-reducer";
+import { useRef } from "react";
 
 export const Wall = (props: any) => {
-  let postData = props.posts; // using in map method in line 9
+  let postData = props.posts; //? using in map() method
 
   let postElements = postData.map(
     (post: { message: String; likesCount: number }) => {
@@ -13,14 +17,13 @@ export const Wall = (props: any) => {
   );
 
   const addPost = () => {
-    props.dispatch({ type: "ADD-POST" });
+    props.dispatch(addPostActionCreator());
   };
 
-  const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    props.dispatch({
-      type: "UPDATE-NEW-POST-TEXT",
-      newText: e.currentTarget.value,
-    });
+  let inputRef = useRef<HTMLTextAreaElement>(null);
+  const onPostChange = () => {
+    let text = inputRef.current?.value;
+    props.dispatch(updateNewPostTextActionCreator(text));
   };
 
   return (
@@ -39,6 +42,7 @@ export const Wall = (props: any) => {
       <div className={classes.wall__write}>
         <textarea
           className={classes.wall__write_input}
+          ref={inputRef}
           value={props.newPostText} // value from state.ts
           onChange={onPostChange}
         />
