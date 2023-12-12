@@ -1,7 +1,11 @@
 import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
-import { ChangeEvent } from "react";
+import {
+  addMessageActionCreator,
+  updateNewMessageTextActionCreator,
+} from "../../../data/messages-reducer";
+import { useRef } from "react";
 
 export const Dialog = (props: any) => {
   const dialogData = props.dialogs;
@@ -13,14 +17,13 @@ export const Dialog = (props: any) => {
   );
 
   const addMessage = () => {
-    props.dispatch({ type: "ADD-MESSAGE" });
+    props.dispatch(addMessageActionCreator());
   };
 
-  const onMessageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    props.dispatch({
-      type: "UPDATE-NEW-MESSAGE-TEXT",
-      newMessage: e.currentTarget.value,
-    });
+  const inputRef = useRef<HTMLInputElement>(null);
+  const onMessageChange = () => {
+    const text = inputRef.current?.value;
+    props.dispatch(updateNewMessageTextActionCreator(text));
   };
 
   return (
@@ -29,6 +32,7 @@ export const Dialog = (props: any) => {
       <div className={classes.dialog__send}>
         <input
           type="text"
+          ref={inputRef}
           placeholder="Send Message"
           value={props.newMessageText}
           onChange={onMessageChange}

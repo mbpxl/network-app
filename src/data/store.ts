@@ -5,9 +5,10 @@ import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
 import { actionTypes } from "./actionTypes"
-import messagesReducer from "./messages-reducer"
+import { messagesReducer } from "./messages-reducer"
 import profileReducer from "./profile-reducer"
 
+debugger;
 export const store = {
   _state : {
   profilePage: {
@@ -24,7 +25,7 @@ export const store = {
         likesCount: 18,
       },
     ],
-    newPostText: '',
+    tempPostText: '',
   },
 
   messagesPage: {
@@ -71,7 +72,7 @@ export const store = {
         avatar: avatar6,
       },
     ],
-    newMessageText: '',
+    tempMessageText: '',
   },
 
   friendsPage: {
@@ -88,17 +89,20 @@ export const store = {
   getState() {
     return this._state;
   },
-  rerenderEntireTree() {
-    console.log('state has been changed')
+  callSubscriber() {
+    console.log('state has been changed');
   },
   subscribe(observer: any) {
-    this.rerenderEntireTree = observer;
+    this.callSubscriber = observer;
   },
   dispatch(action: actionTypes) { //! action is object {type: 'ADD-POST'}
 
     this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.messagesPage = messagesReducer(this._state.messagesPage, action);
 
-    this.rerenderEntireTree();
+    this.callSubscriber();
   }
 }
+
+
+
