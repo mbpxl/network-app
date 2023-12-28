@@ -2,7 +2,7 @@ import classes from "./Profile.module.scss";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { HeaderProfile } from "./HeaderProfile/HeaderProfile";
 import { Actions } from "./Actions/Actions";
-import { Wall } from "./Wall/Wall";
+import { WallContainer } from "./Wall/WallContainer";
 
 export const Profile = (props: any) => {
   return (
@@ -10,12 +10,7 @@ export const Profile = (props: any) => {
       <Searchbar />
       <HeaderProfile />
       <Actions />
-      <Wall
-        posts={props.appState.posts}
-        addPost={props.addPost}
-        dispatch={props.dispatch}
-        updateNewPostText={props.updateNewPostText}
-      />
+      <WallContainer store={props.store} />
     </div>
   );
 };
