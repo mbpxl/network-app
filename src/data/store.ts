@@ -1,14 +1,15 @@
+//* my store with object literal
+
 import avatar1 from "../assets/img/messages/messages-pre1.png"
 import avatar2 from "../assets/img/messages/messages-pre2.png"
 import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
-import { actionTypes } from "./actionTypes"
+import { actionsType } from "./types";
 import { messagesReducer } from "./messages-reducer"
 import profileReducer from "./profile-reducer"
 
-debugger;
 export const store = {
   _state : {
   profilePage: {
@@ -95,7 +96,7 @@ export const store = {
   subscribe(observer: any) {
     this.callSubscriber = observer;
   },
-  dispatch(action: actionTypes) { //! action is object {type: 'ADD-POST'}
+  dispatch(action: actionsType) { //! action is object {type: 'ADD-POST'}
 
     this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.messagesPage = messagesReducer(this._state.messagesPage, action);

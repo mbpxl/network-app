@@ -7,6 +7,8 @@ import {
 } from "../../../data/messages-reducer";
 import { useRef } from "react";
 
+//======================================================================================================================================
+
 export const Dialog = (props: any) => {
   const dialogData = props.dialogs;
 
@@ -16,14 +18,14 @@ export const Dialog = (props: any) => {
     }
   );
 
-  const addMessage = () => {
-    props.dispatch(addMessageActionCreator());
+  const onAddMessage = () => {
+    props.addMessage();
   };
 
   const inputRef = useRef<HTMLInputElement>(null);
   const onMessageChange = () => {
     const text = inputRef.current?.value;
-    props.dispatch(updateNewMessageTextActionCreator(text));
+    props.updateNewMessageText(text);
   };
 
   return (
@@ -37,7 +39,7 @@ export const Dialog = (props: any) => {
           value={props.newMessageText}
           onChange={onMessageChange}
         />
-        <button type="submit" onClick={addMessage}>
+        <button type="submit" onClick={onAddMessage}>
           <img src={send} alt="send" />
         </button>
       </div>

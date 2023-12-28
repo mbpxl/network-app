@@ -4,14 +4,14 @@ import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
 import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
-import { actionTypes } from "./actionTypes";
+import { actionsType } from "./types";
 
 let initialState = {
   dialogs: [
       { id: 1, message: "Hop" },
       { id: 2, message: "Hey" },
       { id: 3, message: "La-la-ley" },
-    ],
+  ],
   contacts: [
     {
       id: 1,
@@ -54,7 +54,7 @@ let initialState = {
 }
 
 
-export const messagesReducer = (state = initialState, action: actionTypes) => {
+export const messagesReducer = (state = initialState, action: actionsType) => {
   switch (action.type) {
     case 'ADD-MESSAGE':
       let newMessage = {
@@ -63,7 +63,6 @@ export const messagesReducer = (state = initialState, action: actionTypes) => {
       };
 
       state.dialogs.push(newMessage);
-      state.tempMessageText='';
     break;
 
     case 'UPDATE-NEW-MESSAGE-TEXT':

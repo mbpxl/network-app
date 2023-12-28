@@ -1,4 +1,4 @@
-import { actionTypes } from "./actionTypes";
+import { actionsType } from "./types";
 
 let initialState = {
   posts: [
@@ -17,8 +17,7 @@ let initialState = {
   tempPostText: '',
 }
 
-
-const profileReducer = (state = initialState, action: actionTypes) => {
+const profileReducer = (state = initialState, action: actionsType) => {
   switch (action.type) {
     case 'ADD-POST':
       let newPost = {
@@ -36,15 +35,13 @@ const profileReducer = (state = initialState, action: actionTypes) => {
 
     default:
       console.log('Hello World!');
-    }
+  }
 
   return state;
 }
 
 const ADD_POST = "ADD-POST";
-
 export const addPostActionCreator = () => ({ type: ADD_POST });
-
 
 const UPDATE_NEW_POST_TEXT = "UPDATE-NEW-POST-TEXT";
 export const updateNewPostTextActionCreator = (text: string | undefined) => ({

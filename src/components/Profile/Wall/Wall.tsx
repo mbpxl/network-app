@@ -1,10 +1,6 @@
 import classes from "./Wall.module.scss";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
-import {
-  addPostActionCreator,
-  updateNewPostTextActionCreator,
-} from "../../../data/profile-reducer";
 import { useRef } from "react";
 
 export const Wall = (props: any) => {
@@ -16,14 +12,15 @@ export const Wall = (props: any) => {
     }
   );
 
-  const addPost = () => {
-    props.dispatch(addPostActionCreator());
+  const onAddPost = () => {
+    props.addPost();
   };
 
   let inputRef = useRef<HTMLTextAreaElement>(null);
   const onPostChange = () => {
     let text = inputRef.current?.value;
-    props.dispatch(updateNewPostTextActionCreator(text));
+    debugger;
+    props.updateNewPostText(text);
   };
 
   return (
@@ -34,7 +31,7 @@ export const Wall = (props: any) => {
           <h1>POSTS</h1>
         </div>
         <div className={classes.wall__create}>
-          <button className="button" onClick={addPost}>
+          <button className="button" onClick={onAddPost}>
             Create Post
           </button>
         </div>
