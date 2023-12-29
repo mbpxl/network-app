@@ -5,12 +5,13 @@ import { Actions } from "./Actions/Actions";
 import { WallContainer } from "./Wall/WallContainer";
 
 export const Profile = (props: any) => {
+  // store={props.store}
   return (
     <div className={classes.profile}>
       <Searchbar />
       <HeaderProfile />
       <Actions />
-      <WallContainer store={props.store} />
+      <WallContainer />
     </div>
   );
 };

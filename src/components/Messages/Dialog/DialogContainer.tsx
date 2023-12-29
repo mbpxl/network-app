@@ -1,27 +1,30 @@
-import classes from "./Dialog.module.scss";
-import send from "../../../assets/img/messages/messages-send.svg";
-import { DialogItem } from "./DialogItem/DialogItem";
+import StoreContext from "../../../context/StoreContext";
 import {
   addMessageActionCreator,
   updateNewMessageTextActionCreator,
 } from "../../../data/messages-reducer";
-import { useRef } from "react";
 import { Dialog } from "./Dialog";
 
-export const DialogContainer = (props: any) => {
-  const addMessage = () => {
-    props.store.dispatch(addMessageActionCreator());
-  };
-
-  const onMessageChange = (text: string) => {
-    props.store.dispatch(updateNewMessageTextActionCreator(text));
-  };
-
+export const DialogContainer = () => {
   return (
-    <Dialog
-      dialogs={props.store.getState().messagesReducer.dialogs}
-      addMessage={addMessage}
-      updateNewMessageText={onMessageChange}
-    />
+    <StoreContext.Consumer>
+      {(store) => {
+        const addMessage = () => {
+          store.dispatch(addMessageActionCreator());
+        };
+
+        const onMessageChange = (text: string) => {
+          store.dispatch(updateNewMessageTextActionCreator(text));
+        };
+
+        return (
+          <Dialog
+            dialogs={store.getState().messagesReducer.dialogs}
+            addMessage={addMessage}
+            updateNewMessageText={onMessageChange}
+          />
+        );
+      }}
+    </StoreContext.Consumer>
   );
 };

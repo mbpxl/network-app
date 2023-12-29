@@ -17,15 +17,13 @@ const App = (props: any) => {
             <Routes>
               <Route
                 path="/profile"
-                element={<Profile store={props.store} />}
+                element={<Profile />} // store={props.store}
               />
               <Route
                 path="/messages/*"
                 element={
                   <Messages
-                    appState={props.state.messagesReducer}
-                    dispatch={props.dispatch}
-                    store={props.store}
+                    appState={props.state.messagesReducer} // appState={props.state.messagesReducer} dispatch={props.dispatch} store={props.store}
                   />
                 }
               />
