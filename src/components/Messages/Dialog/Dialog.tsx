@@ -1,10 +1,6 @@
 import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
-import {
-  addMessageActionCreator,
-  updateNewMessageTextActionCreator,
-} from "../../../data/messages-reducer";
 import { useRef } from "react";
 
 //======================================================================================================================================
