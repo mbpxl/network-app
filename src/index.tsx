@@ -8,6 +8,8 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 const rerenderEntireTree = () => {
+  console.log(store);
+
   root.render(
     <StoreContext.Provider value={store}>
       <App
