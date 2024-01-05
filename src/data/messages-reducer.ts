@@ -56,24 +56,27 @@ let initialState = {
 
 export const messagesReducer = (state = initialState, action: actionsType) => {
   switch (action.type) {
-    case 'ADD-MESSAGE':
+    case 'ADD-MESSAGE': {
       let newMessage = {
         id: 4,
         message: state.tempMessageText,
       };
 
-      state.dialogs.push(newMessage);
-    break;
+      let copyState = {...state};
+      copyState.dialogs = [...state.dialogs];
+
+      copyState.dialogs.push(newMessage);
+    return copyState;
+    };
 
     case 'UPDATE-NEW-MESSAGE-TEXT':
-      state.tempMessageText = action.newMessage;
-    break;
+      let copyState = {...state};
+      copyState.tempMessageText = action.newMessage;
+    return copyState;
 
     default:
-      console.log('Hello world!');
+      return state;
   }
-
-  return state;
 }
 
 const ADD_MESSAGE = "ADD-MESSAGE";

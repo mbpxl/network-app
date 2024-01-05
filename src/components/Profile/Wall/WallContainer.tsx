@@ -1,30 +1,26 @@
-import StoreContext from "../../../context/StoreContext";
+import { connect } from "react-redux";
 import {
   addPostActionCreator,
   updateNewPostTextActionCreator,
 } from "../../../data/profile-reducer";
 import { Wall } from "./Wall";
 
-export const WallContainer = () => {
-  return (
-    <StoreContext.Consumer>
-      {(store) => {
-        const addPost = () => {
-          store.dispatch(addPostActionCreator());
-        };
-
-        const onPostChange = (text: string) => {
-          store.dispatch(updateNewPostTextActionCreator(text));
-        };
-
-        return (
-          <Wall
-            updateNewPostText={onPostChange}
-            addPost={addPost}
-            posts={store.getState().profileReducer.posts}
-          />
-        );
-      }}
-    </StoreContext.Consumer>
-  );
+const mapStateToProps = (state: any) => {
+  return {
+    posts: state.profileReducer.posts,
+  };
 };
+
+const mapDispatchToProps = (dispatch: any) => {
+  debugger;
+  return {
+    updateNewPostText: (text: string) => {
+      dispatch(updateNewPostTextActionCreator(text));
+    },
+    addPost: () => {
+      dispatch(addPostActionCreator());
+    },
+  };
+};
+
+export const WallContainer = connect(mapStateToProps, mapDispatchToProps)(Wall);
