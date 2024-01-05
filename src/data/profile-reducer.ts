@@ -19,25 +19,30 @@ let initialState = {
 
 const profileReducer = (state = initialState, action: actionsType) => {
   switch (action.type) {
-    case 'ADD-POST':
+    case 'ADD-POST': {
       let newPost = {
         id: 5,
         message: state.tempPostText,
         likesCount: 0,
       };
-      state.tempPostText !== '' ? state.posts.push(newPost) : alert('Empty post!');
+
+      let copyState = {...state};
+      copyState.posts = [...state.posts];
+
+      state.tempPostText !== '' ? copyState.posts.push(newPost) : alert('Empty post!');
 
       action.newText = '';
-    break;
+
+      return copyState;
+    }
     case 'UPDATE-NEW-POST-TEXT':
-      state.tempPostText = action.newText;
-    break;
+      let copyState = {...state};
+      copyState.tempPostText = action.newText;
+      return copyState;
 
     default:
-      console.log('Hello World!');
+      return state;
   }
-
-  return state;
 }
 
 const ADD_POST = "ADD-POST";
