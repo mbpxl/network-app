@@ -12,7 +12,6 @@ const mapStateToProps = (state: any) => {
 };
 
 const mapDispatchToProps = (dispatch: any) => {
-  debugger;
   return {
     updateNewPostText: (text: string) => {
       dispatch(updateNewPostTextActionCreator(text));

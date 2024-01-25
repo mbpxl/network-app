@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Actions.module.scss";
 
 export const Actions = () => {

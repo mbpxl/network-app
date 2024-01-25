@@ -1,14 +1,26 @@
+import React from "react";
 import { Searchbar } from "../Profile/Searchbar/Searchbar";
 import classes from "./Friends.module.scss";
 import { FriendsItem } from "./FriendsItem/FriendsItem";
 
 export const Friends = (props: any) => {
-  let friendsData = props.appState.friends;
+  const friendsData = props.friends;
 
-  let friendsItemElements = friendsData.map(
-    (friend: { id: any; name: any; avatar: any }) => {
+  const friendsItemElements = friendsData.map(
+    (f: {
+      fullname: string;
+      avatar: string;
+      id: number | string;
+      followed: boolean;
+    }) => {
       return (
-        <FriendsItem id={friend.id} name={friend.name} avatar={friend.avatar} />
+        <FriendsItem
+          id={f.id}
+          followed={f.followed}
+          avatar={f.avatar}
+          fullname={f.fullname}
+          toggleFollow={props.toggleFollow}
+        />
       );
     }
   );

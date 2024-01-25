@@ -1,8 +1,10 @@
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import { Navigation } from "./components/Navigation/Navigation";
 import { Profile } from "./components/Profile/Profile";
 import { Messages } from "./components/Messages/Messages";
+import { FriendsContainer } from "./components/Friends/FriendsContainer";
 //todo import { Friends } from "./components/Friends/Friends";
 
 const App = (props: any) => {
@@ -27,10 +29,7 @@ const App = (props: any) => {
                   />
                 }
               />
-              {/* <Route
-                path="/friends/*"
-                element={<Friends appState={props.state.friendsReducer} />}
-              /> */}
+              {<Route path="/friends/*" element={<FriendsContainer />} />}
             </Routes>
           </div>
         </div>
