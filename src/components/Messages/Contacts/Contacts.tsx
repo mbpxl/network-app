@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Contacts.module.scss";
 import { ContactItem } from "./ContactsItem/ContactsItem";
 

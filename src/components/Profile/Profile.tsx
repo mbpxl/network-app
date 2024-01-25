@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Profile.module.scss";
 import { Searchbar } from "./Searchbar/Searchbar";
 import { HeaderProfile } from "./HeaderProfile/HeaderProfile";

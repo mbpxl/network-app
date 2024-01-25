@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Searchbar.module.scss";
 import search from "../../../assets/img/profile/profile-search.svg";
 

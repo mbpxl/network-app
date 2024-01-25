@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
