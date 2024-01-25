@@ -6,7 +6,6 @@ import {
 import { Dialog } from "./Dialog";
 
 const mapStateToProps = (state: any) => {
-  debugger;
   return {
     dialogs: state.messagesReducer.dialogs,
   };

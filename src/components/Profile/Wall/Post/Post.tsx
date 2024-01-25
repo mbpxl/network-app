@@ -9,6 +9,7 @@ type propsType = {
 };
 
 export const Post = (props: propsType) => {
+  debugger;
   return (
     <div className={classes.post}>
       <div className={classes.post__header}>

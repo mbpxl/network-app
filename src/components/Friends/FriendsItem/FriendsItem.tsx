@@ -5,14 +5,30 @@ export const FriendsItem = (props: any) => {
     <div className={classes.friends_item}>
       <div className={classes.friends_item__content}>
         <div className={classes.friends_item__avatar}>
-          <img src={props.avatar} alt="ava" />
+          <img src={props.avatar} alt="avatar" />
         </div>
         <div className={classes.friends_item__context}>
           <div className={classes.friends_item__name}>
-            <h1>{props.name}</h1>
+            <h1>{props.fullname}</h1>
           </div>
           <div className={classes.friends_item__write}>
-            <button>Write message</button>
+            {props.followed ? (
+              <button
+                onClick={() => {
+                  props.toggleFollow(props.id);
+                }}
+              >
+                Unfollow
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  props.toggleFollow(props.id);
+                }}
+              >
+                Follow
+              </button>
+            )}
           </div>
         </div>
       </div>

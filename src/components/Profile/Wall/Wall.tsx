@@ -1,9 +1,11 @@
+import React from "react";
 import classes from "./Wall.module.scss";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
 import { useRef } from "react";
 
 export const Wall = (props: any) => {
+  debugger;
   let postData = props.posts; //? using in map() method
 
   let postElements = postData.map(
@@ -19,7 +21,6 @@ export const Wall = (props: any) => {
   let inputRef = useRef<HTMLTextAreaElement>(null);
   const onPostChange = () => {
     let text = inputRef.current?.value;
-    debugger;
     props.updateNewPostText(text);
   };
 

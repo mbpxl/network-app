@@ -15,39 +15,27 @@ let initialState = {
   contacts: [
     {
       id: 1,
-      name: "Faraz Tariq",
+      name: "Smith",
       lastMessage: "see you in friday",
       avatar: avatar1,
     },
     {
       id: 2,
-      name: "Ilya",
+      name: "Alexandr",
       lastMessage: "ok",
       avatar: avatar2,
     },
     {
       id: 3,
-      name: "Gena",
+      name: "Rone",
       lastMessage: "never mind",
       avatar: avatar3,
     },
     {
       id: 4,
-      name: "Masha",
+      name: "Ilya",
       lastMessage: "what?",
       avatar: avatar4,
-    },
-    {
-      id: 5,
-      name: "Kim",
-      lastMessage: "hi",
-      avatar: avatar5,
-    },
-    {
-      id: 6,
-      name: "Alina",
-      lastMessage: "later",
-      avatar: avatar6,
     },
   ],
   tempMessageText: '',

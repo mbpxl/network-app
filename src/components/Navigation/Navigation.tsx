@@ -1,4 +1,5 @@
 import classes from "./Navigation.module.scss";
+import React from "react";
 
 //? Importing icons for nabvar
 import logo from "../../assets/img/navbar/navbar-logo.png";

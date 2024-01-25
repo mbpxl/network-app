@@ -1,3 +1,4 @@
+import React from "react";
 import classes from "./HeaderProfile.module.scss";
 import avatar from "../../../assets/img/profile/profile-ava.png";
 import edit from "../../../assets/img/profile/profile-edit.svg";
