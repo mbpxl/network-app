@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch: any) => {
     toggleFollow: (id: number) => {
       dispatch(toggleFollow(id));
     },
-    setFriends: (friends: Array<any>) => {
+    setFriends: (friends: any) => {
       dispatch(setFriendsAC(friends));
     },
   };
