@@ -11,6 +11,9 @@ const initialState = {
 
 export const friendsReducer = (state = initialState, action: any) => {
   switch(action.type) {
+    case SET_FRIENDS:
+      return {...state, friends: [...state.friends, ...action.friends]};
+    
     case TOGGLE_FOLLOW:
       return {
         ...state,
@@ -21,9 +24,6 @@ export const friendsReducer = (state = initialState, action: any) => {
           return f;
         }),
       }
-    
-    case SET_FRIENDS:
-      return {...state, friends: [...state.friends, ...action.friends]};
     default:
       return state;
   }

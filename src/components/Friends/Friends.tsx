@@ -14,16 +14,15 @@ export const Friends = (props: any) => {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then((response) => {
-        debugger;
-        props.setFriends();
+        props.setFriends(response.data.items);
       });
   }
   const friendsData = props.friends;
 
   const friendsItemElements = friendsData.map(
     (f: {
-      fullname: string;
-      avatar: string;
+      name: string;
+      photos: string;
       id: number | string;
       followed: boolean;
     }) => {
@@ -31,8 +30,8 @@ export const Friends = (props: any) => {
         <FriendsItem
           id={f.id}
           followed={f.followed}
-          avatar={f.avatar}
-          fullname={f.fullname}
+          photos={f.photos}
+          name={f.name}
           toggleFollow={props.toggleFollow}
         />
       );

@@ -4,6 +4,12 @@
         margin-bottom: 2.5rem;
     }
 
+    &__avatar {
+        img {
+            width: 4rem;
+        }
+    }
+
     &__content {
         display: flex;
         align-items: center;
