@@ -1,3 +1,8 @@
+import avatar1 from "../../assets/img/messages/messages-pre1.png";
+import avatar2 from "../../assets/img/messages/messages-pre2.png";
+import avatar3 from "../../assets/img/messages/messages-pre3.png";
+import avatar4 from "../../assets/img/messages/messages-pre4.png";
+
 import React from "react";
 import { Searchbar } from "../Profile/Searchbar/Searchbar";
 import classes from "./Friends.module.scss";
@@ -9,11 +14,9 @@ export const Friends = (props: any) => {
     axios
       .get("https://social-network.samuraijs.com/api/1.0/users")
       .then((response) => {
-        console.log(response.data.items);
         props.setFriends(response.data.items);
       });
   }
-
   const friendsData = props.friends;
 
   const friendsItemElements = friendsData.map(

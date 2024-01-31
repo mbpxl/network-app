@@ -18,7 +18,6 @@ export const friendsReducer = (state = initialState, action: any) => {
       return {
         ...state,
         friends: state.friends.map((f: {id: number, followed: boolean}) => {
-          debugger;
           if(f.id === action.id) {
             return {...f, followed: !f.followed};
           }
