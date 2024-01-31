@@ -6,12 +6,7 @@ import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
 
 const initialState = {
-  friends: [
-    {id: 1, avatar: avatar1, followed: true, fullname: 'Smith', lastMessage: `bye`, locaton: {city: 'Los Angeles', country: 'USA'},},
-    {id: 2, avatar: avatar2, followed: false, fullname: 'Alexandr', lastMessage: `image`, locaton: {city: 'Berlin', country: 'Germany'},},
-    {id: 3, avatar: avatar3, followed: true, fullname: 'Rone', lastMessage: `good morning`, locaton: {city: 'London', country: 'England'},},
-    {id: 4, avatar: avatar4, followed: true, fullname: 'Ilya', lastMessage: `see you in friday`, locaton: {city: 'Saint-Petersbutg', country: 'Russia'},},
-  ]
+  friends: [],
 }
 
 export const friendsReducer = (state = initialState, action: any) => {
@@ -19,8 +14,7 @@ export const friendsReducer = (state = initialState, action: any) => {
     case TOGGLE_FOLLOW:
       return {
         ...state,
-        friends: state.friends.map(f => {
-          debugger;
+        friends: state.friends.map((f: {id: number, followed: boolean}) => {
           if(f.id === action.id) {
             return {...f, followed: !f.followed};
           }
