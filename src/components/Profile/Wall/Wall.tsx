@@ -5,7 +5,6 @@ import { Post } from "./Post/Post";
 import { useRef } from "react";
 
 export const Wall = (props: any) => {
-  debugger;
   let postData = props.posts; //? using in map() method
 
   let postElements = postData.map(
