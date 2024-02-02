@@ -1,3 +1,50 @@
 .friends {
     margin: 2.5rem 0 0 2.81rem;
 }
+
+.friends_item {
+    max-width: 30rem;
+    &:not(:last-child) {
+        margin-bottom: 2.5rem;
+    }
+
+    &__avatar {
+        img {
+            width: 4rem;
+        }
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.37rem;
+    }
+
+    &__context {
+        display: flex;
+        flex: 1 1 auto;
+        justify-content: space-between;
+    }
+
+    &__name {
+        margin-left: 0.94rem;
+        h1 {
+            color: #fff;
+            font-size: 1.5rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+        }
+    }
+
+    &__write {
+        button {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+            cursor: pointer;
+        }
+    }
+}
