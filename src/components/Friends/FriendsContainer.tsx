@@ -1,10 +1,18 @@
 import { connect } from "react-redux";
-import { Friends } from "./Friends";
-import { setFriendsAC, toggleFollow } from "../../data/friends-reducer";
+import { FriendsApiComponent } from "./FriendsApiComponent";
+import {
+  setCurrentPageAC,
+  setFriendsAC,
+  setUsersTotalCount,
+  toggleFollow,
+} from "../../data/friends-reducer";
 
 const mapStateToProps = (state: any) => {
   return {
     friends: state.friendsReducer.friends,
+    pageSize: state.friendsReducer.pageSize,
+    totalUserCount: state.friendsReducer.totalUserCount,
+    currentPage: state.friendsReducer.currentPage,
   };
 };
 
@@ -16,10 +24,16 @@ const mapDispatchToProps = (dispatch: any) => {
     setFriends: (friends: any) => {
       dispatch(setFriendsAC(friends));
     },
+    setCurrentPage: (pageNumber: number) => {
+      dispatch(setCurrentPageAC(pageNumber));
+    },
+    setTotalUsersCount: (totalCount: number) => {
+      dispatch(setUsersTotalCount(totalCount));
+    },
   };
 };
 
 export const FriendsContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Friends);
+)(FriendsApiComponent);
