@@ -12,7 +12,6 @@ export const Friends = (props: any) => {
   }
   return (
     <div className={classes.friends}>
-      <Searchbar />
       {pages.map((p: number) => {
         return (
           <span
