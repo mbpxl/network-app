@@ -10,6 +10,7 @@ const initialState = {
   pageSize: 5,
   totalUserCount: 0,
   currentPage: 1,
+  isFetching: false,
 }
 
 export const friendsReducer = (state = initialState, action: any) => {
@@ -33,6 +34,9 @@ export const friendsReducer = (state = initialState, action: any) => {
 
     case SET_USERS_TOTAL_COUNT:
       return {...state, totalUserCount: action.totalCount};
+
+    case TOGGLE_IS_FETCHING:
+      return {...state, isFetching: action.isFetching}  
     default:
       return state;
   }
@@ -50,3 +54,6 @@ export const setCurrentPageAC = (currentPage: number) => ({type: SET_CURRENT_PAG
 
 const SET_USERS_TOTAL_COUNT = "SET_USERS_TOTAL_COUNT";
 export const setUsersTotalCount = (totalCount: number) => ({type: SET_USERS_TOTAL_COUNT, totalCount}); //totalCount: totalCount
+
+const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
+export const setIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching});
