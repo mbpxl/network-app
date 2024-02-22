@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
 import { FriendsApiComponent } from "./FriendsApiComponent";
 import {
+  followUserAC,
   setCurrentPageAC,
   setFriendsAC,
   setIsFetchingAC,
   setUsersTotalCount,
   toggleFollow,
+  unfollowUserAC,
 } from "../../data/friends-reducer";
 
 const mapStateToProps = (state: any) => {
@@ -18,8 +20,14 @@ const mapStateToProps = (state: any) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: any) => {
+const mapDispatchToProps = (dispatch: Function) => {
   return {
+    followUser: (id: number) => {
+      dispatch(followUserAC(id));
+    },
+    unfollowUser: (id: number) => {
+      dispatch(unfollowUserAC(id));
+    },
     toggleFollow: (id: number) => {
       dispatch(toggleFollow(id));
     },

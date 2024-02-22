@@ -2,8 +2,14 @@ import React from "react";
 import classes from "./HeaderProfile.module.scss";
 import avatar from "../../../assets/img/profile/profile-ava.png";
 import edit from "../../../assets/img/profile/profile-edit.svg";
+import { Preloader } from "../../Preloader/Preloader";
+import empty_user from "../../../assets/img/friends/empty-user.svg";
 
-export const HeaderProfile = () => {
+export const HeaderProfile = (props: any) => {
+  if (!props.profile) {
+    return <Preloader />;
+  }
+
   return (
     <div className={classes.info}>
       <div className={classes.info__bg}>
@@ -29,15 +35,18 @@ export const HeaderProfile = () => {
           </a>
         </div>
         <div className={classes.bio__personal}>
-          <img src={avatar} alt="avatar" />
-          <h3>Edward Arcos</h3>
+          <img
+            src={
+              props.profile.photos.small != null
+                ? props.profile.photos.small
+                : empty_user
+            }
+            alt="avatar"
+          />
+          <h3>{props.profile.fullName}</h3>
           <h4>@arcos111</h4>
         </div>
-        <div className={classes.bio__status}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam
-          fugiat corporis enim! Quam laudantium, iure enim nihil odio
-          perferendis ipsa?
-        </div>
+        <div className={classes.bio__status}>{props.profile.aboutMe}</div>
       </div>
     </div>
   );

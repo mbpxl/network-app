@@ -20,13 +20,18 @@ type MyProps = {
   setTotalUsersCount: Function;
   isFetching: boolean;
   toggleIsFetching: Function;
+  followUser: Function;
+  unfollowUser: Function;
 };
 
 export class FriendsApiComponent extends React.Component<MyProps> {
   componentDidMount(): void {
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
         this.props.setFriends(response.data.items);
@@ -39,10 +44,12 @@ export class FriendsApiComponent extends React.Component<MyProps> {
     this.props.toggleIsFetching(true);
     axios
       .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`
+        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
+        {
+          withCredentials: true,
+        }
       )
       .then((response) => {
-        this.props.toggleIsFetching(false);
         this.props.toggleIsFetching(false);
         this.props.setFriends(response.data.items);
       });
@@ -51,12 +58,12 @@ export class FriendsApiComponent extends React.Component<MyProps> {
   render() {
     return (
       <div>
-        <div className={classes.friendsRender}>
-          <Searchbar />
-        </div>
+        <div className={classes.friendsRender}></div>
         {this.props.isFetching ? <Preloader /> : null}
         <Friends
           onPageChanged={this.onPageChanged}
+          followUser={this.props.followUser}
+          unfollowUser={this.props.unfollowUser}
           toggleFollow={this.props.toggleFollow}
           totalUserCount={this.props.totalUserCount}
           pageSize={this.props.pageSize}

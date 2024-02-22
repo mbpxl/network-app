@@ -15,11 +15,12 @@ let initialState = {
     },
   ],
   tempPostText: '',
+  profile: null,
 }
 
 const profileReducer = (state = initialState, action: actionsType) => {
   switch (action.type) {
-    case 'ADD-POST': {
+    case ADD_POST: {
       let newPost = {
         id: 5,
         message: state.tempPostText,
@@ -35,10 +36,11 @@ const profileReducer = (state = initialState, action: actionsType) => {
 
       return copyState;
     }
-    case 'UPDATE-NEW-POST-TEXT':
-      let copyState = {...state};
-      copyState.tempPostText = action.newText;
-      return copyState;
+    case UPDATE_NEW_POST_TEXT:
+      return {...state, tempPostText: action.newText};
+
+    case SET_USER_PROFILE:
+      return {...state, profile: action.profile};
 
     default:
       return state;
@@ -53,6 +55,9 @@ export const updateNewPostTextActionCreator = (text: string | undefined) => ({
   type: UPDATE_NEW_POST_TEXT,
   newText: text,
 });
+
+const SET_USER_PROFILE = "SET_USER_PROFILE";
+export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile});
 
 
 export default profileReducer;
