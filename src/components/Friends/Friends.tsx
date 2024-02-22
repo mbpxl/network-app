@@ -1,8 +1,9 @@
 import clsx from "clsx";
-import { Searchbar } from "../Profile/Searchbar/Searchbar";
 import classes from "./Friends.module.scss";
 import emty_user from "../../assets/img/friends/empty-user.svg";
 import { FriendsTypes } from "./FriendsTypes";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
 
 export const Friends = (props: any) => {
   let pagesCount = Math.ceil(props.totalUserCount / props.pageSize); // округляем в большую сторону
@@ -10,6 +11,7 @@ export const Friends = (props: any) => {
   for (let i = 1; i <= pagesCount; i++) {
     pages.push(i);
   }
+
   return (
     <div className={classes.friends}>
       {pages.map((p: number) => {
@@ -28,10 +30,12 @@ export const Friends = (props: any) => {
         <div className={classes.friends_item}>
           <div className={classes.friends_item__content}>
             <div className={classes.friends_item__avatar}>
-              <img
-                src={f.photos.small != null ? f.photos.small : emty_user}
-                alt="avatar"
-              />
+              <NavLink to={"/profile/" + f.id}>
+                <img
+                  src={f.photos.small != null ? f.photos.small : emty_user}
+                  alt="avatar"
+                />
+              </NavLink>
             </div>
             <div className={classes.friends_item__context}>
               <div className={classes.friends_item__name}>
@@ -41,7 +45,22 @@ export const Friends = (props: any) => {
                 {f.followed ? (
                   <button
                     onClick={() => {
-                      props.toggleFollow(f.id);
+                      console.log("POST request activate");
+                      axios
+                        .delete(
+                          `https://social-network.samuraijs.com/api/1.0/follow/${f.id}`,
+                          {
+                            withCredentials: true,
+                            headers: {
+                              "API-KEY": "35c71cbe-056d-4f3a-8b86-227cea546bb3",
+                            },
+                          }
+                        )
+                        .then((response) => {
+                          if (response.data.resultCode === 0) {
+                            props.unfollowUser(f.id);
+                          }
+                        });
                     }}
                   >
                     Unfollow
@@ -49,7 +68,23 @@ export const Friends = (props: any) => {
                 ) : (
                   <button
                     onClick={() => {
-                      props.toggleFollow(f.id);
+                      console.log("DELETE request activate");
+                      axios
+                        .post(
+                          `https://social-network.samuraijs.com/api/1.0/follow/${f.id}`,
+                          {},
+                          {
+                            withCredentials: true,
+                            headers: {
+                              "API-KEY": "35c71cbe-056d-4f3a-8b86-227cea546bb3",
+                            },
+                          }
+                        )
+                        .then((response) => {
+                          if (response.data.resultCode === 0) {
+                            props.followUser(f.id);
+                          }
+                        });
                     }}
                   >
                     Follow

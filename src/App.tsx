@@ -2,9 +2,11 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import { Navigation } from "./components/Navigation/Navigation";
-import { Profile } from "./components/Profile/Profile";
 import { Messages } from "./components/Messages/Messages";
 import { FriendsContainer } from "./components/Friends/FriendsContainer";
+import ProfileContainer from "./components/Profile/ProfileClassComponent";
+import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
+import LoginContainer from "./components/Login/LoginContainer";
 //todo import { Friends } from "./components/Friends/Friends";
 
 const App = (props: any) => {
@@ -16,11 +18,15 @@ const App = (props: any) => {
             <Navigation />
           </div>
           <div className={classes.Main}>
+            <div className={classes.top}>
+              <Searchbar />
+              <LoginContainer />
+            </div>
+
             <Routes>
-              <Route
-                path="/profile"
-                element={<Profile />} // store={props.store}
-              />
+              <Route path="/profile/:userId" element={<ProfileContainer />} />
+              <Route path="/profile" element={<ProfileContainer />} />
+              <Route />
               <Route
                 path="/messages/*"
                 element={

@@ -28,6 +28,28 @@ export const friendsReducer = (state = initialState, action: any) => {
           return f;
         }),
       }
+    
+    case FOLLOW_USER:
+      return {
+        ...state,
+        friends: state.friends.map((f: {id: number, followed: boolean}) => {
+          if(f.id === action.id) {
+            return {...f, followed: true};
+          }
+          return f;
+        })
+      }
+
+    case UNFOLLOW_USER:
+      return {
+        ...state,
+        friends: state.friends.map((f: {id: number, followed: boolean}) => {
+          if(f.id === action.id) {
+            return {...f, followed: false};
+          }
+          return f;
+        })
+      }
 
     case SET_CURRENT_PAGE:
       return {...state, currentPage: action.currentPage};
@@ -45,6 +67,13 @@ export const friendsReducer = (state = initialState, action: any) => {
 
 const TOGGLE_FOLLOW = "TOGGLE_FOLLOW";
 export const toggleFollow = (id: number) => ({type: TOGGLE_FOLLOW, id}); // id: id
+
+//*
+const FOLLOW_USER = "FOLLOW_USER";
+export const followUserAC = (id: number) => ({type: FOLLOW_USER, id});
+
+const UNFOLLOW_USER = "UNFOLLOW_USER";
+export const unfollowUserAC = (id: number) => ({type: UNFOLLOW_USER, id});
 
 const SET_FRIENDS = "SET_FRIENDS";
 export const setFriendsAC = (friends: any) => ({type: SET_FRIENDS, friends}); // friends: friends
