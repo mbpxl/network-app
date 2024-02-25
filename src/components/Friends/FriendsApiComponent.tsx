@@ -8,6 +8,7 @@ import { Friends } from "./Friends";
 import preloader from "../../assets/img/friends/preloader.svg";
 import { Preloader } from "../Preloader/Preloader";
 import classes from "./Friends.module.scss";
+import { friendsAPI } from "../../plugins/axios";
 
 type MyProps = {
   friends: Array<any>;
@@ -26,33 +27,21 @@ type MyProps = {
 
 export class FriendsApiComponent extends React.Component<MyProps> {
   componentDidMount(): void {
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.setFriends(response.data.items);
-        this.props.setTotalUsersCount(response.data.totalCount);
+    friendsAPI
+      .getFriends(this.props.currentPage, this.props.pageSize)
+      .then((data) => {
+        this.props.setFriends(data.items);
+        this.props.setTotalUsersCount(data.totalCount);
       });
   }
 
   onPageChanged = (pageNumber: number) => {
     this.props.setCurrentPage(pageNumber);
     this.props.toggleIsFetching(true);
-    axios
-      .get(
-        `https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((response) => {
-        this.props.toggleIsFetching(false);
-        this.props.setFriends(response.data.items);
-      });
+    friendsAPI.getFriends(pageNumber, this.props.pageSize).then((data) => {
+      this.props.toggleIsFetching(false);
+      this.props.setFriends(data.items);
+    });
   };
 
   render() {
