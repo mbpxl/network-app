@@ -3,26 +3,19 @@ import { Login } from "./Login";
 import axios from "axios";
 import { connect } from "react-redux";
 import { setUserDataAC } from "../../data/auth-reducer";
+import { loginAPI } from "../../plugins/axios";
 type myProps = {
   setUserData: Function;
 };
 
 export class LoginContainer extends React.Component<myProps> {
   componentDidMount(): void {
-    axios
-      .get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-        withCredentials: true,
-      })
-      .then((response) => {
-        if (response.data.resultCode === 0) {
-          //debugger;
-          this.props.setUserData(
-            response.data.data.id,
-            response.data.data.email,
-            response.data.data.login
-          );
-        }
-      });
+    loginAPI.getLoginData().then((data) => {
+      if (data.resultCode === 0) {
+        //debugger;
+        this.props.setUserData(data.data.id, data.data.email, data.data.login);
+      }
+    });
   }
 
   render() {
