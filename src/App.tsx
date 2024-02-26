@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import { Navigation } from "./components/Navigation/Navigation";
 import { Messages } from "./components/Messages/Messages";
-import ProfileContainer from "./components/Profile/ProfileClassComponent";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
 import LoginContainer from "./components/Login/LoginContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
