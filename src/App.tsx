@@ -36,6 +36,7 @@ const App = (props: any) => {
                 }
               />
               {<Route path="/friends/*" element={<FriendsContainer />} />}
+              <Route path="/login" element={<LoginContainer />} />
             </Routes>
           </div>
         </div>

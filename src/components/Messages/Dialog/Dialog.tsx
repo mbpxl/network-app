@@ -3,6 +3,7 @@ import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
 import { useRef } from "react";
+import { Navigate } from "react-router-dom";
 
 //======================================================================================================================================
 
@@ -24,6 +25,8 @@ export const Dialog = (props: any) => {
     const text = inputRef.current?.value;
     props.updateNewMessageText(text);
   };
+
+  if (!props.isAuth) return <Navigate to={"/login"} />;
 
   return (
     <div className={classes.dialog}>

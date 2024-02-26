@@ -2,12 +2,18 @@ import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import { getUserThunkCreator } from "../../data/profile-reducer";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 
 type MyProps = {
   profile: any;
   router: any;
   getUserThunk: Function;
+  isAuth: boolean;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -21,12 +27,15 @@ class ProfileContainer extends React.Component<MyProps> {
   }
 
   render() {
+    if (!this.props.isAuth) return <Navigate to={"/login"} />;
+
     return <Profile {...this.props} profile={this.props.profile} />;
   }
 }
 
 const mapStateToProps = (state: any) => ({
   profile: state.profileReducer.profile,
+  isAuth: state.authReducer.isAuth,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
