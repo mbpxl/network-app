@@ -44,8 +44,12 @@ export const Friends = (props: any) => {
               <div className={classes.friends_item__write}>
                 {f.followed ? (
                   <button
+                    disabled={props.followingInProgress.some(
+                      (id: number) => id === f.id
+                    )}
                     onClick={() => {
-                      console.log("POST request activate");
+                      console.log("DELETE request activate");
+                      props.toggleFollowingInProgress(true, f.id);
                       axios
                         .delete(
                           `https://social-network.samuraijs.com/api/1.0/follow/${f.id}`,
@@ -60,6 +64,7 @@ export const Friends = (props: any) => {
                           if (response.data.resultCode === 0) {
                             props.unfollowUser(f.id);
                           }
+                          props.toggleFollowingInProgress(false, f.id);
                         });
                     }}
                   >
@@ -67,8 +72,10 @@ export const Friends = (props: any) => {
                   </button>
                 ) : (
                   <button
+                    disabled={props.followingInProgress}
                     onClick={() => {
-                      console.log("DELETE request activate");
+                      console.log("POST request activate");
+                      props.toggleFollowingInProgress(true, f.id);
                       axios
                         .post(
                           `https://social-network.samuraijs.com/api/1.0/follow/${f.id}`,
@@ -84,6 +91,7 @@ export const Friends = (props: any) => {
                           if (response.data.resultCode === 0) {
                             props.followUser(f.id);
                           }
+                          props.toggleFollowingInProgress(false, f.id);
                         });
                     }}
                   >

@@ -20,3 +20,14 @@ export type FriendsTypes = {
   followed: Function,
   toggleFollow: Function,
 }
+
+export type FriendsStateToPropsType = {
+  friendsReducer: {
+    friends: Array<{name: string, id: number, photos: {small: null | string, large: null | string}, status: null | string, followed: boolean}>,
+    pageSize: number,
+    totalUserCount: number,
+    currentPage: number,
+    isFetching: boolean,
+    followingInProgress: boolean,
+  }
+}

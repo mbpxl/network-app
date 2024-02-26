@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import { Navigation } from "./components/Navigation/Navigation";
 import { Messages } from "./components/Messages/Messages";
-import { FriendsContainer } from "./components/Friends/FriendsContainer";
 import ProfileContainer from "./components/Profile/ProfileClassComponent";
 import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
 import LoginContainer from "./components/Login/LoginContainer";
+import FriendsContainer from "./components/Friends/FriendsContainer";
 //todo import { Friends } from "./components/Friends/Friends";
 
 const App = (props: any) => {
