@@ -1,3 +1,4 @@
+import { friendsAPI } from "../plugins/axios";
 
 const initialState = {
   friends: [],
@@ -73,3 +74,41 @@ export const setIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHI
 
 const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS";
 export const followingInProgressAC = (isFollowing: boolean, userId: number) => ({type: FOLLOWING_IN_PROGRESS, isFollowing, userId});
+
+
+export const getFriendsThunkCreator = (currentPage: number, pageSize: number) => {
+  return (dispatch: Function) => {
+    dispatch(setIsFetchingAC(true));
+      friendsAPI
+        .getFriends(currentPage, pageSize)
+        .then((data) => {
+          dispatch(setIsFetchingAC(false));
+          dispatch(setFriendsAC(data.items));
+          dispatch(setUsersTotalCount(data.totalCount));
+        });
+  }
+}
+
+export const getFollowingThunkCreator = (userId: number) => {
+  return (dispatch: Function) => {
+    dispatch(followingInProgressAC(true, userId));
+      friendsAPI.follow(userId).then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(followUserAC(userId));
+        }
+        dispatch(followingInProgressAC(false, userId));
+      });
+  }
+}
+
+export const getUnfollowingThunkCreator = (userId: number) => {
+  return (dispatch: Function) => {
+    dispatch(followingInProgressAC(true, userId));
+      friendsAPI.unfollow(userId).then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(unfollowUserAC(userId));
+        }
+        dispatch(followingInProgressAC(false, userId));
+      });
+  }
+}
