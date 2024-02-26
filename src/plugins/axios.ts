@@ -13,6 +13,16 @@ export const friendsAPI = {
     const response = await instance.get(
       `users?page=${currentPage}&count=${pageSize}`);
     return response.data;
+  },
+
+  async unfollow(userId: number) {
+    const response = await instance.delete(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`);
+    return response.data;
+  },
+
+  async follow(userId: number) {
+    const response = await instance.post(`https://social-network.samuraijs.com/api/1.0/follow/${userId}`);
+    return response.data;
   }
 }
 
