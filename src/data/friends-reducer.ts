@@ -1,9 +1,3 @@
-import avatar1 from "../assets/img/messages/messages-pre1.png"
-import avatar2 from "../assets/img/messages/messages-pre2.png"
-import avatar3 from "../assets/img/messages/messages-pre3.png"
-import avatar4 from "../assets/img/messages/messages-pre4.png"
-import avatar5 from "../assets/img/messages/messages-pre5.png"
-import avatar6 from "../assets/img/messages/messages-pre6.png"
 
 const initialState = {
   friends: [],
@@ -11,23 +5,13 @@ const initialState = {
   totalUserCount: 0,
   currentPage: 1,
   isFetching: false,
+  followingInProgress: [],
 }
 
 export const friendsReducer = (state = initialState, action: any) => {
   switch(action.type) {
     case SET_FRIENDS:
       return {...state, friends: [...action.friends]};
-    
-    case TOGGLE_FOLLOW:
-      return {
-        ...state,
-        friends: state.friends.map((f: {id: number, followed: boolean}) => {
-          if(f.id === action.id) {
-            return {...f, followed: !f.followed};
-          }
-          return f;
-        }),
-      }
     
     case FOLLOW_USER:
       return {
@@ -58,17 +42,17 @@ export const friendsReducer = (state = initialState, action: any) => {
       return {...state, totalUserCount: action.totalCount};
 
     case TOGGLE_IS_FETCHING:
-      return {...state, isFetching: action.isFetching}  
+      return {...state, isFetching: action.isFetching}
+
+    case FOLLOWING_IN_PROGRESS:
+      return {...state, followingInProgress: action.isFollowing
+      ? [...state.followingInProgress, action.userId]
+      : state.followingInProgress.filter((id: number) => id !== action.userId)}
     default:
       return state;
   }
 }
 
-
-const TOGGLE_FOLLOW = "TOGGLE_FOLLOW";
-export const toggleFollow = (id: number) => ({type: TOGGLE_FOLLOW, id}); // id: id
-
-//*
 const FOLLOW_USER = "FOLLOW_USER";
 export const followUserAC = (id: number) => ({type: FOLLOW_USER, id});
 
@@ -86,3 +70,6 @@ export const setUsersTotalCount = (totalCount: number) => ({type: SET_USERS_TOTA
 
 const TOGGLE_IS_FETCHING = "TOGGLE_IS_FETCHING";
 export const setIsFetchingAC = (isFetching: boolean) => ({type: TOGGLE_IS_FETCHING, isFetching});
+
+const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS";
+export const followingInProgressAC = (isFollowing: boolean, userId: number) => ({type: FOLLOWING_IN_PROGRESS, isFollowing, userId});
