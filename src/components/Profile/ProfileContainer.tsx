@@ -1,18 +1,13 @@
 import React from "react";
 import { Profile } from "./Profile";
-import axios from "axios";
 import { connect } from "react-redux";
-import { setUserProfileAC } from "../../data/profile-reducer";
+import { getUserThunkCreator } from "../../data/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { profileAPI } from "../../plugins/axios";
 
 type MyProps = {
-  setUserProfile: Function;
-  setTotalUsersCount: Function;
-  currentPage: number;
-  pageSize: number;
   profile: any;
   router: any;
+  getUserThunk: Function;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -22,13 +17,10 @@ class ProfileContainer extends React.Component<MyProps> {
 
     if (!userId) userId = 2;
 
-    profileAPI.getUser(userId).then((data) => {
-      this.props.setUserProfile(data);
-    });
+    this.props.getUserThunk(userId);
   }
 
   render() {
-    console.log(this.props.profile);
     return <Profile {...this.props} profile={this.props.profile} />;
   }
 }
@@ -38,8 +30,8 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
-  setUserProfile: (profile: any) => {
-    dispatch(setUserProfileAC(profile));
+  getUserThunk: (userId: number) => {
+    dispatch(getUserThunkCreator(userId));
   },
 });
 

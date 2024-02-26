@@ -1,3 +1,4 @@
+import { loginAPI } from "../plugins/axios";
 import { authTypes } from "./types";
 
 const initialState = {
@@ -29,3 +30,14 @@ export const setUserDataAC = (userId: authTypes, email: authTypes, login: authTy
   type: SET_USER_DATA, 
   data: {userId, email, login}
 });
+
+
+export const setUserDataThunkCreator = () => {
+  return (dispatch: Function) => {
+    loginAPI.getLoginData().then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login));
+      }
+    });
+  }
+}

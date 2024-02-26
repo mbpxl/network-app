@@ -1,3 +1,4 @@
+import { profileAPI } from "../plugins/axios";
 import { actionsType } from "./types";
 
 let initialState = {
@@ -59,5 +60,13 @@ export const updateNewPostTextActionCreator = (text: string | undefined) => ({
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile});
 
+
+export const getUserThunkCreator = (userId: number) => {
+  return (dispatch: Function) => {
+    profileAPI.getUser(userId).then((data) => {
+      dispatch(setUserProfileAC(data));
+    });
+  }
+}
 
 export default profileReducer;
