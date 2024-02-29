@@ -1,6 +1,5 @@
 import React from "react";
 import classes from "./Messages.module.scss";
-import { Searchbar } from "../Profile/Searchbar/Searchbar";
 import { Contacts } from "./Contacts/Contacts";
 import { DialogContainer } from "./Dialog/DialogContainer";
 

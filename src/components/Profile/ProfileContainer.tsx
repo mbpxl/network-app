@@ -2,12 +2,8 @@ import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import { getUserThunkCreator } from "../../data/profile-reducer";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 
 type MyProps = {
   profile: any;
@@ -27,15 +23,14 @@ class ProfileContainer extends React.Component<MyProps> {
   }
 
   render() {
-    if (!this.props.isAuth) return <Navigate to={"/login"} />;
-
     return <Profile {...this.props} profile={this.props.profile} />;
   }
 }
 
+const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
+
 const mapStateToProps = (state: any) => ({
   profile: state.profileReducer.profile,
-  isAuth: state.authReducer.isAuth,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -46,7 +41,7 @@ const mapDispatchToProps = (dispatch: any) => ({
 
 //* let withUrlDataContainerComponent = withRouter(ProfileContainer);
 
-function withRouter(Component: any) {
+function withRouter(Component: React.ComponentType<any>) {
   function ComponentWithRouterProp(props: any) {
     let location = useLocation();
     let navigate = useNavigate();
@@ -61,4 +56,4 @@ function withRouter(Component: any) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(withRouter(ProfileContainer));
+)(withRouter(AuthRedirectComponent));
