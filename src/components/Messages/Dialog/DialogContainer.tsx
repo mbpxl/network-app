@@ -4,11 +4,11 @@ import {
   updateNewMessageTextActionCreator,
 } from "../../../data/messages-reducer";
 import { Dialog } from "./Dialog";
+import { withAuthRedirect } from "../../HOC/WithAuthRedirect";
 
 const mapStateToProps = (state: any) => {
   return {
     dialogs: state.messagesReducer.dialogs,
-    isAuth: state.authReducer.isAuth,
   };
 };
 
@@ -23,7 +23,9 @@ const mapDispatchToProps = (dispatch: any) => {
   };
 };
 
+const AuthRedirectComponent = withAuthRedirect(Dialog);
+
 export const DialogContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(Dialog);
+)(AuthRedirectComponent);

@@ -7,7 +7,6 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
 import LoginContainer from "./components/Login/LoginContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
-//todo import { Friends } from "./components/Friends/Friends";
 
 const App = (props: any) => {
   return (
@@ -20,7 +19,6 @@ const App = (props: any) => {
           <div className={classes.Main}>
             <div className={classes.top}>
               <Searchbar />
-              <LoginContainer />
             </div>
 
             <Routes>
