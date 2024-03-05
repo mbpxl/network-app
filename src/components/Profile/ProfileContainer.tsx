@@ -1,7 +1,11 @@
 import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
-import { getUserThunkCreator } from "../../data/profile-reducer";
+import {
+  getUserThunkCreator,
+  setStatusThunkCreator,
+  updateStatusThunkCreator,
+} from "../../data/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 import { compose } from "redux";
@@ -10,7 +14,10 @@ type MyProps = {
   profile: any;
   router: any;
   getUserThunk: Function;
+  setStatusThunk: Function;
+  updateStatusThunk: Function;
   isAuth: boolean;
+  status: string;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -21,22 +28,35 @@ class ProfileContainer extends React.Component<MyProps> {
     if (!userId) userId = 2;
 
     this.props.getUserThunk(userId);
+    this.props.setStatusThunk(userId);
   }
 
   render() {
-    return <Profile {...this.props} profile={this.props.profile} />;
+    return (
+      <Profile
+        {...this.props}
+        profile={this.props.profile}
+        status={this.props.status}
+        updateStatus={this.props.updateStatusThunk}
+      />
+    );
   }
 }
 
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer);
-
 const mapStateToProps = (state: any) => ({
   profile: state.profileReducer.profile,
+  status: state.profileReducer.status,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
   getUserThunk: (userId: number) => {
     dispatch(getUserThunkCreator(userId));
+  },
+  setStatusThunk: (userID: number) => {
+    dispatch(setStatusThunkCreator(userID));
+  },
+  updateStatusThunk: (status: string) => {
+    dispatch(updateStatusThunkCreator(status));
   },
 });
 

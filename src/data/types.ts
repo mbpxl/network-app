@@ -5,6 +5,7 @@ export interface actionsType {
   profile: any,
   userId: number,
   posts: any,
+  status: string,
   friends: Array<{id: number | string, followed: boolean, fullName: string, status: string, location: {city: string, country: string}, newPost: string}>,
 }
 
