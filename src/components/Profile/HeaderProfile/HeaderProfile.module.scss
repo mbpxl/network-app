@@ -78,7 +78,7 @@
 
     &__personal {
         z-index: 5;
-        margin: -2.938rem 2.19rem 0 2.19rem;
+        margin: -2.938rem 2rem 0 2.19rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -106,9 +106,46 @@
         margin-top: 0.78rem;
         max-width: 17.9375rem;
         color: rgba(255, 255, 255, 0.6);
-        font-size: 0.6875rem;
+        //font-size: 0.6875rem;
         font-style: normal;
         font-weight: 400;
         line-height: 170%;
     }
+}
+
+.profile_status_edit {
+    display: flex;
+    gap: 1.33rem;
+    align-items: center;
+
+    &__input {
+        input {
+            height: 3rem;
+            width: 14rem;
+            padding: 0 0.4rem;
+            color: #fff;
+            background: #272932;
+            font-size: 0.9rem;
+        }
+    }
+
+    &__btn {
+        width: 2rem;
+        height: 2rem;
+        border-radius: 0.25rem;
+        background: linear-gradient(180deg, #7940cf 0%, #5921cb 100%);
+        display: flex;
+        justify-content: center;
+
+        button {
+            color: #fff;
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 170%;
+        }
+    }
+}
+
+.profile_status_stable {
+    cursor: pointer;
 }

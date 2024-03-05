@@ -1,9 +1,9 @@
 import React from "react";
 import classes from "./HeaderProfile.module.scss";
-import avatar from "../../../assets/img/profile/profile-ava.png";
 import edit from "../../../assets/img/profile/profile-edit.svg";
 import { Preloader } from "../../Preloader/Preloader";
 import empty_user from "../../../assets/img/friends/empty-user.svg";
+import { ProfileStatus } from "./ProfileStatus";
 
 export const HeaderProfile = (props: any) => {
   if (!props.profile) {
@@ -46,7 +46,9 @@ export const HeaderProfile = (props: any) => {
           <h3>{props.profile.fullName}</h3>
           <h4>@arcos111</h4>
         </div>
-        <div className={classes.bio__status}>{props.profile.aboutMe}</div>
+        <div className={classes.bio__status}>
+          <ProfileStatus status="I hate niggers" />
+        </div>
       </div>
     </div>
   );
