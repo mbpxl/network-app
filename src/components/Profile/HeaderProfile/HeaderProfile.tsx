@@ -47,7 +47,10 @@ export const HeaderProfile = (props: any) => {
           <h4>@arcos111</h4>
         </div>
         <div className={classes.bio__status}>
-          <ProfileStatus status="I hate niggers" />
+          <ProfileStatus
+            status={props.status}
+            updateStatus={props.updateStatus}
+          />
         </div>
       </div>
     </div>

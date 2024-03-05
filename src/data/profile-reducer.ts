@@ -17,6 +17,7 @@ let initialState = {
   ],
   tempPostText: '',
   profile: null,
+  status: '',
 }
 
 const profileReducer = (state = initialState, action: actionsType) => {
@@ -43,6 +44,9 @@ const profileReducer = (state = initialState, action: actionsType) => {
     case SET_USER_PROFILE:
       return {...state, profile: action.profile};
 
+    case SET_STATUS:
+      return {...state, status: action.status};
+
     default:
       return state;
   }
@@ -60,12 +64,33 @@ export const updateNewPostTextActionCreator = (text: string | undefined) => ({
 const SET_USER_PROFILE = "SET_USER_PROFILE";
 export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, profile});
 
+const SET_STATUS = "SET_STATUS";
+export const setStatusAC = (status: string) => ({type: SET_STATUS, status});
+
 
 export const getUserThunkCreator = (userId: number) => {
   return (dispatch: Function) => {
     profileAPI.getUser(userId).then((data) => {
       dispatch(setUserProfileAC(data));
     });
+  }
+}
+
+export const setStatusThunkCreator = (userID: number) => {
+  return (dispatch: Function) => {
+    profileAPI.getStatus(userID).then(data => {
+      dispatch(setStatusAC(data));
+    })
+  }
+}
+
+export const updateStatusThunkCreator = (status: string) => {
+  return (dispatch: Function) => {
+    profileAPI.updateStatus(status).then(response => {
+      if(response.data.resultCode === 0) {
+        dispatch(setStatusAC(status));
+      }
+    })
   }
 }
 
