@@ -1,9 +1,14 @@
 import React from "react";
 import { Login } from "./Login";
 import { connect } from "react-redux";
-import { setUserDataThunkCreator } from "../../data/auth-reducer";
+import {
+  loginThunkCreator,
+  setUserDataThunkCreator,
+} from "../../data/auth-reducer";
 type myProps = {
   setUserDataThunk: Function;
+  loginThunk: Function;
+  isAuth: boolean;
 };
 
 export class LoginContainer extends React.Component<myProps> {
@@ -12,7 +17,7 @@ export class LoginContainer extends React.Component<myProps> {
   }
 
   render() {
-    return <Login {...this.props} />;
+    return <Login login={this.props.loginThunk} isAuth={this.props.isAuth} />;
   }
 }
 
@@ -23,9 +28,12 @@ const mapStateToProps = (state: {
   login: state.authReducer.login,
 });
 
-const mapDispatchToProps = (dispatch: any) => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   setUserDataThunk: () => {
     dispatch(setUserDataThunkCreator());
+  },
+  loginThunk: (email: string, password: string, rememberMe: boolean) => {
+    dispatch(loginThunkCreator(email, password, rememberMe));
   },
 });
 

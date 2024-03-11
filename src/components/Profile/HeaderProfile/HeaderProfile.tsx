@@ -4,6 +4,7 @@ import edit from "../../../assets/img/profile/profile-edit.svg";
 import { Preloader } from "../../Preloader/Preloader";
 import empty_user from "../../../assets/img/friends/empty-user.svg";
 import { ProfileStatus } from "./ProfileStatus";
+import { ProfileStatusH } from "./ProfileStatusH";
 
 export const HeaderProfile = (props: any) => {
   if (!props.profile) {
@@ -47,7 +48,7 @@ export const HeaderProfile = (props: any) => {
           <h4>@arcos111</h4>
         </div>
         <div className={classes.bio__status}>
-          <ProfileStatus
+          <ProfileStatusH
             status={props.status}
             updateStatus={props.updateStatus}
           />
