@@ -10,8 +10,10 @@ import music from "../../assets/img/navbar/navbar-music.svg";
 import logout from "../../assets/img/navbar/navbar-logout.svg";
 import friends from "../../assets/img/friends/friends-icon.svg";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { logoutThunkCreator } from "../../data/auth-reducer";
 
-export const Navigation = () => {
+const Navigation = (props: { logout: Function }) => {
   return (
     <nav className={classes.nav}>
       <ul className={classes.nav__list}>
@@ -61,11 +63,28 @@ export const Navigation = () => {
           </NavLink>
         </li>
         <li className={classes.nav__item}>
-          <NavLink to="/logout" className={classes.nav__link}>
+          <button
+            className={classes.nav__link}
+            onClick={() => {
+              props.logout();
+            }}
+          >
             <img className={classes.nav__img} src={logout} alt="logout" />
-          </NavLink>
+          </button>
         </li>
       </ul>
     </nav>
   );
 };
+
+// const mapStateToProps = ({ddd});
+
+const mapDispatchToProps = (dispatch: Function) => {
+  return {
+    logout: () => {
+      dispatch(logoutThunkCreator());
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Navigation);

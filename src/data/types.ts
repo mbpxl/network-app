@@ -10,7 +10,7 @@ export interface actionsType {
 }
 
 export interface authTypes {
-  userId: number | string | null,
+  userId: string | null,
   email: string | null,
   login: string | null,
 }

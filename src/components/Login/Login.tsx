@@ -1,7 +1,10 @@
-export const Login = (props: any) => {
+import LoginForm from "./LoginForm";
+
+export const Login = (props: { login: Function; isAuth: boolean }) => {
   return (
     <div className="">
-      {props.isAuth ? "ГНУ ХЕР И ТРАХАЮ ТЁЛОК" : <button>LogIn</button>}
+      <h1>LOGIN</h1>
+      <LoginForm login={props.login} isAuth={props.isAuth} />
     </div>
   );
 };

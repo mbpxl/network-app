@@ -15,7 +15,6 @@ export const authReducer = (state = initialState, action: any) => {
       return {
         ...state,
         ...action.data,
-        isAuth: true
       }
     }
 
@@ -26,18 +25,38 @@ export const authReducer = (state = initialState, action: any) => {
 }
 
 const SET_USER_DATA = "SET_USER_DATA";
-export const setUserDataAC = (userId: authTypes, email: authTypes, login: authTypes) => ({
+export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
   type: SET_USER_DATA, 
-  data: {userId, email, login}
+  data: {userId, email, login, isAuth}
 });
 
 
 export const setUserDataThunkCreator = () => {
   return (dispatch: Function) => {
-    loginAPI.getLoginData().then((data) => {
+    loginAPI.getLoginData().then( (data) => {
       if (data.resultCode === 0) {
-        dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login));
+        dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
       }
     });
+  }
+}
+
+export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => {
+  return (dispatch: Function) => {
+    loginAPI.login(email, password, rememberMe).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(setUserDataThunkCreator())
+      }
+    })
+  }
+}
+
+export const logoutThunkCreator = () => {
+  return (dispatch: Function) => {
+    loginAPI.logout().then((data) => {
+      if(data.resultCode === 0) {
+        dispatch(setUserDataAC(null, null, null, false));
+      }
+    })
   }
 }

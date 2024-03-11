@@ -33,6 +33,16 @@ export const loginAPI = {
       `auth/me`
     );
     return response.data;
+  },
+
+  async login(email: string, password: string, rememberMe: boolean = false) {
+    const response = await instance.post(`auth/login`, { email, password, rememberMe });
+    return response.data;
+  },
+
+  async logout() {
+    const response = await instance.delete(`auth/login`);
+    return response.data;
   }
 }
 
@@ -50,6 +60,6 @@ export const profileAPI = {
   },
 
   updateStatus(status: string) {
-    return instance.put(`profile/status/`, {status: status}) //* correctly: status
+    return instance.put(`profile/status/`, {status}) //* correctly: status
   }
 }
