@@ -2,11 +2,12 @@ import { friendsAPI } from "../plugins/axios";
 
 const initialState = {
   friends: [],
-  pageSize: 5,
+  pageSize: 8,
   totalUserCount: 0,
   currentPage: 1,
   isFetching: false,
   followingInProgress: [],
+  portionSize: 10,
 }
 
 export const friendsReducer = (state = initialState, action: any) => {

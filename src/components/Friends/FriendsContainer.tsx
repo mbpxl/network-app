@@ -34,6 +34,7 @@ type MyProps = {
   getFriendsThunk: Function;
   getFollowingThunk: Function;
   getUnfollowingThunk: Function;
+  portionSize: number;
 };
 
 class FriendsContainer extends React.Component<MyProps> {
@@ -64,7 +65,7 @@ class FriendsContainer extends React.Component<MyProps> {
           followingInProgress={this.props.followingInProgress}
           getFollowingThunk={this.props.getFollowingThunk}
           getUnfollowingThunk={this.props.getUnfollowingThunk}
-          portionSize={10}
+          portionSize={this.props.portionSize}
         />
       </div>
     );
@@ -79,6 +80,7 @@ const mapStateToProps = (state: FriendsStateToPropsType) => {
     currentPage: state.friendsReducer.currentPage,
     isFetching: state.friendsReducer.isFetching,
     followingInProgress: state.friendsReducer.followingInProgress,
+    portionSize: state.friendsReducer.portionSize,
   };
 };
 

@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import classes from "./Paginator.module.scss";
 import { useState } from "react";
+import arrow from "../../assets/img/paginator/arrow-right.svg";
 
 export const Paginator = (props: {
   totalItemsCount: number;
@@ -21,42 +22,48 @@ export const Paginator = (props: {
   let rightPortionPageNumber = portionNumber * props.portionSize;
 
   return (
-    <div className="">
-      {portionNumber > 1 && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber - 1);
-          }}
-        >
-          PREV
-        </button>
-      )}
-      {pages
-        .filter(
-          (p: number) =>
-            p >= leftPortionPageNumber && p <= rightPortionPageNumber
-        )
-        .map((p: number) => {
-          return (
-            <span
-              onClick={(e: React.MouseEvent<HTMLElement>) => {
-                props.onPageChanged(p);
-              }}
-              className={clsx(props.currentPage === p && classes.selectedPage)}
-            >
-              {p + "\n"}
-            </span>
-          );
-        })}
-      {portionCount > portionNumber && (
-        <button
-          onClick={() => {
-            setPortionNumber(portionNumber + 1);
-          }}
-        >
-          NEXT
-        </button>
-      )}
+    <div className={classes.paginator}>
+      <div className={classes.paginator__content}>
+        {portionNumber > 1 && (
+          <button
+            onClick={() => {
+              setPortionNumber(portionNumber - 1);
+            }}
+            className={classes.paginator__prev}
+          >
+            <img src={arrow} alt="arrow" />
+          </button>
+        )}
+        {pages
+          .filter(
+            (p: number) =>
+              p >= leftPortionPageNumber && p <= rightPortionPageNumber
+          )
+          .map((p: number) => {
+            return (
+              <span
+                onClick={() => {
+                  props.onPageChanged(p);
+                }}
+                className={clsx(
+                  props.currentPage === p && classes.selectedPage
+                )}
+              >
+                {p + "\n"}
+              </span>
+            );
+          })}
+        {portionCount > portionNumber && (
+          <button
+            onClick={() => {
+              setPortionNumber(portionNumber + 1);
+            }}
+            className={classes.paginator__next}
+          >
+            <img src={arrow} alt="arrow" />
+          </button>
+        )}
+      </div>
     </div>
   );
 };
