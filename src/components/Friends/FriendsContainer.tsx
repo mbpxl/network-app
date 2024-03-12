@@ -47,14 +47,16 @@ class FriendsContainer extends React.Component<MyProps> {
 
   render() {
     return (
-      <div>
-        <div className={classes.friendsRender}></div>
-        {this.props.isFetching ? <Preloader /> : null}
+      <div className={classes.friendsMain}>
+        {/* <div className={classes.friendsRender}></div> */}
+        <div className={classes.friendsLoader}>
+          {this.props.isFetching ? <Preloader /> : null}
+        </div>
         <Friends
           onPageChanged={this.onPageChanged}
           followUser={this.props.followUser}
           unfollowUser={this.props.unfollowUser}
-          totalUserCount={this.props.totalUserCount}
+          totalItemsCount={this.props.totalUserCount}
           pageSize={this.props.pageSize}
           currentPage={this.props.currentPage}
           friends={this.props.friends}
@@ -62,6 +64,7 @@ class FriendsContainer extends React.Component<MyProps> {
           followingInProgress={this.props.followingInProgress}
           getFollowingThunk={this.props.getFollowingThunk}
           getUnfollowingThunk={this.props.getUnfollowingThunk}
+          portionSize={10}
         />
       </div>
     );

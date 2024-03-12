@@ -1,32 +1,25 @@
-import clsx from "clsx";
 import classes from "./Friends.module.scss";
 import emty_user from "../../assets/img/friends/empty-user.svg";
 import { FriendsTypes } from "./FriendsTypes";
 import { NavLink } from "react-router-dom";
-import axios from "axios";
-import { friendsAPI } from "../../plugins/axios";
+import { Paginator } from "../Paginator/Paginator";
 
 export const Friends = (props: any) => {
-  let pagesCount = Math.ceil(props.totalUserCount / props.pageSize); // округляем в большую сторону
-  let pages = [];
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i);
-  }
+  // let pagesCount = Math.ceil(props.totalUserCount / props.pageSize); // округляем в большую сторону
+  // let pages = [];
+  // for (let i = 1; i <= pagesCount; i++) {
+  //   pages.push(i);
+  // }
 
   return (
     <div className={classes.friends}>
-      {pages.map((p: number) => {
-        return (
-          <span
-            onClick={(e: React.MouseEvent<HTMLElement>) => {
-              props.onPageChanged(p);
-            }}
-            className={clsx(props.currentPage === p && classes.selectedPage)}
-          >
-            {p + "\n"}
-          </span>
-        );
-      })}
+      <Paginator
+        totalItemsCount={props.totalItemsCount}
+        pageSize={props.pageSize}
+        portionSize={props.portionSize}
+        onPageChanged={props.onPageChanged}
+        currentPage={props.currentPage}
+      />
       {props.friends.map((f: FriendsTypes) => (
         <div className={classes.friends_item}>
           <div className={classes.friends_item__content}>

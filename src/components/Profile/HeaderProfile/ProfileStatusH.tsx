@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./HeaderProfile.module.scss";
 
 export const ProfileStatusH = (props: {
@@ -7,6 +7,10 @@ export const ProfileStatusH = (props: {
 }) => {
   let [editMode, setEditMode] = useState(false);
   let [status, setStatus] = useState(props.status);
+
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
 
   const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.currentTarget.value);
