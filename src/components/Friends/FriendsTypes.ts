@@ -29,5 +29,6 @@ export type FriendsStateToPropsType = {
     currentPage: number,
     isFetching: boolean,
     followingInProgress: boolean,
+    portionSize: number,
   }
 }

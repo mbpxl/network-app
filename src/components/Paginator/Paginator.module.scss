@@ -1,3 +1,30 @@
+.paginator {
+    &:not(:last-child) {
+        margin-bottom: 2rem;
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        gap: 1.87rem;
+    }
+
+    &__prev {
+        img {
+            width: 1.66rem;
+            height: 1.66rem;
+            transform: rotate(180deg);
+        }
+    }
+
+    &__next {
+        img {
+            width: 1.66rem;
+            height: 1.66rem;
+        }
+    }
+}
+
 .selectedPage {
     font-weight: 700;
     font-size: 1.2rem;
