@@ -35,6 +35,22 @@
             opacity: 0.45;
         }
     }
+
+    &__bg_btn {
+        position: relative;
+    }
+}
+
+input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    color: transparent;
+
+    &:hover {
+        opacity: 0;
+    }
 }
 
 .bio {
@@ -100,6 +116,11 @@
             font-weight: 400;
             line-height: 170%;
         }
+    }
+
+    &__avatar {
+        width: 100px;
+        height: 100px;
     }
 
     &__status {

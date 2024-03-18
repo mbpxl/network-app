@@ -1,5 +1,4 @@
 import { loginAPI } from "../plugins/axios";
-import { authTypes } from "./types";
 
 const initialState = {
   userId: null,

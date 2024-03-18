@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import {
   getUserThunkCreator,
   setStatusThunkCreator,
+  updatePhotoThunkCreator,
   updateStatusThunkCreator,
 } from "../../data/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -18,11 +19,11 @@ type MyProps = {
   updateStatusThunk: Function;
   isAuth: boolean;
   status: string;
+  updatePhoto: Function;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
-  // store={props.store}
-  componentDidMount(): void {
+  refreshProfile(): void {
     let userId = this.props.router.params.userId;
 
     if (!userId) userId = 2;
@@ -31,18 +32,32 @@ class ProfileContainer extends React.Component<MyProps> {
     this.props.setStatusThunk(userId);
   }
 
+  componentDidMount(): void {
+    this.refreshProfile();
+  }
+
+  componentDidUpdate(
+    prevProps: Readonly<MyProps>,
+    prevState: Readonly<{}>,
+    snapshot?: any
+  ): void {
+    if (this.props.router.params.userId !== prevProps.router.params.userId) {
+      this.refreshProfile();
+    }
+  }
+
   render() {
     return (
       <Profile
-        {...this.props}
+        isOwner={!this.props.router.params.userId}
         profile={this.props.profile}
         status={this.props.status}
         updateStatus={this.props.updateStatusThunk}
+        updatePhoto={this.props.updatePhoto}
       />
     );
   }
 }
-
 const mapStateToProps = (state: any) => ({
   profile: state.profileReducer.profile,
   status: state.profileReducer.status,
@@ -57,6 +72,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   updateStatusThunk: (status: string) => {
     dispatch(updateStatusThunkCreator(status));
+  },
+  updatePhoto: (photo: any) => {
+    dispatch(updatePhotoThunkCreator(photo));
   },
 });
 

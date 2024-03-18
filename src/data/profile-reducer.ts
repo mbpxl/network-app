@@ -1,5 +1,5 @@
 import { profileAPI } from "../plugins/axios";
-import { actionsType } from "./types";
+import { ProfileType, actionsType } from "./types";
 
 let initialState = {
   posts: [
@@ -16,7 +16,7 @@ let initialState = {
     },
   ],
   tempPostText: '',
-  profile: null,
+  profile: null as unknown as ProfileType,
   status: '',
 }
 
@@ -47,6 +47,10 @@ const profileReducer = (state = initialState, action: actionsType) => {
     case SET_STATUS:
       return {...state, status: action.status};
 
+    case SAVE_PHOTO_SUCCESS:
+      debugger;
+      return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
+
     default:
       return state;
   }
@@ -66,6 +70,9 @@ export const setUserProfileAC = (profile: any) => ({type: SET_USER_PROFILE, prof
 
 const SET_STATUS = "SET_STATUS";
 export const setStatusAC = (status: string) => ({type: SET_STATUS, status});
+
+const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
+export const savePhotoAC = (photos: any) => ({type: SAVE_PHOTO_SUCCESS, photos});
 
 
 export const getUserThunkCreator = (userId: number) => {
@@ -91,6 +98,15 @@ export const updateStatusThunkCreator = (status: string) => {
         dispatch(setStatusAC(status));
       }
     })
+  }
+}
+
+export const updatePhotoThunkCreator = (file: any) => {
+  return async (dispatch: Function) => {
+    let response = await profileAPI.savePhoto(file);
+    if(response.data.resultCode === 0) {
+      dispatch(savePhotoAC(response.data.data.photos));
+    }
   }
 }
 
