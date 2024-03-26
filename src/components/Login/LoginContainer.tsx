@@ -13,10 +13,6 @@ type myProps = {
 };
 
 export class LoginContainer extends React.Component<myProps> {
-  componentDidMount(): void {
-    this.props.setUserDataThunk();
-  }
-
   render() {
     console.log(this.props.captchaUrl);
     return (
