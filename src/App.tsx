@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import Navigation from "./components/Navigation/Navigation";
@@ -7,8 +7,18 @@ import ProfileContainer from "./components/Profile/ProfileContainer";
 import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
 import LoginContainer from "./components/Login/LoginContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
+import { connect } from "react-redux";
+import { initializeAppThunkCreator } from "./data/app-reducer";
+import { Preloader } from "./components/Preloader/Preloader";
 
 const App = (props: any) => {
+  useEffect(() => {
+    props.initializeApp();
+  });
+
+  if (!props.initialized) {
+    return <Preloader />;
+  }
   return (
     <BrowserRouter>
       <div className={classes.container}>
@@ -43,4 +53,13 @@ const App = (props: any) => {
   );
 };
 
-export default App;
+const mapStateToProps = (state: any) => ({
+  initialized: state.appReducer.initialized,
+});
+
+const mapDispatchToProps = (dispatch: Function) => ({
+  initializeApp: () => {
+    dispatch(initializeAppThunkCreator());
+  },
+});
+export default connect(mapStateToProps, mapDispatchToProps)(App);

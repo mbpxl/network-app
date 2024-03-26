@@ -8,10 +8,14 @@ import {
   updateProfileThunkCreator,
   updateStatusThunkCreator,
 } from "../../data/profile-reducer";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 import { compose } from "redux";
-import { ProfileType } from "../../data/types";
 
 type MyProps = {
   profile: any;
@@ -29,7 +33,9 @@ class ProfileContainer extends React.Component<MyProps> {
   refreshProfile(): void {
     let userId = this.props.router.params.userId;
 
-    if (!userId) userId = 2;
+    if (!userId) {
+      userId = 2;
+    }
 
     this.props.getUserThunk(userId);
     this.props.setStatusThunk(userId);

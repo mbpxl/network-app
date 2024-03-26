@@ -38,12 +38,11 @@ const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
 export const getCaptchaUrlSuccessAC = (url: string) => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
 
 export const setUserDataThunkCreator = () => {
-  return (dispatch: Function) => {
-    loginAPI.getLoginData().then( (data) => {
-      if (data.resultCode === 0) {
-        dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
-      }
-    });
+  return async (dispatch: Function) => {
+    const data = await loginAPI.getLoginData();
+    if (data.resultCode === 0) {
+      dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
+    }
   }
 }
 
