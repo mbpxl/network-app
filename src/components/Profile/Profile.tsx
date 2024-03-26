@@ -13,6 +13,7 @@ export const Profile = (props: any) => {
         status={props.status}
         updateStatus={props.updateStatus}
         updatePhoto={props.updatePhoto}
+        updateProfile={props.updateProfile}
       />
       <Actions />
       <WallContainer />

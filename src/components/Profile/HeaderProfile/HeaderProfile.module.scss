@@ -39,6 +39,34 @@
     &__bg_btn {
         position: relative;
     }
+
+    &__popup {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        left: 86.842%;
+        top: 4.2222rem;
+        transform: translateY(-10px);
+        visibility: hidden;
+        opacity: 0;
+        transition: all 0.3s ease 0s;
+
+        &_active {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        &_item {
+            &:not(:last-child) {
+                margin-bottom: 1rem;
+            }
+        }
+
+        &_photo label {
+            cursor: pointer;
+        }
+    }
 }
 
 input[type="file"] {

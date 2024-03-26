@@ -9,6 +9,7 @@ type myProps = {
   setUserDataThunk: Function;
   loginThunk: Function;
   isAuth: boolean;
+  captchaUrl: string;
 };
 
 export class LoginContainer extends React.Component<myProps> {
@@ -17,17 +18,24 @@ export class LoginContainer extends React.Component<myProps> {
   }
 
   render() {
-    return <Login login={this.props.loginThunk} isAuth={this.props.isAuth} />;
+    console.log(this.props.captchaUrl);
+    return (
+      <Login
+        login={this.props.loginThunk}
+        isAuth={this.props.isAuth}
+        captchaUrl={this.props.captchaUrl}
+      />
+    );
   }
 }
 
 const mapStateToProps = (state: {
-  authReducer: { isAuth: boolean; login: string };
+  authReducer: { isAuth: boolean; login: string; captchaUrl: string };
 }) => ({
+  captchaUrl: state.authReducer.captchaUrl,
   isAuth: state.authReducer.isAuth,
   login: state.authReducer.login,
 });
-
 const mapDispatchToProps = (dispatch: Function) => ({
   setUserDataThunk: () => {
     dispatch(setUserDataThunkCreator());

@@ -5,11 +5,13 @@ import {
   getUserThunkCreator,
   setStatusThunkCreator,
   updatePhotoThunkCreator,
+  updateProfileThunkCreator,
   updateStatusThunkCreator,
 } from "../../data/profile-reducer";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 import { compose } from "redux";
+import { ProfileType } from "../../data/types";
 
 type MyProps = {
   profile: any;
@@ -20,6 +22,7 @@ type MyProps = {
   isAuth: boolean;
   status: string;
   updatePhoto: Function;
+  updateProfile: Function;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -54,6 +57,7 @@ class ProfileContainer extends React.Component<MyProps> {
         status={this.props.status}
         updateStatus={this.props.updateStatusThunk}
         updatePhoto={this.props.updatePhoto}
+        updateProfile={this.props.updateProfile}
       />
     );
   }
@@ -75,6 +79,9 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   updatePhoto: (photo: any) => {
     dispatch(updatePhotoThunkCreator(photo));
+  },
+  updateProfile: (fullName: string) => {
+    dispatch(updateProfileThunkCreator(fullName));
   },
 });
 

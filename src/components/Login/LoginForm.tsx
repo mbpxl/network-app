@@ -6,7 +6,12 @@ const loginFormValidation = (values: any) => {
   return errors;
 };
 
-const LoginForm = (props: { login: Function; isAuth: boolean }) => {
+const LoginForm = (props: {
+  login: Function;
+  isAuth: boolean;
+  captchaUrl: string;
+}) => {
+  console.log(props.captchaUrl);
   const submit = (
     values: { email: string; password: string },
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
