@@ -1,4 +1,4 @@
-import { loginAPI } from "../plugins/axios";
+import { loginAPI, securityAPI } from "../plugins/axios";
 
 const initialState = {
   userId: null,
@@ -6,6 +6,7 @@ const initialState = {
   login: null,
   isFetching: false,
   isAuth: false,
+  captchaUrl: null,
 }
 
 export const authReducer = (state = initialState, action: any) => {
@@ -15,6 +16,10 @@ export const authReducer = (state = initialState, action: any) => {
         ...state,
         ...action.data,
       }
+    }
+
+    case GET_CAPTCHA_URL_SUCCESS: {
+      return {...state, ...action.payload}
     }
 
     default: {
@@ -29,6 +34,8 @@ export const setUserDataAC = (userId: number | null, email: string | null, login
   data: {userId, email, login, isAuth}
 });
 
+const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
+export const getCaptchaUrlSuccessAC = (url: string) => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
 
 export const setUserDataThunkCreator = () => {
   return (dispatch: Function) => {
@@ -45,6 +52,8 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
     loginAPI.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataThunkCreator())
+      } else if (data.resultCode === 10) {
+        dispatch(getCaptchaUrlThunkCreator());
       }
     })
   }
@@ -57,5 +66,13 @@ export const logoutThunkCreator = () => {
         dispatch(setUserDataAC(null, null, null, false));
       }
     })
+  }
+}
+
+export const getCaptchaUrlThunkCreator = () => {
+  return async (dispatch: Function) => {
+    let response = await securityAPI.getCaptchaUrl();
+    const captchaUrl = response.data.url;
+    dispatch(getCaptchaUrlSuccessAC(captchaUrl));
   }
 }

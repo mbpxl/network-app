@@ -1,4 +1,5 @@
 //* Legacy way to use redux
+//todo: addTask: (taskTitle: string) => void,
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
 import profileReducer from "./profile-reducer";

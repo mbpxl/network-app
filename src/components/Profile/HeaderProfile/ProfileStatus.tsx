@@ -1,73 +1,50 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./HeaderProfile.module.scss";
 
-type myProps = {
+export const ProfileStatus = (props: {
   status: string;
   updateStatus: Function;
+}) => {
+  let [editMode, setEditMode] = useState(false);
+  let [status, setStatus] = useState(props.status);
+
+  useEffect(() => {
+    setStatus(props.status);
+  }, [props.status]);
+
+  const onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStatus(e.currentTarget.value);
+  };
+
+  return (
+    <div className={classes.status}>
+      {editMode ? (
+        <div className={classes.profile_status_edit}>
+          <div className={classes.profile_status_edit__input}>
+            <input type="text" onChange={onStatusChange} value={status} />
+          </div>
+          <div className={classes.profile_status_edit__btn}>
+            <button
+              onClick={() => {
+                setEditMode(false);
+                props.updateStatus(status);
+              }}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className={classes.profile_status_stable}>
+          <span
+            onDoubleClick={() => {
+              setEditMode(true);
+            }}
+          >
+            {props.status || "---"}
+          </span>
+        </div>
+      )}
+    </div>
+  );
 };
-
-export class ProfileStatus extends React.Component<myProps> {
-  state = {
-    editMode: false,
-    status: this.props.status,
-  };
-
-  onActivateEditMode = () => {
-    this.setState({
-      editMode: true,
-    });
-    //* this.forceUpdate();
-  };
-
-  onDeactivateEditMode = () => {
-    this.setState({
-      editMode: false,
-    });
-    this.props.updateStatus(this.state.status);
-  };
-
-  onStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({
-      status: e.currentTarget.value,
-    });
-  };
-
-  componentDidUpdate(
-    prevProps: Readonly<myProps>,
-    prevState: Readonly<{}>,
-    snapshot?: any
-  ): void {
-    if (prevProps.status !== this.props.status) {
-      this.setState({ status: this.props.status });
-    }
-
-    console.log("UPDATED");
-  }
-
-  render() {
-    return (
-      <div className={classes.status}>
-        {this.state.editMode ? (
-          <div className={classes.profile_status_edit}>
-            <div className={classes.profile_status_edit__input}>
-              <input
-                value={this.state.status}
-                type="text"
-                onChange={this.onStatusChange}
-              />
-            </div>
-            <div className={classes.profile_status_edit__btn}>
-              <button onClick={this.onDeactivateEditMode}>OK</button>
-            </div>
-          </div>
-        ) : (
-          <div className={classes.profile_status_stable}>
-            <span onDoubleClick={this.onActivateEditMode}>
-              {this.props.status || "---"}
-            </span>
-          </div>
-        )}
-      </div>
-    );
-  }
-}

@@ -32,7 +32,7 @@ const profileReducer = (state = initialState, action: actionsType) => {
       let copyState = {...state};
       copyState.posts = [...state.posts];
 
-      state.tempPostText !== '' ? copyState.posts.push(newPost) : alert('Empty post!');
+      state.tempPostText !== '' ? copyState.posts.unshift(newPost) : alert('Empty post!');
 
       action.newText = '';
 
@@ -48,8 +48,10 @@ const profileReducer = (state = initialState, action: actionsType) => {
       return {...state, status: action.status};
 
     case SAVE_PHOTO_SUCCESS:
-      debugger;
       return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
+
+    case UPDATE_PROFILE_INFO:
+      return {...state, profile: {...state.profile, fullName: action.fullName }}
 
     default:
       return state;
@@ -73,6 +75,9 @@ export const setStatusAC = (status: string) => ({type: SET_STATUS, status});
 
 const SAVE_PHOTO_SUCCESS = "SAVE_PHOTO_SUCCESS";
 export const savePhotoAC = (photos: any) => ({type: SAVE_PHOTO_SUCCESS, photos});
+
+const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
+export const updateProfileInfoAC = (fullName: string) => ({type: UPDATE_PROFILE_INFO, fullName});
 
 
 export const getUserThunkCreator = (userId: number) => {
@@ -106,6 +111,16 @@ export const updatePhotoThunkCreator = (file: any) => {
     let response = await profileAPI.savePhoto(file);
     if(response.data.resultCode === 0) {
       dispatch(savePhotoAC(response.data.data.photos));
+    }
+  }
+}
+
+export const updateProfileThunkCreator = (fullName: string) => {
+  return async (dispatch: Function, getState: Function) => {
+    const userId = getState().authReducer.userId
+    let response = await profileAPI.updateProfile(fullName);
+    if(response.data.resultCode === 0) {
+      dispatch(getUserThunkCreator(userId));
     }
   }
 }
