@@ -15,7 +15,6 @@ export const HeaderProfile = (props: any) => {
 
   const onSelectedAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
-      console.log("Photo loaded... ...");
       props.updatePhoto(e.target.files[0]);
     }
   };

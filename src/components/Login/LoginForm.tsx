@@ -11,14 +11,11 @@ const LoginForm = (props: {
   isAuth: boolean;
   captchaUrl: string;
 }) => {
-  console.log(props.captchaUrl);
   const submit = (
     values: { email: string; password: string },
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     setTimeout(() => {
-      console.log(values.email, values.password);
-      console.log(JSON.stringify(values, null, 2));
       props.login(values.email, values.password);
       setSubmitting(false);
     }, 400);

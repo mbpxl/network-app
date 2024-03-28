@@ -6,7 +6,6 @@ export const ProfileDataForm = (props: any) => {
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     setTimeout(() => {
-      console.log(JSON.stringify(values, null, 1));
       props.updateProfile(values);
       setSubmitting(false);
     }, 400);

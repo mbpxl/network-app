@@ -5,7 +5,6 @@ export const Login = (props: {
   isAuth: boolean;
   captchaUrl: string;
 }) => {
-  console.log(props.captchaUrl);
   return (
     <div className="">
       <h1>LOGIN</h1>
