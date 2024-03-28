@@ -43,7 +43,6 @@ export const setInitializedAC = () => ({type: SET_INITIALIZED})
 export const initializeAppThunkCreator = () => {
   return (dispatch: Function) => {
     let promise = dispatch(setUserDataThunkCreator());
-    debugger;
     //? dispatch returns result of API function in axios.ts
     promise.then(() => {
       dispatch(setInitializedAC());

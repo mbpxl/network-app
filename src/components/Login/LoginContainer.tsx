@@ -14,7 +14,6 @@ type myProps = {
 
 export class LoginContainer extends React.Component<myProps> {
   render() {
-    console.log(this.props.captchaUrl);
     return (
       <Login
         login={this.props.loginThunk}

@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Wall.module.scss";
+import empty_user from "../../../assets/img/friends/empty-user.svg";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
 import { useRef } from "react";
@@ -9,7 +10,13 @@ export const Wall = (props: any) => {
 
   let postElements = postData.map(
     (post: { message: String; likesCount: number }) => {
-      return <Post text={post.message} likesCount={post.likesCount} />;
+      return (
+        <Post
+          text={post.message}
+          likesCount={post.likesCount}
+          profile={props.profile}
+        />
+      );
     }
   );
 
@@ -22,7 +29,6 @@ export const Wall = (props: any) => {
     let text = inputRef.current?.value;
     props.updateNewPostText(text);
   };
-
   return (
     <div className={classes.wall}>
       <div className={classes.wall__header}>

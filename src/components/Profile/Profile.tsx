@@ -2,9 +2,10 @@ import React from "react";
 import classes from "./Profile.module.scss";
 import { HeaderProfile } from "./HeaderProfile/HeaderProfile";
 import { Actions } from "./Actions/Actions";
-import { WallContainer } from "./Wall/WallContainer";
+import { Wall } from "./Wall/Wall";
 
 export const Profile = (props: any) => {
+  console.log(props.profile);
   return (
     <div className={classes.profile}>
       <HeaderProfile
@@ -16,7 +17,12 @@ export const Profile = (props: any) => {
         updateProfile={props.updateProfile}
       />
       <Actions />
-      <WallContainer />
+      <Wall
+        profile={props.profile}
+        posts={props.posts}
+        updateNewPostText={props.updateNewPostText}
+        addPost={props.addPost}
+      />
     </div>
   );
 };

@@ -1,11 +1,12 @@
 import classes from "./Post.module.scss";
-import author from "../../../../assets/img/post/post-autor.png";
 import more from "../../../../assets/img/post/post-more.svg";
 import like from "../../../../assets/img/post/post-like.svg";
+import empty_user from "../../../../assets/img/friends/empty-user.svg";
 
 type propsType = {
   text: String;
   likesCount: number;
+  profile: any;
 };
 
 export const Post = (props: propsType) => {
@@ -13,7 +14,14 @@ export const Post = (props: propsType) => {
     <div className={classes.post}>
       <div className={classes.post__header}>
         <div className={classes.post__author}>
-          <img src={author} alt="autor" />
+          <img
+            src={
+              props.profile.photos.small != null
+                ? props.profile.photos.small
+                : empty_user
+            }
+            alt="autor"
+          />
         </div>
         <div className={classes.post__text}>{props.text}</div>
         <div className={classes.post__more}>

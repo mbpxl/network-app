@@ -2,18 +2,15 @@ import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import {
+  addPostActionCreator,
   getUserThunkCreator,
   setStatusThunkCreator,
+  updateNewPostTextActionCreator,
   updatePhotoThunkCreator,
   updateProfileThunkCreator,
   updateStatusThunkCreator,
 } from "../../data/profile-reducer";
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 import { compose } from "redux";
 
@@ -27,6 +24,9 @@ type MyProps = {
   status: string;
   updatePhoto: Function;
   updateProfile: Function;
+  updateNewPostText: Function;
+  addPost: Function;
+  posts: Array<any>;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -42,6 +42,7 @@ class ProfileContainer extends React.Component<MyProps> {
   }
 
   componentDidMount(): void {
+    //! console.log("Component has been mounted.");
     this.refreshProfile();
   }
 
@@ -50,27 +51,34 @@ class ProfileContainer extends React.Component<MyProps> {
     prevState: Readonly<{}>,
     snapshot?: any
   ): void {
+    //! console.log("Component has been updated.");
     if (this.props.router.params.userId !== prevProps.router.params.userId) {
       this.refreshProfile();
     }
   }
-
   render() {
-    return (
-      <Profile
-        isOwner={!this.props.router.params.userId}
-        profile={this.props.profile}
-        status={this.props.status}
-        updateStatus={this.props.updateStatusThunk}
-        updatePhoto={this.props.updatePhoto}
-        updateProfile={this.props.updateProfile}
-      />
-    );
+    if (this.props.profile !== null) {
+      //! console.log("rendered with props: ", this.props);
+      return (
+        <Profile
+          isOwner={!this.props.router.params.userId}
+          profile={this.props.profile}
+          status={this.props.status}
+          updateStatus={this.props.updateStatusThunk}
+          updatePhoto={this.props.updatePhoto}
+          updateProfile={this.props.updateProfile}
+          posts={this.props.posts}
+          updateNewPostText={this.props.updateNewPostText}
+          addPost={this.props.addPost}
+        />
+      );
+    }
   }
 }
 const mapStateToProps = (state: any) => ({
   profile: state.profileReducer.profile,
   status: state.profileReducer.status,
+  posts: state.profileReducer.posts,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -88,6 +96,12 @@ const mapDispatchToProps = (dispatch: any) => ({
   },
   updateProfile: (fullName: string) => {
     dispatch(updateProfileThunkCreator(fullName));
+  },
+  updateNewPostText: (text: string) => {
+    dispatch(updateNewPostTextActionCreator(text));
+  },
+  addPost: () => {
+    dispatch(addPostActionCreator());
   },
 });
 
