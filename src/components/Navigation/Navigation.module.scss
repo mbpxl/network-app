@@ -1,5 +1,6 @@
+@import "../../assets/Base.module.scss";
 .nav {
-    background-color: #272932;
+    background-color: $grey-block-color;
     padding: 3.38rem 1.87rem 3.19rem 2rem;
 
     &__list {
@@ -52,7 +53,7 @@
         bottom: -1.688rem;
         width: 7.125rem;
         height: 4.75rem;
-        background: #1a1c26;
+        background: $grey-background-color;
         border-top-left-radius: 30px;
         border-bottom-left-radius: 30px;
     }

@@ -1,0 +1,31 @@
+@import "../../assets/Base.module.scss";
+.login {
+    width: 21.875rem;
+    margin-left: 2.81rem;
+    border: 2.6px solid $puprle-background-color;
+    max-width: 28.75rem;
+    border-radius: 10px;
+    padding: 0.7rem;
+
+    h1 {
+        &:not(:last-child) {
+            margin-bottom: 2rem;
+        }
+        text-align: center;
+        font-size: 1.2rem;
+    }
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+
+    &__input {
+        margin-bottom: 1.3rem;
+        padding: 0.3rem 1.5rem 0.2rem 1.5rem;
+        background-color: $grey-block-color;
+        color: $white-color;
+        font-weight: 400;
+        line-height: 1.75rem;
+    }
+}

@@ -1,3 +1,4 @@
+@import "../../../assets/Base.module.scss";
 .info {
     &__bg_edit {
         display: flex;
@@ -7,7 +8,7 @@
         width: 2.6rem;
         height: 2.6rem;
         border-radius: 0.75rem;
-        background: #272932;
+        background: $grey-block-color;
         opacity: 0;
 
         transition: all 0.14s ease 0s;
@@ -23,7 +24,7 @@
         padding-top: 1rem;
         max-width: 47.5rem;
         min-height: 8.875rem;
-        background-color: #7940cf;
+        background-color: $puprle-background-color;
         border-radius: 1.875rem;
 
         img {
@@ -96,7 +97,7 @@ input[type="file"] {
         height: 2.75rem;
 
         h1 {
-            color: #fff;
+            color: $white-color;
             font-size: 1.125rem;
             font-style: normal;
             font-weight: 600;
@@ -129,7 +130,7 @@ input[type="file"] {
         align-items: center;
 
         h3 {
-            color: #fff;
+            color: $white-color;
             // font-size: 1.125rem;
             font-style: normal;
             font-weight: 600;
@@ -172,8 +173,8 @@ input[type="file"] {
             height: 3rem;
             width: 14rem;
             padding: 0 0.4rem;
-            color: #fff;
-            background: #272932;
+            color: $white-color;
+            background: $grey-block-color;
             font-size: 0.9rem;
         }
     }
@@ -182,12 +183,12 @@ input[type="file"] {
         width: 2rem;
         height: 2rem;
         border-radius: 0.25rem;
-        background: linear-gradient(180deg, #7940cf 0%, #5921cb 100%);
+        background: linear-gradient(180deg, $puprle-background-color 0%, $purple-second-gradient-color 100%);
         display: flex;
         justify-content: center;
 
         button {
-            color: #fff;
+            color: $white-color;
             font-size: 0.85rem;
             font-weight: 600;
             line-height: 170%;

@@ -1,5 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { Navigate } from "react-router-dom";
+import classes from "./login.module.scss";
 
 const loginFormValidation = (values: any) => {
   const errors = {};
@@ -32,13 +33,27 @@ const LoginForm = (props: {
         onSubmit={submit}
       >
         {({ isSubmitting }) => (
-          <Form>
-            <Field type="text" name="email" />
+          <Form className={classes.form}>
+            <Field
+              className={classes.form__input}
+              type="text"
+              name="email"
+              placeholder="Email"
+            />
             <ErrorMessage name="email" component="div" />
-            <Field type="password" name="password" />
+            <Field
+              className={classes.form__input}
+              type="password"
+              name="password"
+              placeholder="Password"
+            />
             <ErrorMessage name="password" component="div" />
-            <button type="submit" disabled={isSubmitting}>
-              Submit
+            <button
+              className={classes.form__btn}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Log in
             </button>
           </Form>
         )}

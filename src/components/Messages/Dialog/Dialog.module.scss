@@ -1,3 +1,4 @@
+@import "../../../assets/Base.module.scss";
 .dialog {
     width: 100%;
     margin-left: 3rem;
@@ -7,7 +8,7 @@
     }
 
     &__message {
-        color: #fff;
+        color: $white-color;
         font-size: 1.1rem;
         font-style: normal;
         font-weight: 500;
@@ -26,9 +27,9 @@
         input {
             width: 100%;
             border-radius: 0.625rem;
-            background: #272932;
+            background: $grey-block-color;
             padding: 0.69rem 4.125rem 0.75rem 1.35rem;
-            color: #fff;
+            color: $white-color;
             font-size: 1rem;
             font-style: normal;
             font-weight: 500;
