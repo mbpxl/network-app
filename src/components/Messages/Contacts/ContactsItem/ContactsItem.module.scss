@@ -1,3 +1,5 @@
+@import "../../../../assets/Base.module.scss";
+
 .item {
     &:not(:last-child) {
         margin-bottom: 1.37rem;
@@ -13,7 +15,7 @@
 
     &__info {
         h1 {
-            color: #fff;
+            color: $white-color;
             font-size: 0.75rem;
             font-style: normal;
             font-weight: 500;
@@ -31,7 +33,7 @@
 
     &__list .active {
         width: 12.438rem;
-        background-color: #7940cf;
+        background-color: $puprle-background-color;
         border-radius: 15px;
         padding: 0.25rem 0.2rem 0.25rem 0.28rem;
         height: 100%;
