@@ -19,17 +19,6 @@ type PhotosType = {
   large: string;
 };
 
-type ContactsType = {
-  github?: string;
-  vk?: string;
-  facebook?: string;
-  instagram?: string;
-  twitter?: string;
-  website: string;
-  youtube?: string;
-  mainLink: string;
-};
-
 export type ProfileType = {
   lookingForAJob: boolean;
   lookingForAJobDescription: string | null;

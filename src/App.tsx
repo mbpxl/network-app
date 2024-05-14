@@ -10,8 +10,10 @@ import FriendsContainer from "./components/Friends/FriendsContainer";
 import { connect } from "react-redux";
 import { initializeAppThunkCreator } from "./data/app-reducer";
 import { Preloader } from "./components/Preloader/Preloader";
+import { typesApp } from "./types-app";
 
 const App = (props: any) => {
+  console.log(props);
   useEffect(() => {
     props.initializeApp();
   });
