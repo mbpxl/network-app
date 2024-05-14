@@ -6,6 +6,11 @@ import avatar5 from "../assets/img/messages/messages-pre5.png"
 import avatar6 from "../assets/img/messages/messages-pre6.png"
 import { actionsType } from "./types";
 
+//!------------------------------------------------------------------------
+//*THIS IS COMPONENT WITHOUT API CONNECTIONS. LET'S LEAVE IT WITHOUT TYPING
+//!------------------------------------------------------------------------
+
+
 let initialState = {
   dialogs: [
       { id: 1, message: "Hop" },

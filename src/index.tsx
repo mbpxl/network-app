@@ -18,6 +18,7 @@ root.render(
     />
   </Provider>
 );
+
 // rerenderEntireTree();
 // store.subscribe(rerenderEntireTree);
 

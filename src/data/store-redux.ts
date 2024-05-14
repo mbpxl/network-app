@@ -1,4 +1,3 @@
-//* Legacy way to use redux
 //todo: addTask: (taskTitle: string) => void,
 
 import { applyMiddleware, combineReducers, createStore } from "redux";
@@ -16,4 +15,5 @@ const reducers = combineReducers({
     appReducer,
 });
 
-export const store = createStore(reducers, applyMiddleware(thunk)); //! LEGACY SUKA
+// @ts-ignore
+export const store = createStore(reducers, applyMiddleware(thunk));

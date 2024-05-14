@@ -1,10 +1,38 @@
+import { Dispatch } from "redux";
 import { setUserDataThunkCreator } from "./auth-reducer";
+import { ThunkAction } from "redux-thunk";
+
+
+type setUserDataType = {
+  type: "SET_USER_DATA";
+  data: {
+    userId: number | null;
+    email: string | null;
+    login: string | null;
+    isAuth: boolean;
+  }
+}
+
+type getCaptchaUrlSuccessType = {
+  type: "GET_CAPTCHA_URL_SUCCESS";
+  payload: {};
+}
+
+type setInitializedType = {
+  type: "SET_INITIALIZED";
+}
+
+type initialStateType = {
+  initialized: boolean;
+}
 
 const initialState = {
   initialized: false,
 }
 
-export const appReducer = (state = initialState, action: any) => {
+type rootActionType = setUserDataType | getCaptchaUrlSuccessType | setInitializedType;
+
+export const appReducer = (state: initialStateType = initialState, action: rootActionType) => {
   switch(action.type) {
     case SET_USER_DATA: {
       return {
@@ -28,22 +56,23 @@ export const appReducer = (state = initialState, action: any) => {
 }
 
 const SET_USER_DATA = "SET_USER_DATA";
-export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataType => ({
   type: SET_USER_DATA, 
   data: {userId, email, login, isAuth}
 });
 
 const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
-export const getCaptchaUrlSuccessAC = (url: string) => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
+export const getCaptchaUrlSuccessAC = (url: string): getCaptchaUrlSuccessType => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
 
 const SET_INITIALIZED = "SET_INITIALIZED";
-export const setInitializedAC = () => ({type: SET_INITIALIZED})
+export const setInitializedAC = (): setInitializedType => ({type: SET_INITIALIZED})
 
 
+//? type initializeAppThunkCreatorType = ReturnType<typeof setUserDataThunkCreator> | ReturnType<typeof setInitializedAC>;
 export const initializeAppThunkCreator = () => {
-  return (dispatch: Function) => {
-    let promise = dispatch(setUserDataThunkCreator());
-    //? dispatch returns result of API function in axios.ts
+  return (dispatch: Dispatch<any>) => {
+    let promise: Promise<void> = dispatch(setUserDataThunkCreator()) as unknown as Promise<void>;
+    //* dispatch returns result of API function in axios.ts
     promise.then(() => {
       dispatch(setInitializedAC());
     });
