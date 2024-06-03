@@ -1,5 +1,6 @@
-import { Dispatch } from "redux";
 import { setUserDataThunkCreator } from "./auth-reducer";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store-redux";
 
 
 type setUserDataType = {
@@ -67,11 +68,11 @@ const SET_INITIALIZED = "SET_INITIALIZED";
 export const setInitializedAC = (): setInitializedType => ({type: SET_INITIALIZED})
 
 
-//? type initializeAppThunkCreatorType = ReturnType<typeof setUserDataThunkCreator> | ReturnType<typeof setInitializedAC>;
-export const initializeAppThunkCreator = () => {
-  return (dispatch: Dispatch<any>) => {
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
+
+export const initializeAppThunkCreator = (): ThunkType => {
+  return async (dispatch) => {
     let promise: Promise<void> = dispatch(setUserDataThunkCreator()) as unknown as Promise<void>;
-    //* dispatch returns result of API function in axios.ts
     promise.then(() => {
       dispatch(setInitializedAC());
     });

@@ -1,6 +1,8 @@
 import { Dispatch } from "redux";
 import { profileAPI } from "../plugins/axios";
 import { ProfileType } from "./types";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store-redux";
 
 
 
@@ -128,42 +130,36 @@ export const savePhotoAC = (photos: {small: string | null, large: string | null}
 const UPDATE_PROFILE_INFO = "UPDATE_PROFILE_INFO";
 export const updateProfileInfoAC = (fullName: string): updateProfileInfoType => ({type: UPDATE_PROFILE_INFO, fullName});
 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
 
-type getUserThunkCreatorType = ReturnType<typeof setUserProfileAC>;
-export const getUserThunkCreator = (userId: number) => {
-  return (dispatch: Dispatch<getUserThunkCreatorType>) => {
-    profileAPI.getUser(userId).then((data) => {
-      dispatch(setUserProfileAC(data));
-    });
+export const getUserThunkCreator = (userId: number): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.getUser(userId);
+    dispatch(setUserProfileAC(data));
   }
 }
 
 
-type setStatusThunkCreatorType = ReturnType<typeof setStatusAC>;
-export const setStatusThunkCreator = (userID: number) => {
-  return (dispatch: Dispatch<setStatusThunkCreatorType>) => {
-    profileAPI.getStatus(userID).then(data => {
-      dispatch(setStatusAC(data));
-    })
+export const setStatusThunkCreator = (userID: number): ThunkType => {
+  return async (dispatch) => {
+    let data = await profileAPI.getStatus(userID);
+    dispatch(setStatusAC(data));
   }
 }
 
 
-type updateStatusThunkCreatorType = ReturnType<typeof setStatusAC>;
-export const updateStatusThunkCreator = (status: string) => {
-  return (dispatch: Dispatch<updateStatusThunkCreatorType>) => {
-    profileAPI.updateStatus(status).then(response => {
-      if(response.data.resultCode === 0) {
-        dispatch(setStatusAC(status));
-      }
-    })
+export const updateStatusThunkCreator = (status: string): ThunkType => {
+  return async (dispatch) => {
+    let response = await profileAPI.updateStatus(status);
+    if(response.data.resultCode === 0) {
+      dispatch(setStatusAC(status));
+    }
   }
 }
 
 
-type updatePhotoThunkCreatorType = ReturnType<typeof savePhotoAC>;
-export const updatePhotoThunkCreator = (file: File) => {
-  return async (dispatch: Dispatch<updatePhotoThunkCreatorType>) => {
+export const updatePhotoThunkCreator = (file: File): ThunkType => {
+  return async (dispatch) => {
     let response = await profileAPI.savePhoto(file);
     if(response.data.resultCode === 0) {
       dispatch(savePhotoAC(response.data.data.photos));
@@ -172,8 +168,7 @@ export const updatePhotoThunkCreator = (file: File) => {
 }
 
 
-//? type updateProfileThunkCreatorType = ReturnType<>
-export const updateProfileThunkCreator = (fullName: string) => {
+export const updateProfileThunkCreator = (fullName: string): ThunkType => {
   return async (dispatch: Dispatch<any>, getState: Function) => {
     const userId = getState().authReducer.userId
     let response = await profileAPI.updateProfile(fullName);

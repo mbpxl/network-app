@@ -1,5 +1,6 @@
-import { Dispatch } from "redux";
 import { loginAPI, securityAPI } from "../plugins/axios";
+import { ThunkAction } from "redux-thunk";
+import { AppStateType } from "./store-redux";
 
 
 
@@ -66,10 +67,10 @@ export const setUserDataAC = (userId: number | null, email: string | null, login
 const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
 export const getCaptchaUrlSuccessAC = (url: string): getCaptchaUrlSuccessType => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
 
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
 
-type setUserDataThunkCreatorType = ReturnType<typeof setUserDataAC>;
-export const setUserDataThunkCreator = () => {
-  return async (dispatch: Dispatch<setUserDataThunkCreatorType>) => {
+export const setUserDataThunkCreator = (): ThunkType => {
+  return async (dispatch) => {
     const data = await loginAPI.getLoginData();
     if (data.resultCode === 0) {
       dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
@@ -78,35 +79,30 @@ export const setUserDataThunkCreator = () => {
 }
 
 
-//? type loginThunkCreatorType = ReturnType<typeof setUserDataThunkCreator> | ReturnType<typeof getCaptchaUrlThunkCreator>;
-export const loginThunkCreator = (email: string, password: string, rememberMe: boolean) => {
-  return (dispatch: Dispatch<any>) => {
-    loginAPI.login(email, password, rememberMe).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setUserDataThunkCreator())
-      } else if (data.resultCode === 10) {
-        dispatch(getCaptchaUrlThunkCreator());
-      }
-    })
+export const loginThunkCreator = (email: string, password: string, rememberMe: boolean): ThunkType => {
+  return async (dispatch) => {
+    let data = await loginAPI.login(email, password, rememberMe);
+    if(data.resultCode === 0) {
+      dispatch(setUserDataThunkCreator());
+    } else if (data.resultCode === 10) {
+      dispatch(getCaptchaUrlThunkCreator());
+    }
   }
 }
 
 
-type loginThunkCreatorTypeType = ReturnType<typeof setUserDataAC>;
-export const logoutThunkCreator = () => {
-  return (dispatch: Dispatch<loginThunkCreatorTypeType>) => {
-    loginAPI.logout().then((data) => {
-      if(data.resultCode === 0) {
-        dispatch(setUserDataAC(null, null, null, false));
-      }
-    })
+export const logoutThunkCreator = (): ThunkType => {
+  return async (dispatch) => {
+    let data = await loginAPI.logout();
+    if(data.resultCode === 0) {
+      dispatch(setUserDataAC(null, null, null, false));
+    }
   }
 }
 
 
-type getCaptchaUrlThunkCreatorType = ReturnType<typeof getCaptchaUrlSuccessAC>;
-export const getCaptchaUrlThunkCreator = () => {
-  return async (dispatch: Dispatch<getCaptchaUrlThunkCreatorType>) => {
+export const getCaptchaUrlThunkCreator = (): ThunkType => {
+  return async (dispatch) => {
     let response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
     dispatch(getCaptchaUrlSuccessAC(captchaUrl));
