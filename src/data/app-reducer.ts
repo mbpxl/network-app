@@ -1,51 +1,38 @@
 import { setUserDataThunkCreator } from "./auth-reducer";
 import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "./store-redux";
+import { AppStateType, InferActionsTypes } from "./store-redux";
 
-
-type setUserDataType = {
-  type: "SET_USER_DATA";
-  data: {
-    userId: number | null;
-    email: string | null;
-    login: string | null;
-    isAuth: boolean;
-  }
-}
-
-type getCaptchaUrlSuccessType = {
-  type: "GET_CAPTCHA_URL_SUCCESS";
-  payload: {};
-}
-
-type setInitializedType = {
-  type: "SET_INITIALIZED";
-}
 
 type initialStateType = {
   initialized: boolean;
+}
+
+type PayloadType = {
+  payload: {
+    url: string;
+  }
 }
 
 const initialState = {
   initialized: false,
 }
 
-type rootActionType = setUserDataType | getCaptchaUrlSuccessType | setInitializedType;
+type rootActionType = InferActionsTypes<typeof actions>;
 
 export const appReducer = (state: initialStateType = initialState, action: rootActionType): initialStateType => {
   switch(action.type) {
-    case SET_USER_DATA: {
+    case 'SET_USER_DATA': {
       return {
         ...state,
         ...action.data,
       }
     }
 
-    case GET_CAPTCHA_URL_SUCCESS: {
-      return {...state, ...action.payload}
+    case 'GET_CAPTCHA_URL_SUCCESS': {
+      return {...state, ...action.payload as unknown as PayloadType}
     }
 
-    case SET_INITIALIZED: {
+    case 'SET_INITIALIZED': {
       return {...state, initialized: true}
     }
 
@@ -55,18 +42,15 @@ export const appReducer = (state: initialStateType = initialState, action: rootA
   }
 }
 
-const SET_USER_DATA = "SET_USER_DATA";
-export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataType => ({
-  type: SET_USER_DATA,
+
+export const actions = {
+  setUserDataAC: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+  type: 'SET_USER_DATA',
   data: {userId, email, login, isAuth}
-});
-
-const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
-export const getCaptchaUrlSuccessAC = (url: string): getCaptchaUrlSuccessType => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
-
-const SET_INITIALIZED = "SET_INITIALIZED";
-export const setInitializedAC = (): setInitializedType => ({type: SET_INITIALIZED})
-
+  } as const),
+  getCaptchaUrlSuccessAC: (url: string) => ({type: 'GET_CAPTCHA_URL_SUCCESS', payload: url} as const),
+  setInitializedAC: () => ({type: 'SET_INITIALIZED'} as const),
+}
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
 
@@ -74,7 +58,7 @@ export const initializeAppThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     let promise: Promise<void> = dispatch(setUserDataThunkCreator()) as unknown as Promise<void>;
     promise.then(() => {
-      dispatch(setInitializedAC());
+      dispatch(actions.setInitializedAC());
     });
   }
 }

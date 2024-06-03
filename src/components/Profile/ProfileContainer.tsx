@@ -2,10 +2,9 @@ import React from "react";
 import { Profile } from "./Profile";
 import { connect } from "react-redux";
 import {
-  addPostActionCreator,
+  actions,
   getUserThunkCreator,
   setStatusThunkCreator,
-  updateNewPostTextActionCreator,
   updatePhotoThunkCreator,
   updateProfileThunkCreator,
   updateStatusThunkCreator,
@@ -100,10 +99,10 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(updateProfileThunkCreator(fullName));
   },
   updateNewPostText: (text: string) => {
-    dispatch(updateNewPostTextActionCreator(text));
+    dispatch(actions.updateNewPostTextActionCreator(text));
   },
   addPost: (text: string) => {
-    dispatch(addPostActionCreator(text));
+    dispatch(actions.addPostActionCreator(text));
   },
 });
 
