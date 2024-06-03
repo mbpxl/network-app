@@ -1,6 +1,7 @@
 import { loginAPI, securityAPI } from "../plugins/axios";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./store-redux";
+import { ResultCodes } from "../plugins/axiosTypes";
 
 
 
@@ -72,7 +73,7 @@ type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionTyp
 export const setUserDataThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     const data = await loginAPI.getLoginData();
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodes.Success) {
       dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
     }
   }
@@ -82,9 +83,9 @@ export const setUserDataThunkCreator = (): ThunkType => {
 export const loginThunkCreator = (email: string, password: string, rememberMe: boolean): ThunkType => {
   return async (dispatch) => {
     let data = await loginAPI.login(email, password, rememberMe);
-    if(data.resultCode === 0) {
+    if(data.resultCode === ResultCodes.Success) {
       dispatch(setUserDataThunkCreator());
-    } else if (data.resultCode === 10) {
+    } else if (data.resultCode === ResultCodes.CaptchaIsRequired) {
       dispatch(getCaptchaUrlThunkCreator());
     }
   }
@@ -94,7 +95,7 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
 export const logoutThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     let data = await loginAPI.logout();
-    if(data.resultCode === 0) {
+    if(data.resultCode === ResultCodes.Success) {
       dispatch(setUserDataAC(null, null, null, false));
     }
   }
