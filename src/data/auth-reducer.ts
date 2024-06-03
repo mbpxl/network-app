@@ -1,24 +1,8 @@
 import { loginAPI, securityAPI } from "../plugins/axios";
 import { ThunkAction } from "redux-thunk";
-import { AppStateType } from "./store-redux";
+import { AppStateType, InferActionsTypes } from "./store-redux";
 import { ResultCodes } from "../plugins/axiosTypes";
 
-
-
-type setUserDataType = {
-  type: "SET_USER_DATA";
-  data: {
-    userId: number | null;
-    email: string | null;
-    login: string | null;
-    isAuth: boolean;
-  }
-}
-
-type getCaptchaUrlSuccessType = {
-  type: "GET_CAPTCHA_URL_SUCCESS";
-  payload: {};
-}
 
 type initialStateType = {
   userId: number | null;
@@ -27,6 +11,12 @@ type initialStateType = {
   isFetching: boolean;
   isAuth: boolean;
   captchaUrl: string | null;
+}
+
+type PayloadType = {
+  payload: {
+    url: string;
+  }
 }
 
 const initialState = {
@@ -38,19 +28,19 @@ const initialState = {
   captchaUrl: null,
 }
 
-type rootActionType = setUserDataType | getCaptchaUrlSuccessType;
+type rootActionType = InferActionsTypes<typeof actions>;
 
 export const authReducer = (state: initialStateType = initialState, action: rootActionType): initialStateType => {
   switch(action.type) {
-    case SET_USER_DATA: {
+    case 'SET_USER_DATA': {
       return {
         ...state,
         ...action.data,
       }
     }
 
-    case GET_CAPTCHA_URL_SUCCESS: {
-      return {...state, ...action.payload}
+    case 'GET_CAPTCHA_URL_SUCCESS': {
+      return {...state, ...action.payload as unknown as PayloadType}
     }
 
     default: {
@@ -59,14 +49,13 @@ export const authReducer = (state: initialStateType = initialState, action: root
   }
 }
 
-const SET_USER_DATA = "SET_USER_DATA";
-export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataType => ({
-  type: SET_USER_DATA, 
+export const actions = {
+  setUserDataAC: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+  type: 'SET_USER_DATA', 
   data: {userId, email, login, isAuth}
-});
-
-const GET_CAPTCHA_URL_SUCCESS = "GET_CAPTCHA_URL_SUCCESS";
-export const getCaptchaUrlSuccessAC = (url: string): getCaptchaUrlSuccessType => ({type: GET_CAPTCHA_URL_SUCCESS, payload: url})
+  } as const),
+  getCaptchaUrlSuccessAC: (url: string) => ({type: 'GET_CAPTCHA_URL_SUCCESS', payload: url} as const),
+}
 
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
 
@@ -74,7 +63,7 @@ export const setUserDataThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     const data = await loginAPI.getLoginData();
     if (data.resultCode === ResultCodes.Success) {
-      dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true));
+      dispatch(actions.setUserDataAC(data.data.id, data.data.email, data.data.login, true));
     }
   }
 }
@@ -96,7 +85,7 @@ export const logoutThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     let data = await loginAPI.logout();
     if(data.resultCode === ResultCodes.Success) {
-      dispatch(setUserDataAC(null, null, null, false));
+      dispatch(actions.setUserDataAC(null, null, null, false));
     }
   }
 }
@@ -106,6 +95,6 @@ export const getCaptchaUrlThunkCreator = (): ThunkType => {
   return async (dispatch) => {
     let response = await securityAPI.getCaptchaUrl();
     const captchaUrl = response.data.url;
-    dispatch(getCaptchaUrlSuccessAC(captchaUrl));
+    dispatch(actions.getCaptchaUrlSuccessAC(captchaUrl));
   }
 }

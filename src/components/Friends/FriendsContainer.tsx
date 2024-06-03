@@ -3,10 +3,10 @@ import { Friends } from "./Friends";
 import { Preloader } from "../Preloader/Preloader";
 import classes from "./Friends.module.scss";
 import {
+  actions,
   getFollowingThunkCreator,
   getUnfollowingThunkCreator,
   requestUsers,
-  setCurrentPageAC,
 } from "../../data/friends-reducer";
 import { connect } from "react-redux";
 import { AppStateType } from "../../data/store-redux";
@@ -82,7 +82,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 const mapDispatchToProps = (dispatch: Dispatch<any>): MapDispatchPropsType => {
   return {
     setCurrentPage: (pageNumber: number) => {
-      dispatch(setCurrentPageAC(pageNumber));
+      dispatch(actions.setCurrentPageAC(pageNumber));
     },
     requestUsersThunk: (
       currentPage: number,
