@@ -2,12 +2,11 @@ import React from "react";
 import classes from "./Dialog.module.scss";
 import send from "../../../assets/img/messages/messages-send.svg";
 import { DialogItem } from "./DialogItem/DialogItem";
-import { useRef } from "react";
-import { Navigate } from "react-router-dom";
 
 //======================================================================================================================================
 
 export const Dialog = (props: any) => {
+  console.log("PROPS value from messages", props.newMessageText);
   const dialogData = props.dialogs;
 
   const dialogItemElements = dialogData.map(
@@ -20,13 +19,9 @@ export const Dialog = (props: any) => {
     props.addMessage();
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const onMessageChange = () => {
-    const text = inputRef.current?.value;
-    props.updateNewMessageText(text);
+  const onMessageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    props.updateNewMessageText(e.currentTarget?.value);
   };
-
-  //if (!props.isAuth) return <Navigate to={"/login"} />;
 
   return (
     <div className={classes.dialog}>
@@ -34,9 +29,8 @@ export const Dialog = (props: any) => {
       <div className={classes.dialog__send}>
         <input
           type="text"
-          ref={inputRef}
           placeholder="Send Message"
-          value={props.newMessageText}
+          value={props.valueMessage}
           onChange={onMessageChange}
         />
         <button type="submit" onClick={onAddMessage}>

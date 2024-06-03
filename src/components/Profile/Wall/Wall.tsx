@@ -1,11 +1,10 @@
 import React from "react";
 import classes from "./Wall.module.scss";
-import empty_user from "../../../assets/img/friends/empty-user.svg";
 import post from "../../../assets/img/post/post-post.svg";
 import { Post } from "./Post/Post";
-import { useRef } from "react";
+import { WallPropsType } from "../ProfileTypes";
 
-export const Wall = (props: any) => {
+export const Wall = (props: WallPropsType) => {
   let postData = props.posts; //? using in map() method
 
   let postElements = postData.map(
@@ -21,13 +20,11 @@ export const Wall = (props: any) => {
   );
 
   const onAddPost = () => {
-    props.addPost();
+    props.addPost(props.value);
   };
 
-  let inputRef = useRef<HTMLTextAreaElement>(null);
-  const onPostChange = () => {
-    let text = inputRef.current?.value;
-    props.updateNewPostText(text);
+  const onPostChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    props.updateNewPostText(e.currentTarget?.value);
   };
   return (
     <div className={classes.wall}>
@@ -45,8 +42,7 @@ export const Wall = (props: any) => {
       <div className={classes.wall__write}>
         <textarea
           className={classes.wall__write_input}
-          ref={inputRef}
-          value={props.newPostText} // value from state.ts
+          value={props.value} // value from state.ts
           onChange={onPostChange}
         />
       </div>

@@ -6,10 +6,12 @@ import {
 import { Dialog } from "./Dialog";
 import { withAuthRedirect } from "../../HOC/WithAuthRedirect";
 import { compose } from "redux";
+import { AppStateType } from "../../../data/store-redux";
 
-const mapStateToProps = (state: any) => {
+const mapStateToProps = (state: AppStateType) => {
   return {
     dialogs: state.messagesReducer.dialogs,
+    valueMessage: state.messagesReducer.tempMessageText,
   };
 };
 

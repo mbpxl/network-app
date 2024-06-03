@@ -1,16 +1,10 @@
 import classes from "./Friends.module.scss";
 import emty_user from "../../assets/img/friends/empty-user.svg";
-import { FriendsTypes } from "./FriendsTypes";
 import { NavLink } from "react-router-dom";
 import { Paginator } from "../Paginator/Paginator";
+import { FriendsPropsTypes, FriendsType } from "./FriendsTypes";
 
-export const Friends = (props: any) => {
-  // let pagesCount = Math.ceil(props.totalUserCount / props.pageSize); // округляем в большую сторону
-  // let pages = [];
-  // for (let i = 1; i <= pagesCount; i++) {
-  //   pages.push(i);
-  // }
-
+export const Friends = (props: FriendsPropsTypes) => {
   return (
     <div className={classes.friends}>
       <Paginator
@@ -20,7 +14,7 @@ export const Friends = (props: any) => {
         onPageChanged={props.onPageChanged}
         currentPage={props.currentPage}
       />
-      {props.friends.map((f: FriendsTypes) => (
+      {props.friends.map((f: FriendsType) => (
         <div className={classes.friends_item}>
           <div className={classes.friends_item__content}>
             <div className={classes.friends_item__avatar}>
@@ -39,7 +33,7 @@ export const Friends = (props: any) => {
                 {f.followed ? (
                   <button
                     disabled={props.followingInProgress.some(
-                      (id: number) => id === f.id
+                      (id: number | string) => id === f.id
                     )}
                     onClick={() => {
                       props.getUnfollowingThunk(f.id);
@@ -50,7 +44,7 @@ export const Friends = (props: any) => {
                 ) : (
                   <button
                     disabled={props.followingInProgress.some(
-                      (id: number) => id === f.id
+                      (id: number | string) => id === f.id
                     )}
                     onClick={() => {
                       props.getFollowingThunk(f.id);

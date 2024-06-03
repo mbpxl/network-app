@@ -1,5 +1,4 @@
 import axios from "axios";
-import { ProfileType } from "../data/types";
 
 const instance = axios.create({
   baseURL: "https://social-network.samuraijs.com/api/1.0/",
@@ -64,7 +63,7 @@ export const profileAPI = {
     return instance.put(`profile/status/`, {status});
   },
 
-  savePhoto(photo: any) {
+  savePhoto(photo: File) {
     let formData = new FormData();
     formData.append("image", photo);
     return instance.put(`profile/photo`, formData);

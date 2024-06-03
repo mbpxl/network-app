@@ -5,11 +5,14 @@ import {
   loginThunkCreator,
   setUserDataThunkCreator,
 } from "../../data/auth-reducer";
+import { AppStateType } from "../../data/store-redux";
+import { Dispatch } from "redux";
 type myProps = {
-  setUserDataThunk: Function;
-  loginThunk: Function;
+  setUserDataThunk: () => void;
+  loginThunk: (email: string, password: string, rememberMe: boolean) => void;
   isAuth: boolean;
-  captchaUrl: string;
+  captchaUrl: string | null;
+  login: string | null;
 };
 
 export class LoginContainer extends React.Component<myProps> {
@@ -24,14 +27,12 @@ export class LoginContainer extends React.Component<myProps> {
   }
 }
 
-const mapStateToProps = (state: {
-  authReducer: { isAuth: boolean; login: string; captchaUrl: string };
-}) => ({
+const mapStateToProps = (state: AppStateType) => ({
   captchaUrl: state.authReducer.captchaUrl,
   isAuth: state.authReducer.isAuth,
   login: state.authReducer.login,
 });
-const mapDispatchToProps = (dispatch: Function) => ({
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
   setUserDataThunk: () => {
     dispatch(setUserDataThunkCreator());
   },

@@ -3,7 +3,7 @@ import classes from "./HeaderProfile.module.scss";
 
 export const ProfileStatus = (props: {
   status: string;
-  updateStatus: Function;
+  updateStatus: (status: string) => void;
 }) => {
   let [editMode, setEditMode] = useState(false);
   let [status, setStatus] = useState(props.status);

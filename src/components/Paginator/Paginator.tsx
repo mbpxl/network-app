@@ -7,7 +7,7 @@ export const Paginator = (props: {
   totalItemsCount: number;
   pageSize: number;
   portionSize: number;
-  onPageChanged: Function;
+  onPageChanged: (p: number) => void;
   currentPage: number;
 }) => {
   let pagesCount = Math.ceil(props.totalItemsCount / props.pageSize); // округляем в большую сторону

@@ -6,7 +6,7 @@ import { messagesReducer } from "./messages-reducer";
 import { friendsReducer } from "./friends-reducer";
 import { authReducer } from "./auth-reducer";
 import { appReducer } from "./app-reducer";
-import {thunk} from "redux-thunk";
+import { thunk } from "redux-thunk";
 const reducers = combineReducers({
     profileReducer,
     messagesReducer,
@@ -14,6 +14,9 @@ const reducers = combineReducers({
     authReducer,
     appReducer,
 });
+
+export type AppStateType = ReturnType<typeof reducers>;
+
 
 // @ts-ignore
 export const store = createStore(reducers, applyMiddleware(thunk));

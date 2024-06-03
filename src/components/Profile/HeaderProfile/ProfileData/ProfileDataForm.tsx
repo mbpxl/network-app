@@ -1,12 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
+import { ProfileDataFormPropsType } from "../../ProfileTypes";
 
-export const ProfileDataForm = (props: any) => {
+export const ProfileDataForm = (props: ProfileDataFormPropsType) => {
   const submit = (
     values: { fullName: string },
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     setTimeout(() => {
-      props.updateProfile(values);
+      props.updateProfile(values.fullName);
       setSubmitting(false);
     }, 400);
   };
