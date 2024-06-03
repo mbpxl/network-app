@@ -1,8 +1,10 @@
 import { Dispatch } from "redux";
 import { profileAPI } from "../plugins/axios";
-import { ProfileType } from "./types";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType } from "./store-redux";
+import { ProfileType } from "./types";
+import { ResultCodes } from "../plugins/axiosTypes";
+
 
 
 
@@ -151,7 +153,7 @@ export const setStatusThunkCreator = (userID: number): ThunkType => {
 export const updateStatusThunkCreator = (status: string): ThunkType => {
   return async (dispatch) => {
     let response = await profileAPI.updateStatus(status);
-    if(response.data.resultCode === 0) {
+    if(response.data.resultCode === ResultCodes.Success) {
       dispatch(setStatusAC(status));
     }
   }
@@ -161,7 +163,7 @@ export const updateStatusThunkCreator = (status: string): ThunkType => {
 export const updatePhotoThunkCreator = (file: File): ThunkType => {
   return async (dispatch) => {
     let response = await profileAPI.savePhoto(file);
-    if(response.data.resultCode === 0) {
+    if(response.data.resultCode === ResultCodes.Success) {
       dispatch(savePhotoAC(response.data.data.photos));
     }
   }
@@ -172,7 +174,7 @@ export const updateProfileThunkCreator = (fullName: string): ThunkType => {
   return async (dispatch: Dispatch<any>, getState: Function) => {
     const userId = getState().authReducer.userId
     let response = await profileAPI.updateProfile(fullName);
-    if(response.data.resultCode === 0) {
+    if(response.data.resultCode === ResultCodes.Success) {
       dispatch(getUserThunkCreator(userId));
     }
   }
