@@ -3,17 +3,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import Navigation from "./components/Navigation/Navigation";
 import { Messages } from "./components/Messages/Messages";
-import ProfileContainer from "./components/Profile/ProfileContainer";
 import { Searchbar } from "./components/Profile/Searchbar/Searchbar";
 import LoginContainer from "./components/Login/LoginContainer";
 import FriendsContainer from "./components/Friends/FriendsContainer";
 import { connect } from "react-redux";
 import { initializeAppThunkCreator } from "./data/app-reducer";
 import { Preloader } from "./components/Preloader/Preloader";
-import { typesApp } from "./types-app";
+import { AppStateType } from "./data/store-redux";
+import ProfileContainer from "./components/Profile/ProfileContainer";
 
 const App = (props: any) => {
-  console.log(props);
   useEffect(() => {
     props.initializeApp();
   });
@@ -55,7 +54,7 @@ const App = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.appReducer.initialized,
 });
 

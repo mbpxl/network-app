@@ -1,6 +1,5 @@
 import { Dispatch } from "redux";
 import { setUserDataThunkCreator } from "./auth-reducer";
-import { ThunkAction } from "redux-thunk";
 
 
 type setUserDataType = {
@@ -32,7 +31,7 @@ const initialState = {
 
 type rootActionType = setUserDataType | getCaptchaUrlSuccessType | setInitializedType;
 
-export const appReducer = (state: initialStateType = initialState, action: rootActionType) => {
+export const appReducer = (state: initialStateType = initialState, action: rootActionType): initialStateType => {
   switch(action.type) {
     case SET_USER_DATA: {
       return {
@@ -57,7 +56,7 @@ export const appReducer = (state: initialStateType = initialState, action: rootA
 
 const SET_USER_DATA = "SET_USER_DATA";
 export const setUserDataAC = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setUserDataType => ({
-  type: SET_USER_DATA, 
+  type: SET_USER_DATA,
   data: {userId, email, login, isAuth}
 });
 

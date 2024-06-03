@@ -8,16 +8,16 @@ const loginFormValidation = (values: any) => {
 };
 
 const LoginForm = (props: {
-  login: Function;
+  login: (email: string, password: string, rememberMe: boolean) => void;
   isAuth: boolean;
-  captchaUrl: string;
+  captchaUrl: string | null;
 }) => {
   const submit = (
-    values: { email: string; password: string },
+    values: { email: string; password: string; rememberMe: boolean },
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     setTimeout(() => {
-      props.login(values.email, values.password);
+      props.login(values.email, values.password, values.rememberMe);
       setSubmitting(false);
     }, 400);
   };
@@ -28,7 +28,7 @@ const LoginForm = (props: {
   return (
     <div className="">
       <Formik
-        initialValues={{ email: "", password: "" }}
+        initialValues={{ email: "", password: "", rememberMe: false }}
         validate={loginFormValidation}
         onSubmit={submit}
       >

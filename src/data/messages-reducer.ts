@@ -2,8 +2,6 @@ import avatar1 from "../assets/img/messages/messages-pre1.png"
 import avatar2 from "../assets/img/messages/messages-pre2.png"
 import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
-import avatar5 from "../assets/img/messages/messages-pre5.png"
-import avatar6 from "../assets/img/messages/messages-pre6.png"
 import { actionsType } from "./types";
 
 //!------------------------------------------------------------------------
@@ -59,6 +57,7 @@ export const messagesReducer = (state = initialState, action: actionsType) => {
       copyState.dialogs = [...state.dialogs];
 
       copyState.dialogs.push(newMessage);
+      copyState.tempMessageText = '';
     return copyState;
     };
 

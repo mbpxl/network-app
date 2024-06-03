@@ -11,7 +11,7 @@ export interface actionsType {
   photos: PhotosType;
   fullName: string,
   aboutMe: string,
-  friends: Array<{id: number | string, followed: boolean, fullName: string, status: string, location: {city: string, country: string}, newPost: string}>,
+  friends: Array<{id: number, followed: boolean, fullName: string, status: string, location: {city: string, country: string}, newPost: string}>,
 }
 
 type PhotosType = {

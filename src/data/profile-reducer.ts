@@ -6,12 +6,12 @@ import { ProfileType } from "./types";
 
 type addPostType = {
   type: "ADD_POST";
-  newText: string;
+  newPostText: string |undefined;
 }
 
 type updateNewPostTextType = {
   type: "UPDATE_NEW_POST_TEXT";
-  newText: string | undefined;
+  startPostValue: string;
 }
 
 type setUserProfileType = {
@@ -80,12 +80,15 @@ const profileReducer = (state: initialStateType = initialState, action: rootActi
 
       state.tempPostText !== '' ? copyState.posts.unshift(newPost) : alert('Empty post!');
 
-      action.newText = '';
+      copyState.tempPostText = '';
 
       return copyState;
     }
     case UPDATE_NEW_POST_TEXT:
-      return {...state, tempPostText: action.newText};
+      console.log("profile-reducer called");
+      let copyState = {...state};
+      copyState.tempPostText = action.startPostValue;
+    return copyState;
 
     case SET_USER_PROFILE:
       return {...state, profile: action.profile};
@@ -105,12 +108,12 @@ const profileReducer = (state: initialStateType = initialState, action: rootActi
 }
 
 const ADD_POST = "ADD_POST";
-export const addPostActionCreator = (newText: string): addPostType => ({ type: ADD_POST, newText});
+export const addPostActionCreator = (newPostText: string): addPostType => ({ type: ADD_POST, newPostText});
 
 const UPDATE_NEW_POST_TEXT = "UPDATE_NEW_POST_TEXT";
-export const updateNewPostTextActionCreator = (text: string | undefined): updateNewPostTextType => ({
+export const updateNewPostTextActionCreator = (text: string): updateNewPostTextType => ({
   type: UPDATE_NEW_POST_TEXT,
-  newText: text,
+  startPostValue: text,
 });
 
 const SET_USER_PROFILE = "SET_USER_PROFILE";
@@ -159,7 +162,7 @@ export const updateStatusThunkCreator = (status: string) => {
 
 
 type updatePhotoThunkCreatorType = ReturnType<typeof savePhotoAC>;
-export const updatePhotoThunkCreator = (file: any) => {
+export const updatePhotoThunkCreator = (file: File) => {
   return async (dispatch: Dispatch<updatePhotoThunkCreatorType>) => {
     let response = await profileAPI.savePhoto(file);
     if(response.data.resultCode === 0) {

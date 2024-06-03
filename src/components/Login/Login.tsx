@@ -2,9 +2,9 @@ import LoginForm from "./LoginForm";
 import classes from "./login.module.scss";
 
 export const Login = (props: {
-  login: Function;
+  login: (email: string, password: string, rememberMe: boolean) => void;
   isAuth: boolean;
-  captchaUrl: string;
+  captchaUrl: string | null;
 }) => {
   return (
     <div className={classes.login}>

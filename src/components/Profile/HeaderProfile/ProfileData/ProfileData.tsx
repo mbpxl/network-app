@@ -1,8 +1,9 @@
 import classes from "../HeaderProfile.module.scss";
 import empty_user from "../../../../assets/img/friends/empty-user.svg";
 import { ProfileStatus } from "../ProfileStatus";
+import { ProfileDataPropsType } from "../../ProfileTypes";
 
-export const ProfileData = (props: any) => {
+export const ProfileData = (props: ProfileDataPropsType) => {
   return (
     <div className={classes.bio}>
       <div className={classes.bio__counts}>

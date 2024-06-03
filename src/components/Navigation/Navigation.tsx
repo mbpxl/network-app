@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 import { logoutThunkCreator } from "../../data/auth-reducer";
 
-const Navigation = (props: { logout: Function }) => {
+const Navigation = (props: { logout: () => void }) => {
   return (
     <nav className={classes.nav}>
       <ul className={classes.nav__list}>

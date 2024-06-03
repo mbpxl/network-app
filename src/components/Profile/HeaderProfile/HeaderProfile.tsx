@@ -5,8 +5,9 @@ import { Preloader } from "../../Preloader/Preloader";
 import { ProfileData } from "./ProfileData/ProfileData";
 import { ProfileDataForm } from "./ProfileData/ProfileDataForm";
 import clsx from "clsx";
+import { HeaderProfilePropsType } from "../ProfileTypes";
 
-export const HeaderProfile = (props: any) => {
+export const HeaderProfile = (props: HeaderProfilePropsType) => {
   let [isEditMode, setEditMode] = useState(false);
   let [isOpen, setOpen] = useState(false);
   if (!props.profile) {

@@ -1,5 +1,7 @@
 import { Dispatch } from "redux";
 import { friendsAPI } from "../plugins/axios";
+import { AppStateType } from "./store-redux";
+import { ThunkAction } from "redux-thunk";
 
 // type friendsType = {
 //   friends: Array<{name: string, id: string | number, photos: {small: string | null, large: string | null}, status: string | null, followed: boolean}>;
@@ -17,7 +19,7 @@ type unFollowUserType = {
 
 type setFriendsType = {
   type: "SET_FRIENDS";
-  friends: Array<{name: string, id: string | number, photos: {small: string | null, large: string | null}, status: string | null, followed: boolean}>;
+  friends: Array<{name: string, id: number, photos: {small: string | null, large: string | null}, status: string | null, followed: boolean}>;
 }
 
 type setCurrentPageType = {
@@ -41,14 +43,25 @@ type followingInProgressType = {
   userId: number;
 }
 
+type setFilterType = {
+  type: "SET_FILTER";
+  filter: string;
+  payload: {
+    term: string;
+  }
+}
+
 type initialStateType = {
-  friends: Array<{name: string, id: number | string, photos: {small: null | string, large: null | string}, status: null | string, followed: boolean}>;
+  friends: Array<{name: string, id: number, photos: {small: null | string, large: null | string}, status: null | string, followed: boolean}>;
   pageSize: number;
   totalUserCount: number;
   currentPage: number;
   isFetching: boolean;
   followingInProgress: Array<any>;
   portionSize: number;
+  filter: {
+    term: string;
+  }
 }
 
 const initialState = {
@@ -59,11 +72,14 @@ const initialState = {
   isFetching: false,
   followingInProgress: [],
   portionSize: 10,
+  filter: {
+    term: '',
+  }
 }
 
-type rootActionType = followUserType | unFollowUserType | setFriendsType | setCurrentPageType | setUsersTotalCountType | toggleIsFetchingType | followingInProgressType;
+type rootActionType = followUserType | unFollowUserType | setFriendsType | setCurrentPageType | setUsersTotalCountType | toggleIsFetchingType | followingInProgressType | setFilterType;
 
-export const friendsReducer = (state: initialStateType = initialState, action: rootActionType) => {
+export const friendsReducer = (state: initialStateType = initialState, action: rootActionType): initialStateType => {
   switch(action.type) {
     case SET_FRIENDS:
       return {...state, friends: [...action.friends]};
@@ -103,6 +119,9 @@ export const friendsReducer = (state: initialStateType = initialState, action: r
       return {...state, followingInProgress: action.isFollowing
       ? [...state.followingInProgress, action.userId]
       : state.followingInProgress.filter(id => id !== action.userId)}
+
+    case SET_FILTER:
+      return {...state, filter: action.payload}
     default:
       return state;
   }
@@ -115,7 +134,7 @@ const UNFOLLOW_USER = "UNFOLLOW_USER";
 export const unfollowUserAC = (id: number): unFollowUserType => ({type: UNFOLLOW_USER, id});
 
 const SET_FRIENDS = "SET_FRIENDS";
-export const setFriendsAC = (friends: Array<{name: string, id: string | number, photos: {small: string | null, large: string | null}, status: string | null, followed: boolean}>): setFriendsType => ({type: SET_FRIENDS, friends}); // friends: friends
+export const setFriendsAC = (friends: Array<{name: string, id: number, photos: {small: string | null, large: string | null}, status: string | null, followed: boolean}>): setFriendsType => ({type: SET_FRIENDS, friends}); // friends: friends
 
 const SET_CURRENT_PAGE = "SET_CURRENT_PAGE";
 export const setCurrentPageAC = (currentPage: number): setCurrentPageType => ({type: SET_CURRENT_PAGE, currentPage}); // currentPage: currentPage
@@ -129,43 +148,39 @@ export const setIsFetchingAC = (isFetching: boolean): toggleIsFetchingType => ({
 const FOLLOWING_IN_PROGRESS = "FOLLOWING_IN_PROGRESS";
 export const followingInProgressAC = (isFollowing: boolean, userId: number): followingInProgressType => ({type: FOLLOWING_IN_PROGRESS, isFollowing, userId});
 
+const SET_FILTER = "SET_FILTER";
+export const setFilterAC = (term: string) => ({type: SET_FILTER, payload: term});
 
-type getFriendsThunkCreatorType = ReturnType<typeof setIsFetchingAC> | ReturnType<typeof setIsFetchingAC> | ReturnType<typeof setFriendsAC> | ReturnType<typeof setUsersTotalCount>;
-export const getFriendsThunkCreator = (currentPage: number, pageSize: number) => {
-  return (dispatch: Dispatch<getFriendsThunkCreatorType>) => {
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
+
+export const requestUsers = (currentPage: number, pageSize: number): ThunkType => {
+  return async (dispatch) => {
     dispatch(setIsFetchingAC(true));
-      friendsAPI
-        .getFriends(currentPage, pageSize)
-        .then((data) => {
-          dispatch(setIsFetchingAC(false));
-          dispatch(setFriendsAC(data.items));
-          dispatch(setUsersTotalCount(data.totalCount));
-        });
+    let data = await friendsAPI.getFriends(currentPage, pageSize);
+    dispatch(setIsFetchingAC(false));
+    dispatch(setFriendsAC(data.items));
+    dispatch(setUsersTotalCount(data.totalCount));
   }
 }
 
-type getFollowingThunkCreatorType = ReturnType<typeof followingInProgressAC> | ReturnType<typeof followUserAC>;
-export const getFollowingThunkCreator = (userId: number) => {
-  return (dispatch: Dispatch<getFollowingThunkCreatorType>) => {
+export const getFollowingThunkCreator = (userId: number): ThunkType => {
+  return async (dispatch) => {
     dispatch(followingInProgressAC(true, userId));
-      friendsAPI.follow(userId).then((data) => {
-        if (data.resultCode === 0) {
-          dispatch(followUserAC(userId));
-        }
-        dispatch(followingInProgressAC(false, userId));
-      });
+    let response = await friendsAPI.follow(userId);
+    if(response.data.resultCode === 0) {
+      dispatch(followUserAC(userId));
+    }
+    dispatch(followingInProgressAC(false, userId));
   }
 }
 
-type getUnfollowingThunkCreatorType = ReturnType<typeof followingInProgressAC> | ReturnType<typeof unfollowUserAC>;
-export const getUnfollowingThunkCreator = (userId: number) => {
-  return (dispatch: Dispatch<getUnfollowingThunkCreatorType>) => {
+export const getUnfollowingThunkCreator = (userId: number): ThunkType => {
+  return async (dispatch) => {
     dispatch(followingInProgressAC(true, userId));
-      friendsAPI.unfollow(userId).then((data) => {
-        if (data.resultCode === 0) {
-          dispatch(unfollowUserAC(userId));
-        }
-        dispatch(followingInProgressAC(false, userId));
-      });
+    let response = await friendsAPI.unfollow(userId);
+    if (response.data.resultCode === 0) {
+      dispatch(unfollowUserAC(userId));
+    }
+    dispatch(followingInProgressAC(false, userId));
   }
 }

@@ -13,20 +13,23 @@ import {
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { withAuthRedirect } from "../HOC/WithAuthRedirect";
 import { compose } from "redux";
+import { AppStateType } from "../../data/store-redux";
+import { ProfileType } from "./ProfileTypes";
 
 type MyProps = {
-  profile: any;
+  profile: ProfileType;
   router: any;
-  getUserThunk: Function;
-  setStatusThunk: Function;
-  updateStatusThunk: Function;
+  getUserThunk: (userId: number) => void;
+  setStatusThunk: (userID: number) => void;
+  updateStatusThunk: (status: string) => void;
   isAuth: boolean;
   status: string;
-  updatePhoto: Function;
-  updateProfile: Function;
+  updatePhoto: (photo: File) => void;
+  updateProfile: (fullName: string) => void;
   updateNewPostText: Function;
-  addPost: Function;
-  posts: Array<any>;
+  addPost: (text: string) => void;
+  posts: Array<{ id: number; message: string; likesCount: number }>;
+  startPostValue: string;
 };
 
 class ProfileContainer extends React.Component<MyProps> {
@@ -42,7 +45,6 @@ class ProfileContainer extends React.Component<MyProps> {
   }
 
   componentDidMount(): void {
-    //! console.log("Component has been mounted.");
     this.refreshProfile();
   }
 
@@ -51,14 +53,12 @@ class ProfileContainer extends React.Component<MyProps> {
     prevState: Readonly<{}>,
     snapshot?: any
   ): void {
-    //! console.log("Component has been updated.");
     if (this.props.router.params.userId !== prevProps.router.params.userId) {
       this.refreshProfile();
     }
   }
   render() {
     if (this.props.profile !== null) {
-      //! console.log("rendered with props: ", this.props);
       return (
         <Profile
           isOwner={!this.props.router.params.userId}
@@ -70,15 +70,17 @@ class ProfileContainer extends React.Component<MyProps> {
           posts={this.props.posts}
           updateNewPostText={this.props.updateNewPostText}
           addPost={this.props.addPost}
+          startPostValue={this.props.startPostValue}
         />
       );
     }
   }
 }
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType) => ({
   profile: state.profileReducer.profile,
   status: state.profileReducer.status,
   posts: state.profileReducer.posts,
+  startPostValue: state.profileReducer.tempPostText,
 });
 
 const mapDispatchToProps = (dispatch: any) => ({
@@ -91,7 +93,7 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateStatusThunk: (status: string) => {
     dispatch(updateStatusThunkCreator(status));
   },
-  updatePhoto: (photo: any) => {
+  updatePhoto: (photo: File) => {
     dispatch(updatePhotoThunkCreator(photo));
   },
   updateProfile: (fullName: string) => {
@@ -100,12 +102,10 @@ const mapDispatchToProps = (dispatch: any) => ({
   updateNewPostText: (text: string) => {
     dispatch(updateNewPostTextActionCreator(text));
   },
-  addPost: () => {
-    dispatch(addPostActionCreator());
+  addPost: (text: string) => {
+    dispatch(addPostActionCreator(text));
   },
 });
-
-//* let withUrlDataContainerComponent = withRouter(ProfileContainer);
 
 function withRouter(Component: React.ComponentType<any>) {
   function ComponentWithRouterProp(props: any) {

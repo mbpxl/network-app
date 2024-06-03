@@ -38,7 +38,7 @@ const initialState = {
 
 type rootActionType = setUserDataType | getCaptchaUrlSuccessType;
 
-export const authReducer = (state: initialStateType = initialState, action: rootActionType) => {
+export const authReducer = (state: initialStateType = initialState, action: rootActionType): initialStateType => {
   switch(action.type) {
     case SET_USER_DATA: {
       return {
