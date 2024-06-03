@@ -1,4 +1,3 @@
-import { Dispatch } from "redux";
 import { friendsAPI } from "../plugins/axios";
 import { AppStateType } from "./store-redux";
 import { ThunkAction } from "redux-thunk";
@@ -166,8 +165,9 @@ export const requestUsers = (currentPage: number, pageSize: number): ThunkType =
 export const getFollowingThunkCreator = (userId: number): ThunkType => {
   return async (dispatch) => {
     dispatch(followingInProgressAC(true, userId));
-    let response = await friendsAPI.follow(userId);
-    if(response.data.resultCode === 0) {
+    let data = await friendsAPI.follow(userId);
+    console.log(data.resultCode);
+    if(data.resultCode === 0) {
       dispatch(followUserAC(userId));
     }
     dispatch(followingInProgressAC(false, userId));
@@ -177,8 +177,8 @@ export const getFollowingThunkCreator = (userId: number): ThunkType => {
 export const getUnfollowingThunkCreator = (userId: number): ThunkType => {
   return async (dispatch) => {
     dispatch(followingInProgressAC(true, userId));
-    let response = await friendsAPI.unfollow(userId);
-    if (response.data.resultCode === 0) {
+    let data = await friendsAPI.unfollow(userId);
+    if (data.resultCode === 0) {
       dispatch(unfollowUserAC(userId));
     }
     dispatch(followingInProgressAC(false, userId));
