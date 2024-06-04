@@ -22,8 +22,9 @@ export type GetFriends = {
 }
 
 export type FollowUnfollowType = {
-  userId: number;
+  userId: number,
   resultCode: ResultCodes;
+  messages: Array<string>;
 }
 //*[FRIENDS API]===================================================
 

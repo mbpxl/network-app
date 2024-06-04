@@ -4,7 +4,7 @@ import { AppStateType, InferActionsTypes } from "./store-redux";
 import { ThunkAction } from "redux-thunk";
 
 
-type initialStateType = {
+export type initialStateType = {
   friends: Array<{name: string, id: number, photos: {small: null | string, large: null | string}, status: null | string, followed: boolean}>;
   pageSize: number;
   totalUserCount: number;
@@ -12,9 +12,6 @@ type initialStateType = {
   isFetching: boolean;
   followingInProgress: Array<any>;
   portionSize: number;
-  filter: {
-    term: string;
-  }
 }
 
 const initialState = {
@@ -106,7 +103,7 @@ export const getFollowingThunkCreator = (userId: number): ThunkType => {
   return async (dispatch) => {
     dispatch(actions.followingInProgressAC(true, userId));
     let data = await friendsAPI.follow(userId);
-    console.log(data.resultCode);
+    console.log(data);
     if(data.resultCode === ResultCodes.Success) {
       dispatch(actions.followUserAC(userId));
     }
