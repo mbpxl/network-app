@@ -17,7 +17,6 @@ export const Searchbar = (props: any) => {
     { setSubmitting }: { setSubmitting: (isSubmitting: boolean) => void }
   ) => {
     setTimeout(() => {
-      //alert(JSON.stringify(values, null, 1));
       setSubmitting(false);
     }, 200);
     props.onFilterChange(values);
