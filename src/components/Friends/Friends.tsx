@@ -3,10 +3,12 @@ import emty_user from "../../assets/img/friends/empty-user.svg";
 import { NavLink } from "react-router-dom";
 import { Paginator } from "../Paginator/Paginator";
 import { FriendsPropsTypes, FriendsType } from "./FriendsTypes";
+import { Searchbar } from "../Profile/Searchbar/Searchbar";
 
 export const Friends = (props: FriendsPropsTypes) => {
   return (
     <div className={classes.friends}>
+      <Searchbar onFilterChange={props.onFilterChanged} />
       <Paginator
         totalItemsCount={props.totalItemsCount}
         pageSize={props.pageSize}

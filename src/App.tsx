@@ -28,9 +28,7 @@ const App = (props: any) => {
             <Navigation />
           </div>
           <div className={classes.Main}>
-            <div className={classes.top}>
-              <Searchbar />
-            </div>
+            <div className={classes.top}>{/* <Searchbar /> */}</div>
 
             <Routes>
               <Route path="/profile/:userId" element={<ProfileContainer />} />

@@ -3,6 +3,7 @@ import { Friends } from "./Friends";
 import { Preloader } from "../Preloader/Preloader";
 import classes from "./Friends.module.scss";
 import {
+  FilterType,
   actions,
   getFollowingThunkCreator,
   getUnfollowingThunkCreator,
@@ -21,6 +22,7 @@ type MapStatePropsType = {
   isFetching: boolean;
   portionSize: number;
   followingInProgress: any[];
+  filter: FilterType;
 };
 
 type MapDispatchPropsType = {
@@ -42,7 +44,19 @@ class FriendsContainer extends React.Component<MyProps> {
   }
 
   onPageChanged = (pageNumber: number): void => {
-    this.props.requestUsersThunk(pageNumber, this.props.pageSize, "");
+    this.props.requestUsersThunk(
+      1,
+      this.props.pageSize,
+      this.props.filter.term
+    );
+  };
+
+  onFilterChanged = (filter: FilterType) => {
+    this.props.requestUsersThunk(
+      this.props.currentPage,
+      this.props.pageSize,
+      filter.term
+    );
   };
 
   render() {
@@ -61,6 +75,7 @@ class FriendsContainer extends React.Component<MyProps> {
           getFollowingThunk={this.props.getFollowingThunk}
           getUnfollowingThunk={this.props.getUnfollowingThunk}
           portionSize={this.props.portionSize}
+          onFilterChanged={this.onFilterChanged}
         />
       </div>
     );
@@ -76,6 +91,7 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
     isFetching: state.friendsReducer.isFetching,
     followingInProgress: state.friendsReducer.followingInProgress,
     portionSize: state.friendsReducer.portionSize,
+    filter: state.friendsReducer.filter,
   };
 };
 
@@ -89,7 +105,7 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): MapDispatchPropsType => {
       pageSize: number,
       term: string
     ) => {
-      dispatch(requestUsers(currentPage, pageSize));
+      dispatch(requestUsers(currentPage, pageSize, term));
     },
     getFollowingThunk: (userId: number) => {
       dispatch(getFollowingThunkCreator(userId));
