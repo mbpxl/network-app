@@ -1,7 +1,6 @@
 import { friendsAPI } from "../plugins/axios";
 import { ResultCodes } from "../plugins/axiosTypes";
-import { AppStateType, InferActionsTypes } from "./store-redux";
-import { ThunkAction } from "redux-thunk";
+import { InferActionsTypes } from "./store-redux";
 
 
 export type initialStateType = {
@@ -92,10 +91,9 @@ export const actions = {
   setFilterAC: (term: string) => ({type: 'SET_FILTER', payload: {term}} as const),
 }
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, rootActionType>;
 
-export const requestUsers = (currentPage: number, pageSize: number, term: string): ThunkType => {
-  return async (dispatch) => {
+export const requestUsers = (currentPage: number, pageSize: number, term: string): any => {
+  return async (dispatch: any) => {
     dispatch(actions.setIsFetchingAC(true));
     let data = await friendsAPI.getFriends(currentPage, pageSize, term);
     dispatch(actions.setIsFetchingAC(false));
@@ -105,8 +103,8 @@ export const requestUsers = (currentPage: number, pageSize: number, term: string
   }
 }
 
-export const getFollowingThunkCreator = (userId: number): ThunkType => {
-  return async (dispatch) => {
+export const getFollowingThunkCreator = (userId: number): any => {
+  return async (dispatch: any) => {
     dispatch(actions.followingInProgressAC(true, userId));
     let data = await friendsAPI.follow(userId);
     console.log(data);
@@ -117,8 +115,8 @@ export const getFollowingThunkCreator = (userId: number): ThunkType => {
   }
 }
 
-export const getUnfollowingThunkCreator = (userId: number): ThunkType => {
-  return async (dispatch) => {
+export const getUnfollowingThunkCreator = (userId: number): any => {
+  return async (dispatch: any) => {
     dispatch(actions.followingInProgressAC(true, userId));
     let data = await friendsAPI.unfollow(userId);
     if (data.resultCode === ResultCodes.Success) {

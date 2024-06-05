@@ -2,21 +2,68 @@ import classes from "./Friends.module.scss";
 import emty_user from "../../assets/img/friends/empty-user.svg";
 import { NavLink } from "react-router-dom";
 import { Paginator } from "../Paginator/Paginator";
-import { FriendsPropsTypes, FriendsType } from "./FriendsTypes";
+import { FriendsType } from "./FriendsTypes";
 import { Searchbar } from "../Profile/Searchbar/Searchbar";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCurrentPage,
+  getFilter,
+  getFollowingInProgress,
+  getFriends,
+  getPageSize,
+  getPortionSize,
+  getTotalUserCount,
+} from "./FriendsSelectors";
+import {
+  FilterType,
+  getFollowingThunkCreator,
+  getUnfollowingThunkCreator,
+  requestUsers,
+} from "../../data/friends-reducer";
+import { useEffect } from "react";
 
-export const Friends = (props: FriendsPropsTypes) => {
+export const Friends = (props: any) => {
+  const friends = useSelector(getFriends);
+  const totalUserCount = useSelector(getTotalUserCount);
+  const currentPage = useSelector(getCurrentPage);
+  const pageSize = useSelector(getPageSize);
+  const filter = useSelector(getFilter);
+  const followingInProgress = useSelector(getFollowingInProgress);
+  const portionSize = useSelector(getPortionSize);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(requestUsers(currentPage, pageSize, filter.term));
+  }, [currentPage, dispatch, filter.term, pageSize]);
+
+  const onPageChanged = (currentPage: number) => {
+    dispatch(requestUsers(currentPage, pageSize, filter.term));
+  };
+
+  const onFilterChanged = (filter: FilterType) => {
+    dispatch(requestUsers(currentPage, pageSize, filter.term));
+  };
+
+  const follow = (userId: number) => {
+    dispatch(getFollowingThunkCreator(userId));
+  };
+
+  const unfollow = (userId: number) => {
+    dispatch(getUnfollowingThunkCreator(userId));
+  };
+
   return (
     <div className={classes.friends}>
-      <Searchbar onFilterChange={props.onFilterChanged} />
+      <Searchbar onFilterChange={onFilterChanged} />
       <Paginator
-        totalItemsCount={props.totalItemsCount}
-        pageSize={props.pageSize}
-        portionSize={props.portionSize}
-        onPageChanged={props.onPageChanged}
-        currentPage={props.currentPage}
+        totalItemsCount={totalUserCount}
+        pageSize={pageSize}
+        portionSize={portionSize}
+        onPageChanged={onPageChanged}
+        currentPage={currentPage}
       />
-      {props.friends.map((f: FriendsType) => (
+      {friends.map((f: FriendsType) => (
         <div className={classes.friends_item}>
           <div className={classes.friends_item__content}>
             <div className={classes.friends_item__avatar}>
@@ -34,22 +81,22 @@ export const Friends = (props: FriendsPropsTypes) => {
               <div className={classes.friends_item__write}>
                 {f.followed ? (
                   <button
-                    disabled={props.followingInProgress.some(
+                    disabled={followingInProgress.some(
                       (id: number | string) => id === f.id
                     )}
                     onClick={() => {
-                      props.getUnfollowingThunk(f.id);
+                      unfollow(f.id);
                     }}
                   >
                     Unfollow
                   </button>
                 ) : (
                   <button
-                    disabled={props.followingInProgress.some(
+                    disabled={followingInProgress.some(
                       (id: number | string) => id === f.id
                     )}
                     onClick={() => {
-                      props.getFollowingThunk(f.id);
+                      follow(f.id);
                     }}
                   >
                     Follow

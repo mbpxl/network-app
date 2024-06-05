@@ -1,17 +1,3 @@
-import { FilterType } from "../../data/friends-reducer";
-
-export type FriendsPropsTypes = {
-  onPageChanged: (pageNumber: number) => void;
-  totalItemsCount: number;
-  pageSize: number;
-  currentPage: number;
-  friends: Array<FriendsType>;
-  followingInProgress: any[];
-  getFollowingThunk: (userId: number) => void;
-  getUnfollowingThunk: (userId: number) => void;
-  portionSize: number;
-  onFilterChanged: (filter: FilterType) => void;
-}
 
 export type FriendsType = {
   id: number;
