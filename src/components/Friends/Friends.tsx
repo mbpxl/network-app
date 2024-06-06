@@ -21,8 +21,9 @@ import {
   requestUsers,
 } from "../../data/friends-reducer";
 import { useEffect } from "react";
+import React from "react";
 
-export const Friends = (props: any) => {
+export const Friends = React.memo((props: any) => {
   const friends = useSelector(getFriends);
   const totalUserCount = useSelector(getTotalUserCount);
   const currentPage = useSelector(getCurrentPage);
@@ -31,7 +32,7 @@ export const Friends = (props: any) => {
   const followingInProgress = useSelector(getFollowingInProgress);
   const portionSize = useSelector(getPortionSize);
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<any>();
 
   useEffect(() => {
     dispatch(requestUsers(currentPage, pageSize, filter.term));
@@ -109,4 +110,4 @@ export const Friends = (props: any) => {
       ))}
     </div>
   );
-};
+});

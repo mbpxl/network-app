@@ -3,13 +3,13 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import classes from "./assets/Base.module.scss"; //! RESET&BASE SETTINGS (margin, padding, box-sizing etc)
 import Navigation from "./components/Navigation/Navigation";
 import { Messages } from "./components/Messages/Messages";
-import LoginContainer from "./components/Login/LoginContainer";
+import { LoginContainer } from "./components/Login/LoginContainer";
 import { connect } from "react-redux";
 import { initializeAppThunkCreator } from "./data/app-reducer";
 import { Preloader } from "./components/Preloader/Preloader";
 import { AppStateType } from "./data/store-redux";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import { FriendsPage } from "./components/Friends/FriendsPage";
+import { FriendsContainer } from "./components/Friends/FriendsContainer";
 
 const App = (props: any) => {
   useEffect(() => {
@@ -41,7 +41,7 @@ const App = (props: any) => {
                   />
                 }
               />
-              {<Route path="/friends/*" element={<FriendsPage />} />}
+              {<Route path="/friends/*" element={<FriendsContainer />} />}
               <Route path="/login" element={<LoginContainer />} />
             </Routes>
           </div>

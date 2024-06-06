@@ -7,7 +7,7 @@ import { getIsFetching } from "./FriendsSelectors";
 
 type FriendsPagePropsType = {};
 
-export const FriendsPage = (props: FriendsPagePropsType) => {
+export const FriendsContainer = React.memo((props: FriendsPagePropsType) => {
   const isFetching = useSelector(getIsFetching);
 
   return (
@@ -18,4 +18,4 @@ export const FriendsPage = (props: FriendsPagePropsType) => {
       <Friends />
     </div>
   );
-};
+});
