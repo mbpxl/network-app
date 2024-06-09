@@ -1,6 +1,6 @@
 import classes from "./Friends.module.scss";
 import emty_user from "../../assets/img/friends/empty-user.svg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { Paginator } from "../Paginator/Paginator";
 import { FriendsType } from "./FriendsTypes";
 import { Searchbar } from "../Profile/Searchbar/Searchbar";
@@ -22,6 +22,7 @@ import {
 } from "../../data/friends-reducer";
 import { useEffect } from "react";
 import React from "react";
+import queryString from "query-string";
 
 export const Friends = React.memo((props: any) => {
   const friends = useSelector(getFriends);
@@ -33,10 +34,6 @@ export const Friends = React.memo((props: any) => {
   const portionSize = useSelector(getPortionSize);
 
   const dispatch = useDispatch<any>();
-
-  useEffect(() => {
-    dispatch(requestUsers(currentPage, pageSize, filter.term));
-  }, [currentPage, dispatch, filter.term, pageSize]);
 
   const onPageChanged = (currentPage: number) => {
     dispatch(requestUsers(currentPage, pageSize, filter.term));
@@ -53,6 +50,26 @@ export const Friends = React.memo((props: any) => {
   const unfollow = (userId: number) => {
     dispatch(getUnfollowingThunkCreator(userId));
   };
+  const location = useLocation();
+  const history = useNavigate();
+
+  useEffect(() => {
+    const parsed = queryString.parse(location.search);
+    let actualFilter = filter;
+    if (!!parsed.term) {
+      actualFilter = { ...actualFilter, term: parsed.term as string };
+    }
+    dispatch(requestUsers(currentPage, pageSize, actualFilter.term));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    console.log("useNavigate activate...");
+    history({
+      pathname: "/friends",
+      search: `?term=${filter.term}`,
+    });
+  }, [history, filter]);
 
   return (
     <div className={classes.friends}>

@@ -26,7 +26,7 @@ const initialState = {
   followingInProgress: [],
   portionSize: 10,
   filter: {
-    term: '',
+    term: " ",
   }
 }
 
