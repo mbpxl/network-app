@@ -59,4 +59,3 @@ export type WallPropsType = {
   addPost: (text: string) => void;
   value: string;
 }
-
