@@ -2,18 +2,30 @@ import { Dispatch } from "redux";
 import { profileAPI } from "../plugins/axios";
 import { ThunkAction } from "redux-thunk";
 import { AppStateType, InferActionsTypes } from "./store-redux";
-import { ProfileType } from "./types";
 import { ResultCodes } from "../plugins/axiosTypes";
+import { ProfileType } from "../components/Profile/ProfileTypes";
+import { PhotosType } from "../components/Friends/FriendsTypes";
 
 
 type initialStateType = {
   posts: Array<{id: number, message: string, likesCount: number}>;
   tempPostText: string;
   profile: {
+    userId: number;
     lookingForAJob: boolean;
-    lookingForAJobDescription: string | null;
+    lookingForAJobDescription: string;
     fullName: string | null;
-    aboutMe: string | null;
+    contacts: {
+      github: string;
+      vk: string;
+      facebook: string;
+      instagram: string;
+      twitter: string;
+      website: string;
+      youtube: string;
+      mainLink: string;
+    };
+    photos: PhotosType;
   };
   status: string;
 }
@@ -33,7 +45,26 @@ let initialState = {
     },
   ],
   tempPostText: '',
-  profile: null as unknown as ProfileType,
+  profile: {
+    userId: 0,
+    lookingForAJob: false,
+    lookingForAJobDescription: '',
+    fullName: null,
+    contacts: {
+      github: '',
+      vk: '',
+      facebook: '',
+      instagram: '',
+      twitter: '',
+      website: '',
+      youtube: '',
+      mainLink: '',
+    },
+    photos: {
+      large: '',
+      small: '',
+    }
+  },
   status: '',
 }
 
@@ -68,7 +99,7 @@ const profileReducer = (state: initialStateType = initialState, action: rootActi
       return {...state, status: action.status};
 
     case 'SAVE_PHOTO_SUCCESS':
-      return {...state, profile: {...state.profile, photos: action.photos} as ProfileType}
+      return {...state, profile: {...state.profile, photos: action.photos}}
 
     case 'UPDATE_PROFILE_INFO':
       return {...state, profile: {...state.profile, fullName: action.fullName }}

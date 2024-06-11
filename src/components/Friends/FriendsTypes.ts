@@ -16,3 +16,8 @@ export type AppAdditionalTypes = {
   initialized: boolean;
   initializeApp: () => void;
 }
+
+export interface friendsActionTypes {
+  type: string;
+  newMessage: string,
+}
