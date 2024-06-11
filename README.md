@@ -1,6 +1,21 @@
-# TREE OF COMPONENTS
+# REACT NETWORK
 
-Tree of components in `miro board`: [Miro](https://miro.com/app/board/uXjVNR5t2Kw=/)
+## :writing_hand: Description :writing_hand:
+React Network is a social network using React / Redux / JavaScript / TypeScript technologies
+
+## :gear: Technologies used: :gear:
+* *React*
+* *JavaScript (TypeScript)*
+* *Redux*
+* *React Router v6*
+* *React-redux*
+* *Axios + Fetch*
+* React hooks
+* React class components
+* Formik
+* Prettier
+* React Pagination
+* REST-API
 
 ## Getting Started with Create React App
 
