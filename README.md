@@ -1,6 +1,4 @@
-```sh
-# REACT NETWORK
-```
+# `REACT NETWORK`
 
 ## :writing_hand: Description :writing_hand:
 React Network is a social network using React / Redux / JavaScript / TypeScript technologies
