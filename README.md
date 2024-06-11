@@ -5,7 +5,7 @@ React Network is a social network using React / Redux / JavaScript / TypeScript 
 
 ## :gear: Technologies used: :gear:
 * **React**
-* **JavaScript (TypeScript)*
+* **JavaScript (TypeScript)**
 * **Redux**
 * **React Router v6**
 * **React-redux**
