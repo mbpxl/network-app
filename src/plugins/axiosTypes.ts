@@ -1,5 +1,5 @@
 import { PhotosType } from "../components/Friends/FriendsTypes";
-import { ProfileType } from "../data/types";
+import { ProfileType } from "../components/Profile/ProfileTypes";
 
 export enum ResultCodes {
   Success = 0,

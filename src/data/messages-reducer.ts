@@ -2,7 +2,7 @@ import avatar1 from "../assets/img/messages/messages-pre1.png"
 import avatar2 from "../assets/img/messages/messages-pre2.png"
 import avatar3 from "../assets/img/messages/messages-pre3.png"
 import avatar4 from "../assets/img/messages/messages-pre4.png"
-import { actionsType } from "./types";
+import { friendsActionTypes } from "../components/Friends/FriendsTypes"
 
 //!------------------------------------------------------------------------
 //*THIS IS COMPONENT WITHOUT API CONNECTIONS. LET'S LEAVE IT WITHOUT TYPING
@@ -45,7 +45,7 @@ let initialState = {
 }
 
 
-export const messagesReducer = (state = initialState, action: actionsType) => {
+export const messagesReducer = (state = initialState, action: friendsActionTypes) => {
   switch (action.type) {
     case 'ADD-MESSAGE': {
       let newMessage = {
