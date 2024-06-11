@@ -4,12 +4,12 @@
 React Network is a social network using React / Redux / JavaScript / TypeScript technologies
 
 ## :gear: Technologies used: :gear:
-* *React*
-* *JavaScript (TypeScript)*
-* *Redux*
-* *React Router v6*
-* *React-redux*
-* *Axios + Fetch*
+* **React**
+* **JavaScript (TypeScript)*
+* **Redux**
+* **React Router v6**
+* **React-redux**
+* **Axios + Fetch**
 * React hooks
 * React class components
 * Formik
