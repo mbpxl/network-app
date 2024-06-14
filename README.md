@@ -17,6 +17,19 @@ React Network is a social network using React / Redux / JavaScript / TypeScript 
 * React Pagination
 * REST-API
 
+## :airplane: App features :airplane:
+- [x] Getting users through the API
+- [x] Getting a specific user
+- [x] Editing a profile
+- [x] Adding a post (locally)
+- [x] Authorization
+- [x] Sending a message (locally)
+- [x] Uploading an avatar
+- [x] Status change
+- [x] User Search
+
+--------------------------------------------------------------------------------------------------
+
 ## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
